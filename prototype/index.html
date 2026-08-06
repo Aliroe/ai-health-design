@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 健康伴侣 · 高保真原型 V1.2</title>
+<style>
+:root{
+  --bg:#eef2f0; --card:#fff; --ink:#1c2b26; --sub:#7a8b85; --line:#e6ece9;
+  --mint:#2ecc9e; --mint-soft:#e3f8f0; --green:#22a06b; --orange:#f59e0b; --red:#ef4444;
+  --blue:#3b82f6; --purple:#8b5cf6;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  background:linear-gradient(135deg,#e8f5ef,#eef2f0 60%,#f2efe8);
+  min-height:100vh;padding:36px 20px 60px;
+}
+.page-title{text-align:center;margin-bottom:8px}
+.page-title h1{font-size:26px;color:var(--ink);letter-spacing:1px}
+.page-title p{color:var(--sub);font-size:13px;margin-top:6px}
+.page-title .ver{display:inline-block;margin-top:8px;font-size:12px;font-weight:600;color:var(--green);background:var(--mint-soft);border:1px solid #c9ecdd;padding:3px 12px;border-radius:20px}
+.stage{display:flex;justify-content:center;gap:56px;flex-wrap:wrap;align-items:flex-start;margin-top:24px}
+
+/* ---------- Phone frame ---------- */
+.phone{
+  width:392px;background:var(--card);border-radius:52px;box-shadow:0 24px 60px rgba(28,43,38,.22),0 0 0 12px #1c2b26,0 0 0 14px #3a4a44;
+  overflow:hidden;position:relative;
+}
+.notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:150px;height:28px;background:#1c2b26;border-radius:20px;z-index:50}
+.screen{height:800px;overflow-y:auto;background:#f7faf9;position:relative;scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.statusbar{display:flex;justify-content:space-between;padding:16px 26px 6px;font-size:12px;font-weight:600;color:var(--ink);align-items:center}
+.statusbar .bell{background:none;border:none;font-size:15px;cursor:pointer;position:relative;padding:0}
+.statusbar .bell .dot{position:absolute;top:-2px;right:-4px;width:8px;height:8px;background:var(--red);border-radius:50%;border:1.5px solid #f7faf9}
+
+/* ---------- Tab bar ---------- */
+.tabbar{position:sticky;bottom:0;display:flex;background:#fff;border-top:1px solid var(--line);padding:8px 4px 18px;z-index:40}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;color:var(--sub);cursor:pointer;padding:4px 0;border-radius:12px;transition:.2s;border:none;background:none}
+.tab.active{color:var(--mint);background:var(--mint-soft)}
+.tab .ic{font-size:19px;line-height:1}
+
+/* ---------- Views ---------- */
+.view{display:none;padding:0 18px 16px;animation:fade .25s}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h2.sec{font-size:15px;color:var(--ink);margin:18px 2px 10px}
+.card{background:#fff;border-radius:18px;padding:16px;box-shadow:0 2px 10px rgba(28,43,38,.05);margin-bottom:12px}
+
+/* Energy ring */
+.ring-wrap{display:flex;align-items:center;gap:20px}
+.ring{position:relative;width:150px;height:150px;flex-shrink:0}
+.ring svg{transform:rotate(-90deg)}
+.ring .val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring .val b{font-size:30px;color:var(--ink)}
+.ring .val span{font-size:11px;color:var(--sub)}
+.ring-info{flex:1}
+.ring-info .row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dashed var(--line);font-size:12.5px}
+.ring-info .row:last-child{border:none}
+.ring-info .row b{color:var(--ink)}
+.pill{font-size:11px;padding:2px 8px;border-radius:20px;font-weight:600}
+.pill.good{background:var(--mint-soft);color:var(--green)}
+.pill.warn{background:#fdf3e0;color:#b45309}
+.pill.bad{background:#fdecec;color:var(--red)}
+
+/* nutrient bars */
+.nut-row{display:flex;align-items:center;gap:10px;margin:9px 0;font-size:12px}
+.nut-row .name{width:52px;color:var(--sub)}
+.nut-row .track{flex:1;height:8px;background:#eef2f0;border-radius:6px;overflow:hidden}
+.nut-row .fill{height:100%;border-radius:6px}
+.nut-row .num{width:88px;text-align:right;color:var(--ink);font-weight:600}
+
+/* battery (身体电量) */
+.battery-card{background:linear-gradient(135deg,#1c2b26,#24453c);color:#fff;border:none}
+.battery-card .b-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.battery-card .b-head b{font-size:14px}
+.battery-card .b-track{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.battery-card .b-track .t{flex:1;height:12px;background:rgba(255,255,255,.15);border-radius:8px;overflow:hidden}
+.battery-card .b-track .f{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--mint),#7ef0c8)}
+.battery-card .b-track span{font-size:20px;font-weight:700}
+.battery-card .b-say{font-size:11.5px;color:#bfd6cd;line-height:1.6}
+.battery-card .b-acts{display:flex;gap:8px;margin-top:10px}
+.battery-card .b-acts button{flex:1;padding:8px 0;border:none;border-radius:11px;font-size:11.5px;font-weight:600;cursor:pointer;background:rgba(255,255,255,.16);color:#fff}
+.battery-card .b-acts button.primary{background:var(--mint);color:#0d2b21}
+
+/* AI insight */
+.insight{display:flex;gap:10px;background:linear-gradient(135deg,#e3f8f0,#eef6ff);border-radius:14px;padding:12px;margin-bottom:8px;cursor:pointer;border:1px solid #d7efe5}
+.insight .ai-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--mint),var(--blue));color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.insight .txt{font-size:12.5px;color:var(--ink);line-height:1.5}
+.insight .txt small{display:block;color:var(--sub);margin-top:3px}
+
+/* tasks */
+.task{display:flex;align-items:center;gap:10px;padding:11px 4px;border-bottom:1px solid var(--line);font-size:13px}
+.task:last-child{border:none}
+.task .ck{width:22px;height:22px;border-radius:50%;border:2px solid var(--mint);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;cursor:pointer;flex-shrink:0;transition:.2s}
+.task.done .ck{background:var(--mint)}
+.task.done .t{text-decoration:line-through;color:var(--sub)}
+.task .t{flex:1}
+.task .time{font-size:11px;color:var(--sub)}
+
+/* 起居注 archive */
+.archive{border:1px solid #f0e4c8;background:linear-gradient(180deg,#fffdf5,#fff)}
+.archive .ar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.archive .ar-head b{font-size:14px;color:var(--ink)}
+.archive .ar-head button{border:none;background:var(--mint);color:#fff;font-size:11px;font-weight:600;padding:5px 12px;border-radius:12px;cursor:pointer}
+.archive .ar-items{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
+.archive .ar-items span{font-size:11px;background:#f2f6f4;border:1px solid var(--line);color:var(--ink);padding:5px 9px;border-radius:10px}
+.archive .ar-say{font-size:12px;color:#5d6f68;background:var(--mint-soft);border-radius:10px;padding:9px 11px;line-height:1.6}
+
+/* diet */
+.meal-card{background:#fff;border-radius:18px;padding:14px;box-shadow:0 2px 10px rgba(28,43,38,.05);margin-bottom:12px}
+.meal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.meal-head .m-name{font-weight:700;font-size:14px;color:var(--ink)}
+.meal-head .m-kcal{font-size:12px;color:var(--sub)}
+.food-item{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:12.5px}
+.food-item:last-child{border:none}
+.food-item .dot{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.food-item .f{flex:1}
+.food-item .f b{display:block;color:var(--ink);font-size:13px}
+.food-item .f span{color:var(--sub);font-size:11px}
+.food-item .kcal{font-weight:600;color:var(--ink);font-size:12.5px}
+.add-btn{width:100%;padding:12px;border:2px dashed #bfd8cf;border-radius:14px;background:none;color:var(--green);font-size:13.5px;font-weight:600;cursor:pointer;transition:.2s}
+.add-btn:hover{background:var(--mint-soft)}
+.ai-note{border-radius:10px;padding:9px 11px;font-size:12px;line-height:1.55;margin-top:10px;cursor:pointer}
+.ai-note.ok{background:var(--mint-soft);color:#155e46}
+.ai-note.warn{background:#fdf3e0;color:#7c4a03}
+
+/* 早餐三要素 */
+.tri-row{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:12px}
+.tri-row:last-child{border:none}
+.tri-row .tri-ic{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:700}
+.tri-row.ok .tri-ic{background:var(--mint-soft);color:var(--green)}
+.tri-row.miss .tri-ic{background:#fdecec;color:var(--red)}
+.tri-row .tr{flex:1;color:var(--ink)}
+.tri-row .tr small{display:block;color:var(--sub);font-size:10.5px;margin-top:1px}
+
+/* 七大要素 grid */
+.factor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.factor{background:#f7faf9;border:1px solid var(--line);border-radius:12px;padding:9px 6px;text-align:center}
+.factor .fi{font-size:18px}
+.factor b{display:block;font-size:11px;color:var(--ink);margin:3px 0 4px}
+.factor .st{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;display:inline-block}
+.factor .st.ok{background:var(--mint-soft);color:var(--green)}
+.factor .st.miss{background:#fdecec;color:var(--red)}
+
+/* 饮水 */
+.water-track{display:flex;gap:5px;margin:10px 0}
+.water-track .cup{flex:1;height:22px;border-radius:7px;background:#eef2f0;display:flex;align-items:center;justify-content:center;font-size:10px}
+.water-track .cup.full{background:linear-gradient(180deg,#7ec8f7,#3b82f6);color:#fff}
+.water-acts{display:flex;align-items:center;gap:10px}
+.water-acts button{flex:1;padding:9px 0;border:none;border-radius:12px;background:var(--mint);color:#fff;font-size:12.5px;font-weight:600;cursor:pointer}
+.water-acts span{font-size:10.5px;color:var(--sub)}
+
+/* record bar */
+.record-bar{position:sticky;top:0;background:#f7faf9ee;backdrop-filter:blur(8px);z-index:30;padding:10px 0;display:flex;gap:8px}
+.record-btn{flex:1;padding:11px 0;border:none;border-radius:14px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.record-btn.primary{background:linear-gradient(135deg,var(--mint),var(--green));color:#fff}
+.record-btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+
+/* AI chat */
+.chat{padding:6px 0 10px}
+.msg{display:flex;gap:10px;margin-bottom:14px;align-items:flex-start}
+.msg.user{flex-direction:row-reverse}
+.msg .avatar{width:32px;height:32px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff}
+.msg .avatar.ai{background:linear-gradient(135deg,var(--mint),var(--blue))}
+.msg .avatar.me{background:#cbd5d1}
+.msg .bubble{padding:11px 13px;border-radius:16px;font-size:13px;line-height:1.6;max-width:80%}
+.msg.user .bubble{background:var(--mint);color:#fff;border-top-right-radius:4px}
+.msg.ai .bubble{background:#fff;border:1px solid var(--line);border-top-left-radius:4px;color:var(--ink)}
+.msg .time{align-self:flex-end;font-size:10px;color:var(--sub);margin:0 4px}
+.disclaimer{display:block;margin-top:8px;padding:6px 9px;border-radius:8px;background:#fdf3e0;color:#7c4a03;font-size:11px;line-height:1.5}
+.typing{display:inline-flex;gap:4px;padding:4px 2px}
+.typing i{width:6px;height:6px;border-radius:50%;background:#b7c6c0;animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
+.chat-input{position:sticky;bottom:74px;display:flex;gap:8px;background:#fff;padding:10px;border-radius:16px;border:1px solid var(--line);margin-top:6px}
+.chat-input input{flex:1;border:none;outline:none;font-size:13.5px;background:none;color:var(--ink)}
+.chat-input button{width:38px;height:38px;border:none;border-radius:12px;background:var(--mint);color:#fff;font-size:16px;cursor:pointer;flex-shrink:0}
+
+/* sleep */
+.sleep-score{display:flex;align-items:center;gap:16px}
+.score-circle{width:96px;height:96px;flex-shrink:0;position:relative}
+.score-circle svg{transform:rotate(-90deg)}
+.score-circle .v{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-circle .v b{font-size:24px;color:var(--ink)}
+.score-circle .v span{font-size:10px;color:var(--sub)}
+.sleep-meta{flex:1;font-size:12px;color:var(--sub);line-height:1.9}
+.sleep-meta b{color:var(--ink)}
+.sleep-chart{display:flex;height:46px;border-radius:10px;overflow:hidden;margin:12px 0 8px}
+.sleep-chart div{display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff;font-size:9px;font-weight:600}
+.legend{display:flex;gap:14px;font-size:11px;color:var(--sub);flex-wrap:wrap}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+
+/* 防亏空 guard */
+.guard{border:1px solid #f5d8d8;background:linear-gradient(180deg,#fffafa,#fff)}
+.guard .g-tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--red);background:#fdecec;padding:4px 10px;border-radius:12px;margin-bottom:10px}
+.guard p{font-size:12.5px;color:var(--ink);line-height:1.7;margin-bottom:8px}
+.guard .g-mv{font-size:11.5px;color:#7c4a03;background:#fdf3e0;border-radius:10px;padding:8px 10px;line-height:1.6;margin-bottom:10px}
+.guard .g-acts{display:flex;gap:8px}
+.guard .g-acts button{flex:1;padding:9px 0;border:none;border-radius:12px;font-size:12px;font-weight:600;cursor:pointer}
+.guard .g-acts .primary{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff}
+.guard .g-acts .ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}
+
+/* rhythm timeline */
+.rhythm-sub{font-size:11.5px;color:var(--sub);margin:-6px 2px 12px;line-height:1.6}
+.timeline{position:relative;padding-left:26px}
+.timeline::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg,var(--mint),var(--blue))}
+.rp{position:relative;margin-bottom:12px}
+.rp::before{content:"";position:absolute;left:-23px;top:16px;width:10px;height:10px;border-radius:50%;background:#fff;border:3px solid var(--mint)}
+.rp .rp-time{font-size:10.5px;font-weight:700;color:var(--green);margin-bottom:3px}
+.rp .rp-card{background:#fff;border-radius:14px;padding:11px 12px;box-shadow:0 2px 8px rgba(28,43,38,.05);border:1px solid var(--line)}
+.rp .rp-card b{display:block;font-size:13px;color:var(--ink);margin-bottom:3px}
+.rp .rp-card p{font-size:11.5px;color:var(--sub);line-height:1.6;margin-bottom:7px}
+.rp .rp-card p strong{color:var(--ink);font-weight:600}
+.rp .rp-card .rp-acts{display:flex;gap:6px}
+.rp .rp-card button{flex:1;padding:7px 0;border:none;border-radius:10px;font-size:11.5px;font-weight:600;cursor:pointer;background:var(--mint-soft);color:var(--green)}
+.rp .rp-card button.dark{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.rp.active::before{background:var(--mint);box-shadow:0 0 0 4px var(--mint-soft)}
+.rp .rp-card.hot{border-color:var(--mint)}
+
+/* notif center */
+.filter-row{display:flex;gap:7px;margin-bottom:12px;flex-wrap:wrap}
+.filter-row button{border:none;padding:6px 13px;border-radius:15px;font-size:11.5px;font-weight:600;cursor:pointer;background:#fff;color:var(--sub);border:1px solid var(--line)}
+.filter-row button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.nf{display:flex;gap:11px;padding:12px 2px;border-bottom:1px solid var(--line);align-items:flex-start}
+.nf:last-child{border:none}
+.nf .n-ic{width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.nf .n-bd{flex:1}
+.nf .n-bd .n-t{font-size:13px;color:var(--ink);font-weight:600}
+.nf .n-bd .n-t i{display:inline-block;width:8px;height:8px;background:var(--mint);border-radius:50%;margin-left:5px}
+.nf .n-bd p{font-size:11.5px;color:var(--sub);line-height:1.55;margin-top:2px}
+.nf .n-bd .n-act{display:flex;gap:7px;margin-top:6px}
+.nf .n-bd .n-act button{border:none;padding:5px 11px;border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;background:var(--mint-soft);color:var(--green)}
+.nf .n-bd .n-act button.dim{background:#f2f6f4;color:var(--sub)}
+.nf .n-time{font-size:10px;color:var(--sub);flex-shrink:0}
+.nf.unread{background:linear-gradient(90deg,#f0faf6,transparent 60%);border-radius:10px}
+.day-div{font-size:11px;color:var(--sub);font-weight:600;margin:10px 2px 4px}
+
+/* profile / settings */
+.setting-item{display:flex;justify-content:space-between;align-items:center;padding:13px 2px;border-bottom:1px solid var(--line);font-size:13.5px;color:var(--ink);cursor:pointer}
+.setting-item:last-child{border:none}
+.setting-item .sub{font-size:11px;color:var(--sub);display:block;margin-top:2px}
+.toggle{width:44px;height:26px;border-radius:14px;background:#dbe4e0;position:relative;transition:.2s;flex-shrink:0}
+.toggle.on{background:var(--mint)}
+.toggle::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s}
+.toggle.on::after{left:21px}
+.device{display:flex;align-items:center;gap:12px;padding:12px;background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:10px}
+.device .di{width:42px;height:42px;border-radius:12px;background:var(--mint-soft);display:flex;align-items:center;justify-content:center;font-size:20px}
+.device .dn{flex:1;font-size:13.5px;color:var(--ink)}
+.device .dn span{display:block;font-size:11px;color:var(--sub)}
+.device .st{font-size:11px;font-weight:600}
+.device .st.conn{color:var(--green)}
+.device .st.disc{color:var(--sub)}
+
+/* lock screen demo */
+.lockscreen{width:392px;background:linear-gradient(160deg,#1c2b26 0%,#24453c 55%,#1d3a52 100%);border-radius:48px;box-shadow:0 24px 60px rgba(28,43,38,.25);padding:34px 26px 30px;color:#fff;position:sticky;top:36px}
+.ls-status{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:10px}
+.ls-time{font-size:54px;font-weight:700;letter-spacing:1px}
+.ls-date{font-size:13px;color:#c3d6cf;margin-bottom:26px}
+.notif-card{background:rgba(255,255,255,.14);backdrop-filter:blur(20px);border-radius:20px;padding:14px 16px;margin-bottom:12px;border:1px solid rgba(255,255,255,.12)}
+.notif-card .n-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.notif-card .n-app{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--mint),var(--green));display:flex;align-items:center;justify-content:center;font-size:14px}
+.notif-card .n-title{font-size:12px;color:#dcebe5;font-weight:600}
+.notif-card .n-time{font-size:10px;color:#9fb8af;margin-left:auto}
+.notif-card .n-body{font-size:13px;line-height:1.55;color:#fff}
+.notif-card .n-tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:10px;margin-top:8px;background:rgba(46,204,158,.3);color:#9ff0d4}
+.notif-card .n-tag.amber{background:rgba(245,158,11,.28);color:#fcd489}
+.notif-card .n-ring{display:flex;align-items:center;gap:8px;margin-top:9px}
+.notif-card .n-ring .mini{flex:1;height:6px;background:rgba(255,255,255,.18);border-radius:4px;overflow:hidden}
+.notif-card .n-ring .mini i{display:block;height:100%;background:var(--mint);border-radius:4px}
+.notif-card .n-ring span{font-size:10.5px;color:#bfd6cd}
+.notif-card .n-actions{display:flex;gap:8px;margin-top:11px}
+.notif-card .n-actions button{flex:1;padding:8px 0;border:none;border-radius:12px;font-size:12px;font-weight:600;cursor:pointer;background:rgba(255,255,255,.2);color:#fff;backdrop-filter:blur(4px)}
+.notif-card .n-actions button.primary{background:var(--mint);color:#0d2b21}
+.ls-hint{text-align:center;font-size:12px;color:#9fb8af;margin-top:14px;letter-spacing:4px}
+.ls-title{text-align:center;font-size:18px;font-weight:700;margin-bottom:20px;letter-spacing:2px}
+.ls-title small{display:block;font-size:11px;font-weight:400;color:#9fb8af;margin-top:4px;letter-spacing:0}
+
+/* badges */
+.badge-strip{display:flex;gap:10px;overflow-x:auto;padding:2px}
+.badge{width:74px;height:92px;border-radius:16px;background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex-shrink:0}
+.badge .bi{font-size:26px}
+.badge span{font-size:10px;color:var(--sub);text-align:center;line-height:1.3}
+.badge.lock{opacity:.45;filter:grayscale(1)}
+
+/* modal (拍照识食) */
+.modal-overlay{position:fixed;inset:0;background:rgba(20,32,28,.55);backdrop-filter:blur(4px);z-index:200;display:none;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{width:min(430px,92vw);background:#fff;border-radius:22px;padding:20px;animation:fade .2s}
+.modal .m-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:12px}
+.modal .m-photo{height:150px;border-radius:14px;background:linear-gradient(135deg,#d9efe6,#eef2f0);border:1px dashed #a9cfc0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--sub);font-size:12px;gap:6px;margin-bottom:12px}
+.modal .m-photo .ph-ic{font-size:40px}
+.modal .m-food{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:10px}
+.modal .m-food .row1{display:flex;justify-content:space-between;font-size:13px;color:var(--ink);font-weight:600;margin-bottom:8px}
+.modal .m-food .row1 span{font-size:10.5px;color:var(--green);font-weight:600;background:var(--mint-soft);padding:2px 8px;border-radius:10px}
+.modal .m-food .row2{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink)}
+.modal .m-food .row2 button{width:26px;height:26px;border-radius:8px;border:1px solid var(--line);background:#f7faf9;font-size:14px;cursor:pointer;color:var(--ink)}
+.modal .m-note{font-size:11px;color:#7c4a03;background:#fdf3e0;border-radius:10px;padding:8px 10px;line-height:1.6;margin-bottom:12px}
+.modal .m-btns{display:flex;gap:9px}
+.modal .m-btns button{flex:1;padding:11px 0;border:none;border-radius:13px;font-size:13px;font-weight:600;cursor:pointer}
+.modal .m-btns .ghost{background:#f2f6f4;color:var(--sub)}
+.modal .m-btns .primary{background:linear-gradient(135deg,var(--mint),var(--green));color:#fff}
+
+/* ===== V1.3 secondary pages ===== */
+.page-top{display:flex;align-items:center;gap:10px;padding:12px 0 2px;position:sticky;top:0;background:#f7faf9ee;backdrop-filter:blur(8px);z-index:30}
+.page-top .btn-back{width:34px;height:34px;border:none;border-radius:12px;background:#eef2f0;font-size:17px;cursor:pointer;color:var(--ink);flex-shrink:0;line-height:1}
+.page-top b{font-size:15px;color:var(--ink);flex:1}
+.page-top .sub{background:none;border:none;font-size:12px;color:var(--green);font-weight:600;cursor:pointer}
+.sub{font-size:11px;color:var(--sub);display:block;margin-top:2px}
+.seg{display:flex;background:#eef2f0;border-radius:12px;padding:3px;gap:3px;margin:10px 0}
+.seg button{flex:1;border:none;padding:7px 0;border-radius:9px;font-size:12px;font-weight:600;cursor:pointer;background:none;color:var(--sub)}
+.seg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(28,43,38,.08)}
+.donut-wrap{display:flex;align-items:center;gap:16px}
+.donut{position:relative;width:104px;height:104px;flex-shrink:0}
+.donut .dl{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut .dl b{font-size:18px;color:var(--ink)}
+.donut .dl span{font-size:9.5px;color:var(--sub)}
+.legend-col{flex:1;font-size:12px;color:var(--ink)}
+.legend-col .lr{display:flex;align-items:center;gap:7px;padding:4px 0;font-size:11.5px}
+.legend-col .lr i{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.legend-col .lr span{margin-left:auto;color:var(--sub)}
+.timing-row{display:flex;align-items:center;gap:8px;margin:7px 0;font-size:11.5px}
+.timing-row .tk{width:44px;color:var(--sub)}
+.timing-row .tt{flex:1;height:14px;background:#eef2f0;border-radius:7px;overflow:hidden}
+.timing-row .tt i{display:block;height:100%;border-radius:7px;background:linear-gradient(90deg,var(--mint),var(--green))}
+.timing-row .tkcal{width:58px;text-align:right;color:var(--ink);font-weight:600}
+.date-strip{display:flex;gap:7px;overflow-x:auto;padding:2px 0 10px}
+.date-chip{flex-shrink:0;width:52px;padding:7px 0;text-align:center;border-radius:12px;background:#fff;border:1px solid var(--line);cursor:pointer}
+.date-chip b{display:block;font-size:12px;color:var(--ink)}
+.date-chip span{font-size:10px;color:var(--sub)}
+.date-chip.on{background:var(--ink);border-color:var(--ink)}
+.date-chip.on b,.date-chip.on span{color:#fff}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.photo-cell{aspect-ratio:1;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:24px;background:linear-gradient(135deg,#e3f8f0,#eef2f0);border:1px solid var(--line)}
+.photo-cell span{font-size:9px;color:var(--sub);margin-top:4px}
+.badge-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.badge-card{border-radius:16px;padding:12px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;gap:11px}
+.badge-card .bi{width:42px;height:42px;border-radius:13px;background:var(--mint-soft);display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0}
+.badge-card .bd{flex:1}
+.badge-card .bd b{font-size:12px;color:var(--ink);display:block}
+.badge-card .bd span{font-size:10px;color:var(--sub)}
+.badge-card .fin{font-size:16px;color:var(--green)}
+.memory-item{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+.memory-item:last-child{border:none}
+.memory-item .mi{width:32px;height:32px;border-radius:10px;background:var(--mint-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.memory-item .mt{flex:1;color:var(--ink)}
+.memory-item .mt small{display:block;color:var(--sub);font-size:10.5px;margin-top:2px}
+.memory-item .del{border:none;background:#fdecec;color:var(--red);font-size:11px;font-weight:600;padding:4px 10px;border-radius:9px;cursor:pointer}
+.summary-num{display:flex;justify-content:space-around;padding:10px 0;text-align:center}
+.summary-num div{flex:1}
+.summary-num b{display:block;font-size:22px;color:var(--ink)}
+.summary-num span{font-size:10px;color:var(--sub)}
+.onboard-step{display:flex;gap:6px;justify-content:center;margin:14px 0 4px}
+.onboard-step i{width:26px;height:4px;border-radius:3px;background:#dbe4e0}
+.onboard-step i.on{background:var(--mint)}
+.login-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px 0;border-radius:14px;font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink);margin-bottom:9px}
+.login-btn.green{background:linear-gradient(135deg,var(--mint),var(--green));color:#fff;border:none}
+.form-pill{display:inline-flex;align-items:center;gap:5px;padding:7px 11px;border-radius:20px;border:1px solid var(--line);background:#fff;font-size:12px;color:var(--ink);cursor:pointer;margin:4px 4px 0 0;user-select:none}
+.form-pill.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.m-tip{display:flex;align-items:flex-start;gap:8px;border:1px solid #c9ecdd;background:var(--mint-soft);border-radius:12px;padding:10px 11px;font-size:11.5px;color:#155e46;line-height:1.6;margin-bottom:10px}
+
+/* toast */
+#toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(80px);background:#1c2b26;color:#fff;padding:10px 18px;border-radius:12px;font-size:12.5px;opacity:0;transition:.3s;z-index:300;max-width:520px;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="page-title">
+  <h1>🌿 AI 健康伴侣 · 高保真交互原型</h1>
+  <p>饮食能量分析 + 睡眠健康 + AI Agent 闭环 + 全天候节律陪伴 + 多端通知</p>
+  <span class="ver">V1.3 ｜ 依据《软件需求规格说明书 V1.1》覆盖全部 15 个页面 ｜ 点击底部 Tab / 卡片 / 设置项切换</span>
+</div>
+
+<div class="stage">
+
+<!-- ==================== PHONE ==================== -->
+<div class="phone">
+  <div class="notch"></div>
+  <div class="screen" id="screen">
+
+    <div class="statusbar"><span>9:41</span><span style="display:flex;gap:10px;align-items:center"><button class="bell" onclick="go('notif')">🔔<i class="dot"></i></button><span>📶 🔋</span></span></div>
+
+    <!-- ========== VIEW: HOME ========== -->
+    <div class="view active" id="view-home">
+      <h2 class="sec">你好，小杨 👋</h2>
+
+      <div class="card battery-card">
+        <div class="b-head"><b>🔋 晨间身体电量</b><span class="pill good">86% 活力充足</span></div>
+        <div class="b-track"><div class="t"><div class="f" style="width:86%"></div></div><span>86%</span></div>
+        <div class="b-say">基于睡眠 / HRV / 疲劳度综合评估 (FR-DASH-07)。昨夜恢复良好，推荐 3-5 分钟活力拉伸唤醒身体。</div>
+        <div class="b-acts">
+          <button onclick="flash('🧘 已调起 5 分钟觉醒冥想 (FR-RHYTHM-01)')">🧘 觉醒冥想</button>
+          <button class="primary" onclick="flash('🤸 已调起 3 分钟活力拉伸动画')">🤸 活力拉伸</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ring-wrap">
+          <div class="ring">
+            <svg width="150" height="150" viewBox="0 0 150 150">
+              <circle cx="75" cy="75" r="64" fill="none" stroke="#eef2f0" stroke-width="14"/>
+              <circle id="ringFill" cx="75" cy="75" r="64" fill="none" stroke="url(#grad1)" stroke-width="14" stroke-linecap="round" stroke-dasharray="402" stroke-dashoffset="161"/>
+              <defs><linearGradient id="grad1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2ecc9e"/><stop offset="100%" stop-color="#22a06b"/></linearGradient></defs>
+            </svg>
+            <div class="val"><b>1,860</b><span>已摄入 kcal</span></div>
+          </div>
+          <div class="ring-info">
+            <div class="row"><span>目标摄入</span><b>2,200 kcal</b></div>
+            <div class="row"><span>运动消耗</span><b>−320 kcal</b></div>
+            <div class="row"><span>剩余额度</span><b style="color:var(--green)">+660 kcal</b></div>
+            <div class="row"><span>状态</span><span class="pill good">✅ 均衡</span></div>
+          </div>
+        </div>
+        <div style="margin-top:12px">
+          <div class="nut-row"><span class="name">碳水</span><div class="track"><div class="fill" style="width:78%;background:#f59e0b"></div></div><span class="num">195g / 250g</span></div>
+          <div class="nut-row"><span class="name">蛋白质</span><div class="track"><div class="fill" style="width:64%;background:#2ecc9e"></div></div><span class="num">80g / 125g</span></div>
+          <div class="nut-row"><span class="name">脂肪</span><div class="track"><div class="fill" style="width:55%;background:#8b5cf6"></div></div><span class="num">41g / 75g</span></div>
+          <div class="nut-row"><span class="name">膳食纤维</span><div class="track"><div class="fill" style="width:46%;background:#3b82f6"></div></div><span class="num">14g / 30g</span></div>
+        </div>
+      </div>
+
+      <h2 class="sec">🤖 AI 今日洞察</h2>
+      <div class="insight" onclick="go('ai')">
+        <div class="ai-avatar">✨</div>
+        <div class="txt"><b>蛋白质缺口预警</b>：目前蛋白质仅完成 64%，按当前节奏今日将缺 45g。
+          <small>建议午餐补充：鸡胸肉 / 鸡蛋 / 豆腐 · 点击与 AI 对话 →</small></div>
+      </div>
+      <div class="insight" onclick="go('ai')">
+        <div class="ai-avatar">😴</div>
+        <div class="txt"><b>睡眠与饮食关联发现</b>：最近 3 天高糖晚餐后，深睡平均减少 24 分钟。
+          <small>建议今晚 19:00 前完成晚餐 · 点击查看归因 →</small></div>
+      </div>
+
+      <h2 class="sec">📋 今日任务（AI 生成）</h2>
+      <div class="card" style="padding:6px 14px">
+        <div class="task" onclick="this.classList.toggle('done')"><span class="ck">✓</span><span class="t">午餐补充蛋白质 ≥ 30g</span><span class="time">12:00 提醒</span></div>
+        <div class="task" onclick="this.classList.toggle('done')"><span class="ck">✓</span><span class="t">18:30 前完成晚餐（配合深睡改善）</span><span class="time">18:00 提醒</span></div>
+        <div class="task" onclick="this.classList.toggle('done')"><span class="ck">✓</span><span class="t">22:30 开启睡前放松模式</span><span class="time">22:15 提醒</span></div>
+      </div>
+
+      <h2 class="sec">📖 今日起居注 <span style="font-size:11px;color:var(--sub);font-weight:400">(FR-DASH-08 · 自动汇总)</span></h2>
+      <div class="card archive" style="cursor:pointer" onclick="go('archive')">
+        <div class="ar-head"><b>📖 起居注 · 8月3日</b><button onclick="event.stopPropagation();flash('已生成分享卡片（含 Agent 寄语），可保存分享')">分享 ↗</button></div>
+        <div class="ar-items">
+          <span>😴 睡眠 82 分</span><span>🥗 早餐三要素 2/3</span><span>🍱 七要素 5/7</span>
+          <span>💧 饮水 5/8 杯</span><span>🧘 拉伸 10 分钟</span>
+        </div>
+        <div class="ar-say">💬 <b>小伴寄语</b>：今天蛋白缺口已跨餐记账，晚餐优先鸡胸肉或牛肉就能补上。已连续 12 天健康记录，继续保持！</div>
+      </div>
+
+      <h2 class="sec">😴 昨夜睡眠</h2>
+      <div class="card" style="display:flex;align-items:center;gap:14px;cursor:pointer" onclick="go('sleep')">
+        <div style="font-size:34px">🌙</div>
+        <div style="flex:1">
+          <b style="font-size:14px">睡眠评分 82 · 7h 26m</b>
+          <div style="font-size:12px;color:var(--sub);margin-top:3px">深睡 1h42m ｜ 入睡 23:04 · 起床 06:30</div>
+        </div>
+        <span style="color:var(--sub);font-size:16px">›</span>
+      </div>
+
+      <h2 class="sec" style="display:flex;justify-content:space-between;align-items:center">🏅 连续打卡与勋章 <span style="font-size:11px;color:var(--green);font-weight:600;cursor:pointer" onclick="go('badges')">全部勋章 ›</span></h2>
+      <div class="badge-strip" style="cursor:pointer" onclick="go('badges')">
+        <div class="badge"><div class="bi">🔥</div><span>连续 12 天<br>健康记录</span></div>
+        <div class="badge"><div class="bi">🥗</div><span>拍照识食<br>×50 次</span></div>
+        <div class="badge"><div class="bi">🌙</div><span>深睡恢复大师<br>7 天</span></div>
+        <div class="badge"><div class="bi">💧</div><span>喝水达人<br>5 天</span></div>
+        <div class="badge lock"><div class="bi">🔒</div><span>早餐唤醒大师<br>待解锁</span></div>
+      </div>
+    </div>
+
+    <!-- ========== VIEW: DIET ========== -->
+    <div class="view" id="view-diet">
+      <h2 class="sec">🥗 饮食记录</h2>
+      <div class="record-bar">
+        <button class="record-btn primary" onclick="openCamera()">📷 拍照识食</button>
+        <button class="record-btn ghost" onclick="flash('AI 语音/文字解析 (FR-DIET-02)：示例「一碗牛肉面加一个卤蛋」')">🎤 语音记录</button>
+        <button class="record-btn ghost" onclick="flash('扫描条形码录入 (FR-DIET-04)：调取商品营养信息')">📟 扫码</button>
+      </div>
+
+      <div class="meal-card">
+        <div class="meal-head"><span class="m-name">🍳 早餐 <span style="font-size:11px;color:var(--sub)">08:12</span></span><span class="m-kcal">560 kcal</span></div>
+        <div class="food-item"><div class="dot" style="background:#fdf3e0">🍞</div><div class="f"><b>全麦面包 ×2</b><span>AI 识别 · 份量已确认</span></div><span class="kcal">220 kcal</span></div>
+        <div class="food-item"><div class="dot" style="background:#fdecec">🥚</div><div class="f"><b>水煮蛋 ×2</b><span>AI 识别</span></div><span class="kcal">144 kcal</span></div>
+        <div class="food-item"><div class="dot" style="background:#e3f0fd">🥛</div><div class="f"><b>低脂牛奶 300ml</b><span>文字记录</span></div><span class="kcal">126 kcal</span></div>
+
+        <div style="margin-top:10px;font-size:12px;font-weight:600;color:var(--ink)">🍽️ 早餐「三要素」专项诊断 <span style="font-weight:400;font-size:10.5px;color:var(--sub)">(FR-DIET-11)</span></div>
+        <div class="tri-row ok"><span class="tri-ic">✓</span><span class="tr">① 优质蛋白（蛋/奶/豆浆/豆制品）<small>水煮蛋 ×2 + 低脂牛奶 ✓ 达标</small></span></div>
+        <div class="tri-row ok"><span class="tri-ic">✓</span><span class="tr">② 优质低 GI 碳水（全麦/燕麦/玉米）<small>全麦面包 ✓ 优于精制碳水</small></span></div>
+        <div class="tri-row miss"><span class="tri-ic">✗</span><span class="tr">③ 膳食纤维 / 蔬菜水果<small>缺蔬果，上午易血糖波动，建议加 1 份水果</small></span></div>
+
+        <div class="ai-note ok" onclick="go('ai')">
+          ✨ AI 点评：早餐蛋白质充足（26g），纤维偏少。午餐建议配一份深色蔬菜 + 鸡胸肉。
+        </div>
+      </div>
+
+      <div class="meal-card">
+        <div class="meal-head"><span class="m-name">🍱 午餐 <span style="font-size:11px;color:var(--sub)">12:35</span></span><span class="m-kcal">780 kcal</span></div>
+        <div class="food-item"><div class="dot" style="background:#fdecec">🍜</div><div class="f"><b>牛肉面（一碗）</b><span>AI 语音解析</span></div><span class="kcal">620 kcal</span></div>
+        <div class="food-item"><div class="dot" style="background:#fdf3e0">🥚</div><div class="f"><b>卤蛋 ×1</b><span>AI 语音解析</span></div><span class="kcal">72 kcal</span></div>
+        <div class="ai-note warn">
+          ⚠️ 蛋白质缺口：午餐后仍需 20g 蛋白质。牛肉面钠含量偏高，晚餐建议清淡。<br>
+          <span style="font-size:11px;color:#b45309">📒 缺口已自动计入当日账本，下一餐前 Agent 将提示补缺方案 (FR-DIET-14)</span>
+        </div>
+      </div>
+
+      <h2 class="sec">🌱 七大要素诊断 <span style="font-size:11px;color:var(--sub);font-weight:400">(FR-DIET-12 · 每餐结构化输出)</span></h2>
+      <div class="card">
+        <div class="factor-grid">
+          <div class="factor"><div class="fi">🥚</div><b>优质蛋白</b><span class="st ok">达标</span></div>
+          <div class="factor"><div class="fi">🌾</div><b>优质碳水</b><span class="st ok">达标</span></div>
+          <div class="factor"><div class="fi">🥬</div><b>膳食纤维</b><span class="st miss">待补 16g</span></div>
+          <div class="factor"><div class="fi">🫒</div><b>脂肪质量</b><span class="st ok">达标</span></div>
+          <div class="factor"><div class="fi">💧</div><b>水分</b><span class="st miss">5/8 杯</span></div>
+          <div class="factor"><div class="fi">🍊</div><b>维生素矿物质</b><span class="st ok">达标</span></div>
+        </div>
+        <div style="font-size:11px;color:var(--sub);margin-top:9px;line-height:1.6">🔥 脂肪质量：全天无重油煎炸，多为优质油脂 ✓ ｜ ⚠️ 膳食纤维缺口将跨餐提示补缺方案</div>
+      </div>
+
+      <h2 class="sec">💧 智慧饮水 <span style="font-size:11px;color:var(--sub);font-weight:400">(FR-DIET-16 · 按体重 2,000ml/天)</span></h2>
+      <div class="card">
+        <div class="water-track" id="waterTrack">
+          <span class="cup full">🥤</span><span class="cup full">🥤</span><span class="cup full">🥤</span><span class="cup full">🥤</span><span class="cup full">🥤</span>
+          <span class="cup">○</span><span class="cup">○</span><span class="cup">○</span>
+        </div>
+        <div class="water-acts">
+          <button onclick="addWater()">🥤 打卡一杯（250ml）</button>
+          <span>2 小时未打卡将触发柔性提醒 + 补救动作</span>
+        </div>
+      </div>
+
+      <div class="meal-card" style="border:2px dashed #bfd8cf;background:none;box-shadow:none;text-align:center;color:var(--sub)">
+        <div style="font-size:30px">🍽️</div>
+        <div style="font-size:13px;margin-top:6px">晚餐 / 加餐 尚未记录</div>
+        <div style="font-size:11px;margin-top:3px">点下方按钮记录 · 记录后 AI 将自动分析</div>
+      </div>
+
+      <button class="add-btn" style="margin-bottom:14px" onclick="flash('新增饮食记录：拍照 / 语音 / 搜索食物库 (FR-DIET-01~05)')">＋ 添加食物</button>
+
+      <h2 class="sec" style="display:flex;justify-content:space-between;align-items:center">📊 本周能量趋势 <span style="font-size:11px;color:var(--green);font-weight:600;cursor:pointer" onclick="go('report')">查看分析报告 ›</span></h2>
+      <div class="card" style="cursor:pointer" onclick="go('report')">
+        <svg width="100%" height="90" viewBox="0 0 330 90">
+          <g stroke="#eef2f0" stroke-width="1"><line x1="0" y1="20" x2="330" y2="20"/><line x1="0" y1="55" x2="330" y2="55"/></g>
+          <line x1="0" y1="55" x2="330" y2="55" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4 4"/>
+          <text x="332" y="58" font-size="9" fill="#b45309">目标</text>
+          <polyline points="20,60 60,42 100,48 140,30 180,52 220,36 260,44" fill="none" stroke="#2ecc9e" stroke-width="3" stroke-linecap="round"/>
+          <g font-size="9" fill="#7a8b85">
+            <text x="10" y="80">一</text><text x="50" y="80">二</text><text x="90" y="80">三</text>
+            <text x="130" y="80">四</text><text x="170" y="80">五</text><text x="210" y="80">六</text><text x="250" y="80">日</text>
+          </g>
+        </svg>
+        <div style="font-size:11px;color:var(--sub);margin-top:6px">🍚 热量来源占比：碳水 46% ｜ 蛋白 22% ｜ 脂肪 32% ｜ 本周超量 1 天（进食时序分布见 AI 报告）</div>
+      </div>
+    </div>
+
+    <!-- ========== VIEW: SLEEP ========== -->
+    <div class="view" id="view-sleep">
+      <h2 class="sec">🌙 睡眠健康</h2>
+      <div class="card">
+        <div class="sleep-score">
+          <div class="score-circle">
+            <svg width="96" height="96" viewBox="0 0 96 96">
+              <circle cx="48" cy="48" r="40" fill="none" stroke="#eef2f0" stroke-width="10"/>
+              <circle cx="48" cy="48" r="40" fill="none" stroke="url(#g2)" stroke-width="10" stroke-linecap="round" stroke-dasharray="251" stroke-dashoffset="45"/>
+              <defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
+            </svg>
+            <div class="v"><b>82</b><span>睡眠评分</span></div>
+          </div>
+          <div class="sleep-meta">
+            总时长 <b>7h 26m</b><br>
+            入睡 <b>23:04</b> · 起床 <b>06:30</b><br>
+            深睡占比 <b>23%</b> <span style="color:var(--green)">↑2%</span><br>
+            来源：<b>⌚ Apple Watch S9</b>
+          </div>
+        </div>
+        <div class="sleep-chart">
+          <div style="flex:2.2;background:#1e3a8a">深睡<br>1h42m</div>
+          <div style="flex:3.6;background:#3b82f6">浅睡<br>2h48m</div>
+          <div style="flex:2.4;background:#8b5cf6">REM<br>1h52m</div>
+          <div style="flex:1;background:#cbd5d1">清醒<br>1h04m</div>
+        </div>
+        <div class="legend">
+          <span><i style="background:#1e3a8a"></i>深睡</span><span><i style="background:#3b82f6"></i>浅睡</span>
+          <span><i style="background:#8b5cf6"></i>REM</span><span><i style="background:#cbd5d1"></i>清醒</span>
+        </div>
+      </div>
+
+      <h2 class="sec">🤖 AI 睡眠分析</h2>
+      <div class="insight" onclick="go('ai')">
+        <div class="ai-avatar">🔍</div>
+        <div class="txt"><b>归因分析</b>：昨晚 22:40 摄入咖啡（拿铁），且高糖晚餐后 3 天深睡连续下降。
+          <small>咖啡因半衰期 5~6h，建议午后 14:00 后避免咖啡因摄入 · 点击追问 →</small></div>
+      </div>
+
+      <div class="card guard">
+        <div class="g-tag">🛡️ 防亏空保护已触发（昨日身体电量 42% &lt; 50%）</div>
+        <p>今日 19:00 的 <b>5km 跑步已自动降级</b>为「20 分钟慢走 + 拉伸」，高强度安排推迟至身体恢复后 (FR-SLEEP-09)。</p>
+        <div class="g-mv">🥣 营养补偿策略：今日建议早餐/午餐优先补充 <b>优质蛋白</b>（鸡蛋 / 豆浆 / 鸡胸肉）抗疲劳，多喝水。</div>
+        <div class="g-acts">
+          <button class="primary" onclick="flash('🧘 已调起 5 分钟舒缓冥想（恢复性微行为）')">🧘 舒缓冥想</button>
+          <button class="ghost" onclick="flash('查看今日全天安排（已降级版）')">📅 今日安排</button>
+        </div>
+      </div>
+
+      <div class="card" style="padding:12px">
+        <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:8px">📌 今晚干预计划</div>
+        <div class="task" onclick="this.classList.toggle('done')"><span class="ck">✓</span><span class="t">21:45 推送「睡眠准备」提醒</span><span class="time">锁屏</span></div>
+        <div class="task" onclick="this.classList.toggle('done')"><span class="ck">✓</span><span class="t">22:30 睡前放松模式（冥想 10min）</span><span class="time">通知</span></div>
+        <div class="task" onclick="this.classList.toggle('done')"><span class="ck">✓</span><span class="t">06:20 浅睡窗口唤醒（可选）</span><span class="time">FR-SLEEP-06</span></div>
+      </div>
+
+      <h2 class="sec">🏃 运动计划安全护栏 <span style="font-size:11px;color:var(--sub);font-weight:400">(FR-SLEEP-10)</span></h2>
+      <div class="card" style="padding:12px">
+        <div style="font-size:12.5px;line-height:1.7;color:var(--ink)">
+          📝 你的想法：<b>每周 3 次跑步（每次 5km）</b> → Agent 评估：<span class="pill good">强度适中 ✓</span><br>
+          <span style="font-size:11.5px;color:var(--sub)">检测到连续 2 天高压工作 + 睡眠 &lt; 6h 时，将强制降级为恢复性微行为（泡脚 / 拉伸 / 慢走）<br>用餐时序：饭后 ≥2h 再运动 · 晚餐不晚于 20:00 · 运动不晚于 22:00 (FR-SLEEP-11)</span>
+        </div>
+      </div>
+
+      <h2 class="sec" style="display:flex;justify-content:space-between;align-items:center">📈 睡眠趋势（近 7 天） <span style="font-size:11px;color:var(--green);font-weight:600;cursor:pointer" onclick="go('sleepreport')">查看睡眠周报 ›</span></h2>
+      <div class="card" style="cursor:pointer" onclick="go('sleepreport')">
+        <svg width="100%" height="80" viewBox="0 0 330 80">
+          <polyline points="20,40 60,30 100,45 140,25 180,35 220,20 260,28" fill="none" stroke="#3b82f6" stroke-width="3" stroke-linecap="round"/>
+          <g font-size="9" fill="#7a8b85">
+            <text x="10" y="72">一</text><text x="50" y="72">二</text><text x="90" y="72">三</text>
+            <text x="130" y="72">四</text><text x="170" y="72">五</text><text x="210" y="72">六</text><text x="250" y="72">日</text>
+          </g>
+        </svg>
+        <div style="font-size:11px;color:var(--sub);margin-top:6px">💡 睡眠-饮食关联：高糖晚餐（20:00 后）与次日深睡减少相关性 0.72 (FR-SLEEP-07)</div>
+      </div>
+    </div>
+
+    <!-- ========== VIEW: RHYTHM ========== -->
+    <div class="view" id="view-rhythm">
+      <h2 class="sec">⏰ 全天候节律陪伴</h2>
+      <p class="rhythm-sub">按生理节律全天候触达的 Agent 陪伴模块 (FR-RHYTHM-01~08) ｜ 当前时间 09:41</p>
+
+      <div class="timeline">
+        <div class="rp">
+          <div class="rp-time">07:00 · 晨间唤醒 Routine</div>
+          <div class="rp-card">
+            <b>🌅 晨间唤醒 (FR-RHYTHM-01)</b>
+            <p>身体电量 <strong>86% &gt; 80%</strong> → 推荐 3-5 分钟活力拉伸 / 觉醒冥想；电量 &lt; 50% 时自动触发防亏空保护。</p>
+            <div class="rp-acts"><button onclick="flash('已推送晨间唤醒卡片：电量 86% · 活力拉伸 3min (FR-RHYTHM-01)')">演示推送</button></div>
+          </div>
+        </div>
+
+        <div class="rp">
+          <div class="rp-time">07:30 · 通勤健康卡片</div>
+          <div class="rp-card">
+            <b>🚇 通勤健康卡片 (FR-RHYTHM-02)</b>
+            <p>每日一条权威健康卡片：「为什么要多吃优质蛋白」「水是最好的代谢催化剂」。</p>
+            <div class="rp-acts"><button onclick="flash('已推送今日卡片：优质脂肪的重要性（来源：中国营养学会）')">演示推送</button></div>
+          </div>
+        </div>
+
+        <div class="rp active">
+          <div class="rp-time">09:00-12:00 · 久坐与站立交替</div>
+          <div class="rp-card hot">
+            <b>🪑 久坐提醒（当前进行中）(FR-RHYTHM-03)</b>
+            <p>连续久坐 1 小时触发<strong>柔性提醒</strong> + 2-5 分钟椅上拉伸 / 肩颈放松指导动画，不打断工作节奏。</p>
+            <div class="rp-acts">
+              <button onclick="flash('已推送久坐提醒（柔性文案 + 补救动作）(FR-NOTIFY-09)')">演示推送</button>
+              <button class="dark" onclick="go('notif')">查看通知中心</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="rp">
+          <div class="rp-time">12:00-14:00 · 午休充电方案</div>
+          <div class="rp-card">
+            <b>😴 午休充电 (FR-RHYTHM-06)</b>
+            <p>引导选择「30 分钟小睡」或「15 分钟午休降压冥想」，结束后发送温和鼓励语帮助回归状态。</p>
+            <div class="rp-acts">
+              <button onclick="flash('已调起 15 分钟午休降压冥想')">🧘 15min 冥想</button>
+              <button class="dark" onclick="flash('已设置 30 分钟小睡闹钟')">😴 30min 小睡</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="rp">
+          <div class="rp-time">12:00-14:00 · 饭后散步</div>
+          <div class="rp-card">
+            <b>🚶 饭后散步与血糖稳态 (FR-RHYTHM-05)</b>
+            <p>午餐打卡后提示：饭后散步 10-20 分钟平抑血糖波动，避免下午昏睡。</p>
+            <div class="rp-acts"><button onclick="flash('已推送：饭后散步 15 分钟建议 (FR-RHYTHM-05)')">演示推送</button></div>
+          </div>
+        </div>
+
+        <div class="rp">
+          <div class="rp-time">15:00 · 午后低谷</div>
+          <div class="rp-card">
+            <b>🌤 注意力与生物钟匹配 (FR-RHYTHM-04)</b>
+            <p>结合 HRV 与疲劳数据，下午低谷期提醒 3 分钟深呼吸或起身放松。</p>
+            <div class="rp-acts"><button onclick="flash('已推送：午后低谷 3 分钟深呼吸 (FR-RHYTHM-04)')">演示推送</button></div>
+          </div>
+        </div>
+
+        <div class="rp">
+          <div class="rp-time">18:00-23:00 · 晚间运动与用餐时序</div>
+          <div class="rp-card">
+            <b>🏋️ 晚间时序规划 (FR-RHYTHM-07)</b>
+            <p>有运动安排时校准时间窗口；前夜睡眠差时自动将高强度运动替换为<strong>瑜伽 / 慢走 / 拉伸</strong>。</p>
+            <div class="rp-acts"><button onclick="flash('今晚 19:30 慢走 30min（原 5km 跑步已降级）(FR-RHYTHM-07)')">演示推送</button></div>
+          </div>
+        </div>
+
+        <div class="rp">
+          <div class="rp-time">22:30 · 睡前无缝降噪</div>
+          <div class="rp-card">
+            <b>🌃 睡前降噪 (FR-RHYTHM-08)</b>
+            <p>睡前 30 分钟触发准备睡眠通知，一键调起助眠内容（小宇宙助眠播客 / 白噪音 / 冥想），引导进入副交感神经状态。</p>
+            <div class="rp-acts">
+              <button onclick="flash('已调起：小宇宙助眠播客（第三方合作）')">🎧 助眠播客</button>
+              <button class="dark" onclick="flash('已调起：白噪音 · 雨声')">🌧 白噪音</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== VIEW: AI ========== -->
+    <div class="view" id="view-ai">
+      <h2 class="sec">🤖 AI 健康管家</h2>
+      <div class="chat">
+        <div class="msg ai">
+          <div class="avatar ai">✨</div>
+          <div class="bubble">早上好！今日进度：已摄入 <b>1,860 kcal</b>，蛋白质缺口 <b>45g</b>，膳食纤维缺 <b>16g</b>。需要我帮你规划午餐吗？</div>
+        </div>
+        <div class="msg user">
+          <div class="avatar me">👤</div>
+          <div class="bubble">为什么我最近深睡变少了？</div>
+        </div>
+        <div class="msg ai">
+          <div class="avatar ai">✨</div>
+          <div class="bubble">我分析了近 7 天数据，发现 2 个显著因素：<br><br>
+            🍰 <b>高糖晚餐</b>：3 天晚餐含糖量 &gt;40g，次日深睡平均减少 <b>24 分钟</b>（相关 0.72）<br>
+            ☕ <b>晚间咖啡因</b>：两次 20:00 后的拿铁，当晚入睡推迟约 38 分钟<br><br>
+            建议今晚开始：<b>18:30 前完成晚餐</b>、<b>14:00 后零咖啡因</b>。要帮你设为每日任务吗？</div>
+        </div>
+        <div class="msg user">
+          <div class="avatar me">👤</div>
+          <div class="bubble">好，帮我设置，再加个手环提醒</div>
+        </div>
+        <div class="msg ai">
+          <div class="avatar ai">✨</div>
+          <div class="bubble">已创建 3 个每日任务并同步到你的设备：<br><br>
+            ✅ 18:00 手机提醒「该晚餐了」<br>
+            ✅ 21:45 锁屏通知「睡眠准备」<br>
+            ✅ 22:15 ⌚ 手环震动「睡前放松」<br><br>
+            明天我会根据执行情况调整策略 📊</div>
+        </div>
+        <div class="msg user">
+          <div class="avatar me">👤</div>
+          <div class="bubble">我有糖尿病，按这个方案吃合适吗？</div>
+        </div>
+        <div class="msg ai">
+          <div class="avatar ai">✨</div>
+          <div class="bubble">可以帮你选择<b>低 GI 碳水 + 优质蛋白</b>的组合，并控制精制糖摄入。不过糖尿病管理涉及医疗方案调整，建议你在主治医生或注册营养师指导下进行。<span class="disclaimer">⚠️ 免责声明：本应用提供的是健康生活方式建议，不构成医疗诊断或治疗方案。疾病相关问题请咨询专业医生 (FR-AGENT-07)。</span></div>
+        </div>
+        <div class="msg ai">
+          <div class="avatar ai">✨</div>
+          <div class="bubble"><span class="typing"><i></i><i></i><i></i></span></div>
+        </div>
+      </div>
+      <div class="chat-input">
+        <input placeholder="问问 AI：能量分析 / 吃什么 / 睡眠建议…" onkeydown="if(event.key==='Enter')flash('对话演示 (FR-AGENT-08)：追问、任务创建、设备同步')">
+        <button onclick="flash('对话演示 (FR-AGENT-08)')">➤</button>
+      </div>
+    </div>
+
+    <!-- ========== VIEW: PROFILE ========== -->
+    <div class="view" id="view-profile">
+      <h2 class="sec">👤 我的</h2>
+      <div class="card" style="display:flex;align-items:center;gap:14px;cursor:pointer" onclick="flash('个人档案：身高 175 / 体重 68kg / 目标 减脂 / BMR Mifflin-St Jeor')">
+        <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--mint),var(--green));display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff">👤</div>
+        <div style="flex:1"><b style="font-size:15px">小杨</b><div style="font-size:11.5px;color:var(--sub)">目标：减脂 · BMR 1,690 kcal · 会员：普通版</div></div>
+        <span style="color:var(--sub)">›</span>
+      </div>
+
+      <h2 class="sec">🔔 通知设置</h2>
+      <div class="card" style="padding:8px 14px">
+        <div class="setting-item" onclick="go('notif')"><div><b>📥 通知中心（5 条未读）</b><span class="sub">聚合 AI 消息与系统提醒 (FR-NOTIFY-01)</span></div><span style="color:var(--sub)">›</span></div>
+        <div class="setting-item"><div><b>手机系统推送</b><span class="sub">能量缺口 / 餐点提醒 / 睡眠报告 (FR-NOTIFY-02)</span></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="setting-item"><div><b>锁屏通知卡片</b><span class="sub">锁屏展示能量剩余与营养素缺口 (FR-NOTIFY-03)</span></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="setting-item"><div><b>锁屏快捷动作</b><span class="sub">「直接记录午餐 / 稍后 / 跳过」 (FR-NOTIFY-04)</span></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="setting-item"><div><b>穿戴设备通知</b><span class="sub">手表/手环震动提醒（后期开发）(FR-NOTIFY-07)</span></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="setting-item"><div><b>智能降噪</b><span class="sub">同一类通知 N 次未点击则降频 (FR-NOTIFY-06)</span></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="setting-item"><div><b>免打扰时段</b><span class="sub">22:00 – 08:00 静默 (FR-NOTIFY-05) · 全局/时段/按类别三级控制</span></div><div style="color:var(--green);font-weight:600">开启</div></div>
+      </div>
+
+      <h2 class="sec">⌚ 设备连接</h2>
+      <div class="device"><div class="di">⌚</div><div class="dn">Apple Watch S9<span>健康数据同步 · 通知镜像</span></div><span class="st conn">● 已连接</span></div>
+      <div class="device"><div class="di">📿</div><div class="dn">小米手环 8<span>通知 · 睡眠数据 · 震动静默 (FR-NTF-06)</span></div><span class="st conn">● 已连接</span></div>
+      <div class="device" style="cursor:pointer" onclick="flash('绑定新设备：Wear OS / 华为 Health Kit / 三星 Health (后期开发 FR-AUTH-06)')"><div class="di">➕</div><div class="dn">绑定其他设备<span>Wear OS · 华为 · 三星</span></div><span class="st disc">添加</span></div>
+
+      <h2 class="sec">🔧 体验与演示</h2>
+      <div class="card" style="padding:8px 14px">
+        <div class="setting-item" onclick="go('onboard')"><div><b>🧭 新手引导 / 登录初始化</b><span class="sub">首次登录 · 身体档案 · 权限引导 (FR-AUTH-01~04)</span></div><span style="color:var(--sub)">›</span></div>
+        <div class="setting-item" onclick="go('report')"><div><b>📊 能量分析报告</b><span class="sub">周/月能量趋势 · 来源占比 · 时序分布 (FR-DIET-07)</span></div><span style="color:var(--sub)">›</span></div>
+        <div class="setting-item" onclick="go('archive')"><div><b>📖 饮食起居注回看</b><span class="sub">按日期复查历史每餐照片与建议 (FR-DIET-15)</span></div><span style="color:var(--sub)">›</span></div>
+        <div class="setting-item" onclick="go('sleepreport')"><div><b>📄 睡眠周报</b><span class="sub">周评分 · 阶段分布 · 可分享卡片 (FR-SLEEP-08)</span></div><span style="color:var(--sub)">›</span></div>
+      </div>
+
+      <h2 class="sec">⚙️ 其他</h2>
+      <div class="card" style="padding:8px 14px">
+        <div class="setting-item" onclick="go('badges')"><div><b>🏅 勋章墙</b><span class="sub">正向正循环激励体系 (FR-DASH-09)</span></div><span style="color:var(--sub)">›</span></div>
+        <div class="setting-item" onclick="go('memory')"><div><b>🧠 AI 记忆管理</b><span class="sub">查看 / 删除偏好与短期记忆 (FR-AGENT-03)</span></div><span style="color:var(--sub)">›</span></div>
+        <div class="setting-item" onclick="go('data')"><div><b>🛡️ 数据导出与隐私</b><span class="sub">本地优先 · 加密存储 · 注销 (FR-DATA)</span></div><span style="color:var(--sub)">›</span></div>
+        <div class="setting-item" onclick="go('subscribe')"><div><b>💳 会员订阅</b><span class="sub">AI 深度报告 · 高级教练</span></div><span style="color:var(--sub)">›</span></div>
+        <div class="setting-item"><div><b>📄 免责声明与风险护栏</b><span class="sub">健康建议 · 风险护栏 (FR-AGENT-07)</span></div><span style="color:var(--sub)">›</span></div>
+      </div>
+    </div>
+
+    <!-- ========== VIEW: NOTIFICATION CENTER ========== -->
+    <div class="view" id="view-notif">
+      <h2 class="sec">🔔 通知中心 <span style="font-size:11px;color:var(--sub);font-weight:400">(FR-NOTIFY-01 · 5 条未读)</span></h2>
+      <div class="filter-row">
+        <button class="on" onclick="filterNotif(this)">全部</button>
+        <button onclick="filterNotif(this)">饮食</button>
+        <button onclick="filterNotif(this)">睡眠</button>
+        <button onclick="filterNotif(this)">AI 建议</button>
+        <button onclick="filterNotif(this)">系统</button>
+      </div>
+
+      <div class="day-div">今天</div>
+      <div class="card" style="padding:6px 14px" data-cat="饮食">
+        <div class="nf unread">
+          <div class="n-ic" style="background:var(--mint-soft)">🍱</div>
+          <div class="n-bd">
+            <div class="n-t">午餐提醒 · 蛋白质缺口 45g<i></i></div>
+            <p>推荐：清蒸鲈鱼 + 糙米饭 + 西兰花（约 580 kcal / 蛋白 42g）。来源：AI 营养师 · 营养缺口跨餐记账 (FR-DIET-14)</p>
+            <div class="n-act"><button>📝 记录午餐</button><button class="dim">不再提醒此类</button></div>
+          </div>
+          <div class="n-time">11:59</div>
+        </div>
+        <div class="nf">
+          <div class="n-ic" style="background:#fdf3e0">🪑</div>
+          <div class="n-bd">
+            <div class="n-t">久坐提醒</div>
+            <p>已连续坐 1 小时啦，起身做 2 分钟肩颈拉伸吧（已附指导动画）。柔性文案 + 最小补救动作 (FR-NOTIFY-09)</p>
+            <div class="n-act"><button>🤸 开始拉伸</button><button class="dim">稍后</button></div>
+          </div>
+          <div class="n-time">10:45</div>
+        </div>
+        <div class="nf">
+          <div class="n-ic" style="background:#e3f0fd">💧</div>
+          <div class="n-bd">
+            <div class="n-t">饮水提醒 · 1.5 小时未打卡</div>
+            <p>喝一口温水吧，今日进度 5/8 杯 (FR-DIET-16)</p>
+            <div class="n-act"><button>🥤 打卡</button></div>
+          </div>
+          <div class="n-time">10:12</div>
+        </div>
+      </div>
+
+      <div class="day-div">昨天</div>
+      <div class="card" style="padding:6px 14px">
+        <div class="nf" data-cat="睡眠">
+          <div class="n-ic" style="background:#f3e8ff">🌙</div>
+          <div class="n-bd">
+            <div class="n-t">睡眠报告 · 评分 78</div>
+            <p>深睡占比 20%（略低），建议今晚 22:30 前入睡。可分享为健康卡片 (FR-SLEEP-08)</p>
+            <div class="n-act"><button>查看详情</button><button>分享</button></div>
+          </div>
+          <div class="n-time">昨天</div>
+        </div>
+        <div class="nf" data-cat="AI 建议">
+          <div class="n-ic" style="background:var(--mint-soft)">✨</div>
+          <div class="n-bd">
+            <div class="n-t">AI 建议 · 晚餐补蛋白方案</div>
+            <p>已完成 2/3 项：昨晚 18:30 前吃晚餐 ✓、14:00 后零咖啡因 ✓。Agent 已学习你的偏好（FR-AGENT-06）</p>
+            <div class="n-act"><button class="dim">反馈：有帮助</button></div>
+          </div>
+          <div class="n-time">昨天</div>
+        </div>
+        <div class="nf" data-cat="系统">
+          <div class="n-ic" style="background:#e5e9e7">🛡️</div>
+          <div class="n-bd">
+            <div class="n-t">数据同步完成</div>
+            <p>Apple Watch S9 睡眠数据已同步 · 本地优先模式运行中（照片仅存本机）</p>
+          </div>
+          <div class="n-time">昨天</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== VIEW: ONBOARD (登录/初始化 FR-AUTH) ========== -->
+    <div class="view" id="view-onboard">
+      <div class="page-top"><button class="btn-back" onclick="back()">‹</button><b>首次使用引导</b></div>
+      <div class="onboard-step"><i class="on"></i><i class="on"></i><i class="on"></i></div>
+      <div style="text-align:center;margin:10px 0 16px">
+        <div style="font-size:44px">🌿</div>
+        <div style="font-size:19px;font-weight:700;color:var(--ink);margin:6px 0 4px">你好，我们重新认识身体</div>
+        <div style="font-size:12px;color:var(--sub);line-height:1.7">无感采集 ➔ 智能评估 ➔ 最小可执行微行为 ➔ 形成正循环</div>
+      </div>
+      <div class="card" style="padding:14px 16px">
+        <b style="font-size:13px;color:var(--ink)">① 登录 <span style="font-size:10px;color:var(--sub)">(FR-AUTH-01)</span></b>
+        <div style="margin-top:10px">
+          <button class="login-btn green" onclick="flash('演示：Apple 一键登录 (FR-AUTH-01)')">🍎 Apple 一键登录</button>
+          <button class="login-btn" onclick="flash('演示：微信一键登录 (FR-AUTH-01)')">💬 微信一键登录</button>
+          <button class="login-btn" onclick="flash('演示：手机号验证码登录 (FR-AUTH-01)')">📱 手机号登录</button>
+          <div class="m-tip">🔒 支持邮箱注册 · 隐私政策/用户协议首次同意 · 新用户默认开启「本地优先」模式 (FR-AUTH-04)</div>
+        </div>
+        <b style="font-size:13px;color:var(--ink)">② 身体基础档案 <span style="font-size:10px;color:var(--sub)">(FR-AUTH-02)</span></b>
+        <div style="margin-top:4px">
+          <div class="form-pill on">身高 <b>175 cm</b></div>
+          <div class="form-pill on">体重 <b>68 kg</b></div>
+          <div class="form-pill on">年龄 <b>28</b></div>
+          <div class="form-pill" onclick="pill(this)">性别 男/女</div>
+        </div>
+        <div style="margin:8px 0 2px;font-size:11px;color:var(--sub)">日常活动量</div>
+        <div class="form-pill">久坐办公</div><div class="form-pill on" onclick="pill(this)">轻度活动</div><div class="form-pill" onclick="pill(this)">中度活动</div>
+        <div style="margin:8px 0 2px;font-size:11px;color:var(--sub)">核心健康目标</div>
+        <div class="form-pill on" onclick="pill(this)">减脂</div><div class="form-pill" onclick="pill(this)">改善睡眠</div><div class="form-pill" onclick="pill(this)">控糖</div><div class="form-pill" onclick="pill(this)">增强精力</div>
+        <div class="m-tip" style="margin-top:10px">➡️ 已按 Mifflin-St Jeor 计算 BMR 1,690 kcal 与每日能量目标 2,200 kcal</div>
+        <b style="font-size:13px;color:var(--ink)">③ 权限引导 <span style="font-size:10px;color:var(--sub)">(FR-AUTH-03)</span></b>
+        <div class="setting-item"><div><b>🔔 通知推送</b><span class="sub">餐点提醒 / 节律陪伴 / 睡眠干预</span></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="setting-item"><div><b>📷 相机</b><span class="sub">拍照识食 (FR-DIET-01)</span></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="setting-item"><div><b>❤️ 健康数据</b><span class="sub">HealthKit / Health Connect 步数 · 心率 · 睡眠</span></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+      </div>
+      <button class="record-btn primary" style="width:100%;margin:14px 0 10px" onclick="go('home');flash('初始化完成，进入今日总览 (FR-DASH-01)')">✓ 完成，进入首页</button>
+      <div style="text-align:center;font-size:11px;color:var(--sub);padding-bottom:14px">⌚ 手环/手表绑定为后期开发 (FR-AUTH-06)</div>
+    </div>
+
+    <!-- ========== VIEW: REPORT (能量分析报告 FR-DIET-07) ========== -->
+    <div class="view" id="view-report">
+      <div class="page-top"><button class="btn-back" onclick="back()">‹</button><b>📊 能量分析报告</b><button class="sub" onclick="flash('报告已导出 (FR-DIET-07)')">导出</button></div>
+      <div class="seg">
+        <button class="on" onclick="seg(this)">本周</button>
+        <button onclick="seg(this)">本月</button>
+        <button onclick="seg(this)">自定义</button>
+      </div>
+      <div class="card">
+        <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:8px">能量摄入 vs 目标（本周）</div>
+        <svg width="100%" height="132" viewBox="0 0 330 132">
+          <g stroke="#eef2f0" stroke-width="1"><line x1="0" y1="32" x2="330" y2="32"/><line x1="0" y1="70" x2="330" y2="70"/></g>
+          <line x1="0" y1="70" x2="330" y2="70" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <text x="336" y="74" font-size="9" fill="#b45309">目标 2,200</text>
+          <rect x="20" y="44" width="28" height="30" rx="6" fill="#22a06b"/>
+          <rect x="70" y="28" width="28" height="48" rx="6" fill="#3b82f6"/>
+          <rect x="120" y="52" width="28" height="34" rx="6" fill="#22a06b"/>
+          <rect x="170" y="70" width="28" height="28" rx="6" fill="#f59e0b"/>
+          <rect x="220" y="38" width="28" height="44" rx="6" fill="#22a06b"/>
+          <rect x="270" y="46" width="28" height="36" rx="6" fill="#3b82f6"/>
+          <g font-size="9" fill="#7a8b85">
+            <text x="10" y="122">一</text><text x="60" y="122">二</text><text x="110" y="122">三</text>
+            <text x="160" y="122">四</text><text x="210" y="122">五</text><text x="260" y="122">六</text><text x="310" y="122">日</text>
+          </g>
+          <text x="5" y="14" font-size="9" fill="#b45309">⚠️ 超量预警：周三 +230 kcal（> 目标），其余日均达标</text>
+        </svg>
+        <div class="legend">
+          <span><i style="background:#22a06b"></i>达标日</span><span><i style="background:#3b82f6"></i>略低于目标</span><span><i style="background:#f59e0b"></i>超量预警</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:10px">🍚 热量来源占比（日均）</div>
+        <div class="donut-wrap">
+          <div class="donut">
+            <svg width="104" height="104" viewBox="0 0 104 104">
+              <circle cx="52" cy="52" r="42" fill="none" stroke="#eef2f0" stroke-width="13"/>
+              <circle cx="52" cy="52" r="42" fill="none" stroke="#f59e0b" stroke-width="13" stroke-dasharray="121 264" stroke-dashoffset="-44" stroke-linecap="round" transform="rotate(-90 52 52)"/>
+              <circle cx="52" cy="52" r="42" fill="none" stroke="#2ecc9e" stroke-width="13" stroke-dasharray="58 264" stroke-dashoffset="-220" stroke-linecap="round" transform="rotate(-90 52 52)"/>
+              <circle cx="52" cy="52" r="42" fill="none" stroke="#8b5cf6" stroke-width="13" stroke-dasharray="85 264" stroke-dashoffset="-308" stroke-linecap="round" transform="rotate(-90 52 52)"/>
+            </svg>
+            <div class="dl"><b>2,098</b><span>日均 kcal</span></div>
+          </div>
+          <div class="legend-col">
+            <div class="lr"><i style="background:#f59e0b"></i>碳水 46%<span>241g</span></div>
+            <div class="lr"><i style="background:#2ecc9e"></i>蛋白质 22%<span>115g</span></div>
+            <div class="lr"><i style="background:#8b5cf6"></i>脂肪 32%<span>75g</span></div>
+            <div class="lr" style="font-size:10.5px;color:var(--sub)">💡 蛋白占比距目标 ≥25% 差 3%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:8px">🕐 进食时序分布（日均）</div>
+        <div class="timing-bars">
+          <div class="timing-row"><span class="tk">早餐</span><div class="tt"><i style="width:28%"></i></div><span class="tkcal">560 kcal</span></div>
+          <div class="timing-row"><span class="tk">午餐</span><div class="tt"><i style="width:39%"></i></div><span class="tkcal">780 kcal</span></div>
+          <div class="timing-row"><span class="tk">晚餐</span><div class="tt"><i style="width:30%"></i></div><span class="tkcal">610 kcal</span></div>
+          <div class="timing-row"><span class="tk">加餐</span><div class="tt"><i style="width:8%"></i></div><span class="tkcal">148 kcal</span></div>
+        </div>
+        <div style="font-size:11px;color:var(--sub);margin-top:8px">⚠️ 周四晚餐集中进食在 21:00 后，与次日深睡减少关联 0.72 (FR-SLEEP-07)</div>
+      </div>
+
+      <div class="card">
+        <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:8px">🎯 克制模式 + 常用餐复录</div>
+        <div class="form-pill" onclick="pill(this)">16:8 间歇断食</div><div class="form-pill on" onclick="pill(this)">控糖</div><div class="form-pill" onclick="pill(this)">低脂</div>
+        <div style="font-size:11px;color:var(--sub);line-height:1.6;margin:9px 0 2px">模板化管理目标 (FR-DIET-08) · 常用餐一键复录 (FR-DIET-09)</div>
+        <button class="add-btn" style="margin-top:8px" onclick="flash('已收藏「鸡胸肉沙拉 · 中式套餐」到常用餐 (FR-DIET-09)')">＋ 收藏常用餐</button>
+      </div>
+    </div>
+
+    <!-- ========== VIEW: ARCHIVE (饮食起居注回看 FR-DIET-15) ========== -->
+    <div class="view" id="view-archive">
+      <div class="page-top"><button class="btn-back" onclick="back()">‹</button><b>📖 饮食起居注档案</b><button class="sub" onclick="flash('已生成分享卡片（含每日寄语）(FR-DASH-08)')">分享</button></div>
+      <div class="date-strip">
+        <div class="date-chip" onclick="chip(this)"><b>8/1</b><span>六</span></div>
+        <div class="date-chip" onclick="chip(this)"><b>8/2</b><span>日</span></div>
+        <div class="date-chip on" onclick="chip(this)"><b>8/3</b><span>今</span></div>
+        <div class="date-chip" onclick="chip(this)"><b>8/4</b><span>二</span></div>
+        <div class="date-chip" onclick="chip(this)"><b>8/5</b><span>三</span></div>
+        <div class="date-chip" onclick="chip(this)"><b>8/6</b><span>四</span></div>
+        <div class="date-chip" onclick="chip(this)"><b>8/7</b><span>五</span></div>
+      </div>
+      <div class="card">
+        <div class="summary-num">
+          <div><b>82</b><span>睡眠分</span></div>
+          <div><b>5/7</b><span>七要素</span></div>
+          <div><b>2/3</b><span>早餐三要素</span></div>
+          <div><b>5/8</b><span>饮水</span></div>
+        </div>
+      </div>
+      <h2 class="sec">🍱 当日餐次回顾</h2>
+      <div class="card" style="padding:12px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+          <span class="pill good">早餐 560 kcal</span><span class="pill good">午餐 780 kcal</span><span class="pill warn">晚餐 720 kcal · 高糖</span>
+        </div>
+        <div class="photo-grid">
+          <div class="photo-cell">🍞<span>全麦面包</span></div>
+          <div class="photo-cell">🥚<span>水煮蛋×2</span></div>
+          <div class="photo-cell">🥛<span>低脂牛奶</span></div>
+          <div class="photo-cell">🍜<span>牛肉面</span></div>
+          <div class="photo-cell">🥚<span>卤蛋</span></div>
+          <div class="photo-cell">🥦<span>白灼菜</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px">📝 AI 当日点评</div>
+        <div style="font-size:12px;color:var(--ink);line-height:1.7">
+          <b>进步点</b>：早餐三要素由 1/3 提升至 2/3，蛋白供应稳定。<br>
+          <b>待改进</b>：晚餐高糖（奶茶），次日深睡平均减少 24 分钟。建议更换为无糖豆浆。
+        </div>
+        <div class="ai-note ok" style="margin-top:8px" onclick="go('ai')">✨ 已更新「奶茶→无糖豆浆」偏好记忆 · 点击与 AI 进一步对话 →</div>
+      </div>
+      <div class="card">
+        <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:8px">📚 近 7 天改善趋势（七要素覆盖率）</div>
+        <svg width="100%" height="70" viewBox="0 0 330 70">
+          <polyline points="20,55 60,48 100,42 140,45 180,35 220,30 260,26" fill="none" stroke="#2ecc9e" stroke-width="3" stroke-linecap="round"/>
+          <g font-size="9" fill="#7a8b85"><text x="10" y="66">一</text><text x="250" y="66">日</text></g>
+        </svg>
+        <div style="font-size:11px;color:var(--sub)">覆盖率的上升，就是你"感受到饮食在变好"的过程 🎉 (FR-DIET-15)</div>
+      </div>
+    </div>
+
+    <!-- ========== VIEW: SLEEP REPORT (睡眠周报 FR-SLEEP-08) ========== -->
+    <div class="view" id="view-sleepreport">
+      <div class="page-top"><button class="btn-back" onclick="back()">‹</button><b>🌙 睡眠周报</b><button class="sub" onclick="flash('已生成健康卡片，可分享 (FR-SLEEP-08)')">分享</button></div>
+      <div class="card" style="text-align:center;padding:18px">
+        <div style="font-size:34px">🌙</div>
+        <div style="font-size:13px;color:var(--sub);margin-top:4px">本周平均睡眠评分（较上周 ↑ 4 分）</div>
+        <div style="font-size:34px;font-weight:700;color:var(--ink);margin:6px 0 2px">79</div>
+        <div style="font-size:12px;color:var(--ink)">日均 <b>7h 12m</b> ｜ 入睡 <b>23:12</b> ｜ 深睡占比 <b>21%</b> <span style="color:var(--green)">↑2%</span></div>
+      </div>
+      <div class="card">
+        <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:10px">📈 评分趋势（近 7 天）</div>
+        <svg width="100%" height="80" viewBox="0 0 330 80">
+          <polyline points="20,46 60,40 100,48 140,34 180,42 220,26 260,30" fill="none" stroke="#3b82f6" stroke-width="3" stroke-linecap="round"/>
+          <g font-size="9" fill="#7a8b85"><text x="10" y="72">一</text><text x="50" y="72">二</text><text x="90" y="72">三</text><text x="130" y="72">四</text><text x="170" y="72">五</text><text x="210" y="72">六</text><text x="250" y="72">日</text></g>
+        </svg>
+        <div class="sleep-chart" style="margin-top:8px">
+          <div style="flex:2.2;background:#1e3a8a">深睡<br>7h19m</div>
+          <div style="flex:3.6;background:#3b82f6">浅睡<br>11h8m</div>
+          <div style="flex:2.4;background:#8b5cf6">REM<br>7h18m</div>
+          <div style="flex:1;background:#cbd5d1">清醒<br>2h52m</div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px">🔍 周度归因统计</div>
+        <div class="memory-item"><div class="mi">☕</div><div class="mt"><b>咖啡因</b><small>4 天 14:00 后摄入，当晚入睡平均推迟 31 分钟</small></div><span class="pill bad">主因</span></div>
+        <div class="memory-item"><div class="mi">🍰</div><div class="mt"><b>高糖晚餐</b><small>3 天晚餐含糖 >40g，次日深睡平均减少 24 分钟</small></div><span class="pill bad">主因</span></div>
+        <div class="memory-item"><div class="mi">🏃</div><div class="mt"><b>晚间运动</b><small>22:00 后运动 2 次，平均入睡推迟 18 分钟</small></div><span class="pill warn">次要</span></div>
+        <div style="font-size:11.5px;color:var(--ink);line-height:1.7;margin-top:8px">💡 <b>可执行建议</b>：① 14:00 后零咖啡因 ② 晚餐不晚于 20:00 ③ 22:30 前入睡 ④ 睡前冥想 10min。已生成下周每日任务 (FR-SLEEP-11 / FR-RHYTHM-07)</div>
+      </div>
+    </div>
+
+    <!-- ========== VIEW: BADGES (勋章墙 FR-DASH-09) ========== -->
+    <div class="view" id="view-badges">
+      <div class="page-top"><button class="btn-back" onclick="back()">‹</button><b>🏅 勋章墙</b></div>
+      <div class="card" style="text-align:center">
+        <div style="font-size:12px;color:var(--sub)">连续打卡与正向正循环成就 (FR-DASH-06 / FR-DASH-09)</div>
+        <div style="font-size:30px;font-weight:700;color:var(--ink);margin:6px 0">9 / 12</div>
+        <div class="legend" style="justify-content:center">
+          <span><i style="background:var(--mint)"></i>已解锁 9</span>
+          <span><i style="background:#dbe4e0"></i>待解锁 3</span>
+        </div>
+      </div>
+      <div class="badge-grid">
+        <div class="badge-card"><div class="bi">🔥</div><div class="bd"><b>连续打卡 ×12</b><span>健康记录</span></div><span class="fin">✓</span></div>
+        <div class="badge-card"><div class="bi">🥗</div><div class="bd"><b>拍照识食 ×50</b><span>饮食记录</span></div><span class="fin">✓</span></div>
+        <div class="badge-card"><div class="bi">🥚</div><div class="bd"><b>早餐唤醒大师</b><span>早餐三要素连续 7 天</span></div><span class="fin" style="opacity:.4;color:var(--sub)">🔒</span></div>
+        <div class="badge-card"><div class="bi">🌙</div><div class="bd"><b>深睡恢复大师</b><span>深睡占比 ≥22% · 7 天</span></div><span class="fin">✓</span></div>
+        <div class="badge-card"><div class="bi">💧</div><div class="bd"><b>喝水达人</b><span>饮水目标 · 5 天</span></div><span class="fin">✓</span></div>
+        <div class="badge-card"><div class="bi">🫒</div><div class="bd"><b>优质脂肪达人</b><span>7 天无重油</span></div><span class="fin">✓</span></div>
+        <div class="badge-card"><div class="bi">🧘</div><div class="bd"><b>冥想里程碑</b><span>累计冥想 120 分钟</span></div><span class="fin">✓</span></div>
+        <div class="badge-card"><div class="bi">🤸</div><div class="bd"><b>拉伸达人</b><span>拉伸 ×30 次</span></div><span class="fin">✓</span></div>
+        <div class="badge-card"><div class="bi">🌅</div><div class="bd"><b>早起鸟</b><span>7 点前唤醒 ×10</span></div><span class="fin">✓</span></div>
+        <div class="badge-card"><div class="bi">📖</div><div class="bd"><b>起居注收藏家</b><span>保存/分享起居注 ×10</span></div><span class="fin" style="opacity:.4;color:var(--sub)">🔒</span></div>
+        <div class="badge-card"><div class="bi">🛡️</div><div class="bd"><b>防亏空响应</b><span>正确执行健康复原则降级 ×3</span></div><span class="fin">✓</span></div>
+        <div class="badge-card"><div class="bi">👑</div><div class="bd"><b>闭环王者</b><span>完成闭环反馈 ×100</span></div><span class="fin" style="opacity:.4;color:var(--sub)">🔒</span></div>
+      </div>
+    </div>
+
+    <!-- ========== VIEW: MEMORY (AI 记忆管理 FR-AGENT-03) ========== -->
+    <div class="view" id="view-memory">
+      <div class="page-top"><button class="btn-back" onclick="back()">‹</button><b>🧠 AI 记忆管理</b></div>
+      <div class="m-tip" style="margin-top:6px">记忆本地加密保存，不用于第三方模型训练。你可随时查看 / 删除任何一条记忆 (FR-AGENT-03 / FR-DATA-02)</div>
+      <h2 class="sec">💾 长期记忆</h2>
+      <div class="card" style="padding:8px 14px">
+        <div class="memory-item"><span class="mi">🎯</span><div class="mt"><b>健康目标：减脂</b><small>目标热量 2,200 kcal · BMR 1,690</small></div><button class="del" onclick="delMemory(this)">删除</button></div>
+        <div class="memory-item"><span class="mi">🍗</span><div class="mt"><b>饮食偏好：鸡胸肉 / 牛肉 / 豆腐</b><small>来源：近 14 天记录学习</small></div><button class="del" onclick="delMemory(this)">删除</button></div>
+        <div class="memory-item"><span class="mi">🚫</span><div class="mt"><b>忌口：香菜 / 动物内脏</b><small>手动添加</small></div><button class="del" onclick="delMemory(this)">删除</button></div>
+        <div class="memory-item"><span class="mi">💊</span><div class="mt"><b>健康关注：患有糖尿病</b><small>涉及疾病问题将输出免责声明 (FR-AGENT-07)</small></div><button class="del" onclick="delMemory(this)">删除</button></div>
+        <div class="memory-item"><span class="mi">⏰</span><div class="mt"><b>作息习惯：22:30-23:00 入睡</b><small>睡前提醒在此窗口投放</small></div><button class="del" onclick="delMemory(this)">删除</button></div>
+      </div>
+      <h2 class="sec">⚡ 短期记忆 / 近期行为</h2>
+      <div class="card" style="padding:8px 14px">
+        <div class="memory-item"><span class="mi">📊</span><div class="mt"><b>近 3 天晚餐时间偏晚</b><small>20:30 ～ 21:15</small></div><button class="del" onclick="delMemory(this)">删除</button></div>
+        <div class="memory-item"><span class="mi">☕</span><div class="mt"><b>下午咖啡偏好（拿铁）</b><small>已提示 14:00 后避免摄入</small></div><button class="del" onclick="delMemory(this)">删除</button></div>
+      </div>
+      <button style="width:100%;padding:12px 0;border:none;border-radius:14px;background:#fdecec;color:var(--red);font-size:13px;font-weight:600;cursor:pointer" onclick="flash('已清空 AI 记忆（基础档案可随时恢复）')">🗑️ 清空全部记忆</button>
+    </div>
+
+    <!-- ========== VIEW: DATA (数据与隐私 FR-DATA / NFR-SEC) ========== -->
+    <div class="view" id="view-data">
+      <div class="page-top"><button class="btn-back" onclick="back()">‹</button><b>🛡️ 数据与隐私</b></div>
+      <h2 class="sec">🔐 隐私保护</h2>
+      <div class="card" style="padding:8px 14px">
+        <div class="setting-item"><div><b>本地优先模式</b><span class="sub">原始照片与健康明细仅存本机，云端仅上传脱敏统计 (FR-DATA-02)</span></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="setting-item"><div><b>端到端加密</b><span class="sub">设备 Keychain/Keystore · 传输 TLS 1.3 (FR-DATA-01)</span></div><span class="pill good">已启用</span></div>
+        <div class="setting-item"><div><b>最小化采集</b><span class="sub">仅采集功能所需字段并告知用途 (FR-DATA-06)</span></div><span class="pill good">合规</span></div>
+        <div class="setting-item"><div><b>照片留存策略</b><span class="sub">原始照片 90 天自动清理 (FR-DATA-05)</span></div><span style="color:var(--sub)">90 天</span></div>
+      </div>
+      <h2 class="sec">📤 数据导出 <span style="font-size:11px;color:var(--sub);font-weight:400">(FR-DATA-03)</span></h2>
+      <div class="card" style="padding:12px">
+        <div style="display:flex;gap:8px">
+          <button style="flex:1;padding:11px 0;border:none;border-radius:12px;background:var(--mint-soft);color:var(--green);font-weight:600;font-size:12.5px;cursor:pointer" onclick="flash('已导出 JSON 全量数据 (FR-DATA-03)')">JSON</button>
+          <button style="flex:1;padding:11px 0;border:none;border-radius:12px;background:var(--mint-soft);color:var(--green);font-weight:600;font-size:12.5px;cursor:pointer" onclick="flash('已导出 CSV 表格数据 (FR-DATA-03)')">CSV</button>
+          <button style="flex:1;padding:11px 0;border:none;border-radius:12px;background:linear-gradient(135deg,var(--mint),var(--green));color:#fff;font-weight:600;font-size:12.5px;cursor:pointer" onclick="flash('已生成 PDF 健康报告 (FR-DATA-03)')">PDF 报告</button>
+        </div>
+        <div style="font-size:11px;color:var(--sub);margin-top:9px;line-height:1.6">包含：饮食记录、睡眠数据、AI 分析结果；云端日志已脱敏</div>
+      </div>
+      <div class="card" style="padding:12px">
+        <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px">🗑️ 注销与清除</div>
+        <button style="width:100%;padding:11px 0;border:none;border-radius:12px;background:#fdecec;color:var(--red);font-size:12.5px;font-weight:600;cursor:pointer" onclick="flash('已发起注销：30 天后彻底删除云端数据 (FR-DATA-04)')">注销账号（30 天彻底删除）</button>
+        <div style="font-size:10.5px;color:var(--sub);text-align:center;margin-top:6px">符合《个人信息保护法》《数据安全法》</div>
+      </div>
+    </div>
+
+    <!-- ========== VIEW: SUBSCRIBE (会员订阅) ========== -->
+    <div class="view" id="view-subscribe">
+      <div class="page-top"><button class="btn-back" onclick="back()">‹</button><b>💳 会员订阅</b></div>
+      <div style="text-align:center;margin:16px 0">
+        <div style="font-size:40px">👑</div>
+        <div style="font-size:18px;font-weight:700;color:var(--ink)">解锁更深的 AI 陪伴</div>
+        <div style="font-size:12px;color:var(--sub);margin-top:4px">普通版已覆盖每日核心闭环 · 会员解锁深度分析与高级教练</div>
+      </div>
+      <div class="card" style="padding:14px">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 2px;border-bottom:1px solid var(--line)">
+          <div><b style="font-size:13.5px;color:var(--ink);text-decoration:line-through">普通版 · 免费</b><span class="sub">能量环 / 七要素基础诊断 / 通知提醒</span></div><span class="pill good">当前</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 2px;border-bottom:1px solid var(--line)">
+          <div><b style="font-size:13.5px;color:var(--ink)">🌿 AI 深度版</b><span class="sub">深度归因报告 · 七大要素完整诊断 · 起居注卡片 · 高级教练</span></div><b style="color:var(--green)">¥18/月</b>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 2px">
+          <div><b style="font-size:13.5px;color:var(--ink)">🌿 家庭共享版</b><span class="sub">家人代录 · 最多 5 人 (FR-AUTH-05)</span></div><b style="color:var(--green)">¥28/月</b>
+        </div>
+      </div>
+      <button style="width:100%;padding:13px 0;border:none;border-radius:14px;background:linear-gradient(135deg,var(--mint),var(--green));color:#fff;font-size:14px;font-weight:700;cursor:pointer" onclick="flash('演示：跳转支付（微信/支付宝/Apple/Google）')">立即订阅 AI 专业版</button>
+      <div style="text-align:center;font-size:11px;color:var(--sub);margin:10px 0 14px">支持随时取消 · 支付合规接入</div>
+    </div>
+
+    <!-- ========== TAB BAR ========== -->
+    <div class="tabbar">
+      <button class="tab active" onclick="go('home')"><span class="ic">🏠</span>今日</button>
+      <button class="tab" onclick="go('diet')"><span class="ic">🥗</span>饮食</button>
+      <button class="tab" onclick="go('sleep')"><span class="ic">🌙</span>睡眠</button>
+      <button class="tab" onclick="go('rhythm')"><span class="ic">⏰</span>节律</button>
+      <button class="tab" onclick="go('ai')"><span class="ic">🤖</span>管家</button>
+      <button class="tab" onclick="go('profile')"><span class="ic">👤</span>我的</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== LOCK SCREEN ==================== -->
+<div class="lockscreen">
+  <div class="ls-title">📱 锁屏通知演示 <small>Rich Notification ｜ 深色/浅色适配 ｜ 快捷动作 ｜ 柔性防打扰 (FR-NOTIFY-03/04/09)</small></div>
+  <div class="ls-status"><span>9:41</span><span>🔋 96%</span></div>
+  <div class="ls-time">9:41</div>
+  <div class="ls-date">8月3日 星期一</div>
+
+  <div class="notif-card">
+    <div class="n-head"><div class="n-app">🪑</div><span class="n-title">AI 健康伴侣 · 久坐提醒</span><span class="n-time">10:45</span></div>
+    <div class="n-body">坐 1 小时啦，起身做 2 分钟肩颈拉伸，眼睛看看远处 🌿</div>
+    <div class="n-tag amber">柔性提醒 + 最小补救动作</div>
+    <div class="n-actions">
+      <button onclick="flash('「跳过」反馈回传 Agent，久坐提醒降频 (FR-NTF-04)')">✕ 跳过</button>
+      <button class="primary" onclick="flash('已调起 2 分钟椅上拉伸动画 (FR-RHYTHM-03)')">🤸 拉伸 2min</button>
+    </div>
+  </div>
+
+  <div class="notif-card">
+    <div class="n-head"><div class="n-app">🌿</div><span class="n-title">AI 健康伴侣 · 午餐提醒</span><span class="n-time">11:59</span></div>
+    <div class="n-body">距离今日目标还差 <b>660 kcal</b>，蛋白质缺口 <b>45g</b>。<br>推荐：清蒸鲈鱼 + 糙米饭 + 西兰花（约 580 kcal / 蛋白 42g）</div>
+    <div class="n-ring"><div class="mini"><i style="width:72%"></i></div><span>今日摄入 72%</span></div>
+    <div class="n-tag">由 AI 营养师生成 · 已学习你的偏好</div>
+    <div class="n-actions">
+      <button>⏰ 稍后</button>
+      <button onclick="flash('「跳过」反馈将回传 Agent (FR-NTF-04)')">✕ 跳过</button>
+      <button class="primary" onclick="flash('「直接记录午餐」：打开记录页 (FR-NOTIFY-04)')">📝 记录午餐</button>
+    </div>
+  </div>
+
+  <div class="notif-card">
+    <div class="n-head"><div class="n-app">🌙</div><span class="n-title">AI 健康伴侣 · 防亏空保护</span><span class="n-time">07:02</span></div>
+    <div class="n-body">身体电量 <b>42%</b>（&lt; 50%），今日 5km 跑步已降级为慢走 + 拉伸。<br>早餐建议补充优质蛋白抗疲劳 🥚</div>
+    <div class="n-tag">防亏空保护已触发 (FR-SLEEP-09)</div>
+    <div class="n-actions">
+      <button onclick="flash('已调起 5 分钟舒缓冥想')">🧘 舒缓冥想</button>
+      <button class="primary" onclick="flash('已生成当日营养补偿策略')">🥣 补偿方案</button>
+    </div>
+  </div>
+
+  <div class="notif-card">
+    <div class="n-head"><div class="n-app">🌙</div><span class="n-title">AI 健康伴侣 · 睡眠准备</span><span class="n-time">21:45</span></div>
+    <div class="n-body">今晚 22:30 前入睡可达成早睡目标（已连续 6 天）。<br>已为你开启睡前放松：冥想 10 分钟 🧘</div>
+    <div class="n-actions">
+      <button>⏰ 稍后</button>
+      <button class="primary">🧘 开始放松</button>
+    </div>
+  </div>
+
+  <div class="notif-card">
+    <div class="n-head"><div class="n-app">⌚</div><span class="n-title">手环镜像通知 · 能量目标达成</span><span class="n-time">19:02</span></div>
+    <div class="n-body">🎉 今日能量摄入 2,098 kcal，达成目标 95%！<br>睡前 2 小时请停止进食，保持水分 💧</div>
+  </div>
+
+  <div class="ls-hint">──── 上滑解锁 ────</div>
+</div>
+
+</div>
+
+<!-- modal: 拍照识食 -->
+<div class="modal-overlay" id="cameraModal" onclick="if(event.target===this)closeCamera()">
+  <div class="modal">
+    <div class="m-title">📷 拍照识食 · AI 识别结果</div>
+    <div class="m-photo"><span class="ph-ic">🍜</span>模拟食物照片预览（真实环境为相机拍摄 / 相册上传）</div>
+    <div class="m-food">
+      <div class="row1"><span>番茄牛肉面（大碗）</span><span>识别置信度 92%</span></div>
+      <div class="row2">
+        份量：<button onclick="adjustPortion(-0.5)">−</button><b id="portionVal">1.0</b> 碗<button onclick="adjustPortion(0.5)">＋</button>
+        ｜ 估算热量：<b id="kcalEst">~620</b> kcal <span class="pill good">适中</span>
+      </div>
+    </div>
+    <div class="m-note">热量为「适中 / 偏高」模糊估算区间，不做强制精确扣减，减少记录焦虑 (FR-DIET-01 / FR-DIET-13)；可手动修正份量。</div>
+    <div class="m-btns">
+      <button class="ghost" onclick="closeCamera()">取消</button>
+      <button class="primary" onclick="confirmRecord()">✓ 确认记录</button>
+    </div>
+  </div>
+</div>
+
+<!-- toast -->
+<div id="toast"></div>
+
+<script>
+const views={home:'view-home',diet:'view-diet',sleep:'view-sleep',rhythm:'view-rhythm',ai:'view-ai',profile:'view-profile',notif:'view-notif',onboard:'view-onboard',report:'view-report',archive:'view-archive',sleepreport:'view-sleepreport',badges:'view-badges',memory:'view-memory',data:'view-data',subscribe:'view-subscribe'};
+const tabs=['home','diet','sleep','rhythm','ai','profile'];
+let _cur='home'; let _stack=[];
+function render(){
+  Object.keys(views).forEach(k=>{
+    document.getElementById(views[k]).classList.toggle('active',k===_cur);
+  });
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  const i=tabs.indexOf(_cur);
+  if(i>=0) document.querySelectorAll('.tab')[i].classList.add('active');
+  document.getElementById('screen').scrollTop=0;
+}
+function go(name){
+  if(_cur!==name) _stack.push(_cur);
+  _cur=name; render();
+}
+function back(){
+  _cur=_stack.length?_stack.pop():'home'; render();
+}
+function seg(el){
+  el.parentNode.querySelectorAll('button').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+}
+function chip(el){
+  const s=el.parentNode;
+  s.querySelectorAll('.date-chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+}
+function pill(el){
+  el.classList.toggle('on');
+}
+function delMemory(btn){
+  const it=btn.closest('.memory-item');
+  it.style.transition='.25s'; it.style.opacity=0; it.style.transform='translateX(8px)';
+  setTimeout(()=>{ it.remove(); flash('该记忆已删除 (FR-AGENT-03)'); },240);
+}
+let toastTimer;
+function flash(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.style.opacity=1;t.style.transform='translateX(-50%) translateY(0)';
+  clearTimeout(toastTimer);toastTimer=setTimeout(()=>{t.style.opacity=0;t.style.transform='translateX(-50%) translateY(80px)'},2600);
+}
+/* 拍照识食 modal */
+let portion=1.0;
+function openCamera(){
+  document.getElementById('cameraModal').classList.add('open');
+}
+function closeCamera(){
+  document.getElementById('cameraModal').classList.remove('open');
+}
+function adjustPortion(d){
+  portion=Math.max(0.5,Math.min(3,Math.round((portion+d)*10)/10));
+  document.getElementById('portionVal').textContent=portion.toFixed(1);
+  document.getElementById('kcalEst').textContent='~'+Math.round(620*portion);
+}
+function confirmRecord(){
+  closeCamera();
+  flash('已记录早餐 + 番茄牛肉面（份量 '+(portion>1.5?'偏多':'适中')+'）· AI 分析中 → 七要素诊断 (FR-DIET-12)');
+}
+/* 饮水 */
+let waterCups=5;
+function addWater(){
+  if(waterCups>=8)return flash('今日饮水目标已达成 🎉 (FR-DIET-16)');
+  waterCups++;
+  const cups=document.querySelectorAll('#waterTrack .cup');
+  cups[waterCups-1].classList.add('full');
+  cups[waterCups-1].textContent='🥤';
+  if(waterCups===8)flash('今日饮水目标已达成 🎉 (FR-DIET-16)');
+}
+/* 通知中心筛选 */
+function filterNotif(btn){
+  const row=btn.parentNode;
+  row.querySelectorAll('button').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  const cat=btn.textContent.trim();
+  document.querySelectorAll('#view-notif .card').forEach(card=>{
+    card.style.display='block';
+  });
+  document.querySelectorAll('#view-notif .nf').forEach(nf=>{
+    const c=nf.dataset.cat||'';
+    const show=cat==='全部'||c===cat;
+    nf.style.display=show?'flex':'none';
+  });
+}
+</script>
+</body>
+</html>
