@@ -9,14 +9,17 @@
 ├── prototype/          # 高保真交互原型（纯 HTML/CSS/JS，浏览器直接打开）
 │   ├── index.html      # V1.3 · 15 个页面 + 锁屏通知演示
 │   ├── test/           # 测试版：验收清单 / A/B 换肤 / 深色 / 操作日志
-│   └── macos/          # macOS 风格原型（Apple 设计语言：菜单栏 / Dock / 毛玻璃）
-├── docs/               # 产品文档
+│   ├── macos/          # macOS 风格原型（Apple 设计语言：菜单栏 / Dock / 毛玻璃）
+│   └── docs/           # 文档中心构建产物（MkDocs 输出，/docs 访问）
+├── docs/               # 产品文档（MkDocs 源文件）
+│   ├── index.md        # 文档中心首页
 │   ├── SRS.md          # 软件需求规格说明书 V1.1
 │   ├── 原型页面-功能清单.md    # 页面 × 功能点 × 需求编号 完整对照
 │   ├── 健康伴侣-功能清单.md    # 产品功能清单 V1.2 整合版
 │   ├── 行业调研报告.md
 │   ├── 穿戴设备接入方案-小米手环.md  # M5 手环接入：Health Connect/HealthKit 主通道 + 实操步骤
 │   └── 协作工作台SOP.md
+├── mkdocs.yml          # 文档中心配置（Material 主题，构建到 prototype/docs）
 └── vercel.json         # Vercel 部署配置（根路径 → 原型）
 ```
 
@@ -25,6 +28,7 @@
 - 原型演示（正式版）：`/`（自动重定向至 `prototype/index.html`）
 - **测试版（BETA）**：`/test`（验收清单 / A/B 换肤 / 深色模式 / 操作日志）
 - **macOS 版**：`/mac`（Apple 设计语言 · 菜单栏 / Dock / 毛玻璃 / 深浅色切换）
+- **文档中心**：`/docs`（MkDocs Material · 需求 / 功能清单 / 调研 / 接入方案）
 - 本地预览：`open prototype/index.html`
 
 ## 🗺️ 里程碑

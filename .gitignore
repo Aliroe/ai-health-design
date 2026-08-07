@@ -1,6 +1,9 @@
 # Node modules
 node_modules/
 
+# Python
+.venv/
+
 # macOS
 .DS_Store
 

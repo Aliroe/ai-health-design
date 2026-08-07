@@ -1,0 +1,54 @@
+site_name: AI 健康伴侣 · 文档中心
+site_description: AI 健康伴侣产品文档中心：需求规格、功能清单、原型说明、行业调研、穿戴设备接入方案
+docs_dir: docs
+site_dir: prototype/docs
+exclude_docs: "*.pdf"
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: green
+      accent: light green
+      toggle:
+        icon: material/weather-night
+        name: 切换到深色模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: green
+      accent: light green
+      toggle:
+        icon: material/weather-sunny
+        name: 切换到浅色模式
+markdown_extensions:
+  - tables
+  - fenced_code
+  - toc:
+      permalink: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.tabbed
+extra:
+  generator: false
+copyright: AI 健康伴侣 · 内部文档（非公开）
+nav:
+  - 首页: index.md
+  - 需求与功能:
+      - 软件需求规格说明书: SRS.md
+      - 健康伴侣功能清单: 健康伴侣-功能清单.md
+      - 原型页面功能清单: 原型页面-功能清单.md
+  - 调研与接入方案:
+      - 行业调研报告: 行业调研报告.md
+      - 小米手环穿戴接入方案: 穿戴设备接入方案-小米手环.md
+  - 协作流程:
+      - 协作工作台 SOP: 协作工作台SOP.md
