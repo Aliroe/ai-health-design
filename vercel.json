@@ -9,6 +9,7 @@
     { "source": "/test/", "destination": "/prototype/test/index.html" },
     { "source": "/mac", "destination": "/prototype/macos/index.html" },
     { "source": "/mac/", "destination": "/prototype/macos/index.html" },
+    { "source": "/docs/:path*/", "destination": "/prototype/docs/:path*/index.html" },
     { "source": "/docs/:path*", "destination": "/prototype/docs/:path*" }
   ]
 }
