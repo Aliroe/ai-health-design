@@ -31,6 +31,21 @@
 - **文档中心**：`/docs`（MkDocs Material · 需求 / 功能清单 / 调研 / 接入方案）
 - 本地预览：`open prototype/index.html`
 
+## 🚀 部署（Vercel）
+
+项目未连接 GitHub 集成，部署走 git-less API（`scripts/deploy-vercel.py`）：
+
+```bash
+VTOKEN=<你的 Vercel Token> python3 scripts/deploy-vercel.py
+```
+
+1. Token 获取：Vercel → Account Settings → Tokens → Create（Full Account 权限）
+2. 脚本自动 `git archive HEAD` 打包当前代码 → 上传文件 → 创建 production 部署
+3. 部署完成输出线上 URL，约 1 分钟生效
+
+> 若需推送即自动部署：GitHub 安装 Vercel App 并授权本仓库后，在 Vercel 项目 Settings → Git 连接仓库即可。
+> 国内网络推送到 GitHub：`git config --global --unset-all url.https://ghproxy.net/https://github.com/.insteadof && git -c http.https://github.com.proxy=socks5h://127.0.0.1:7890 push origin main && git config --global --add url.https://ghproxy.net/https://github.com/.insteadof https://github.com/`
+
 ## 🗺️ 里程碑
 
 | 阶段 | 范围 |
