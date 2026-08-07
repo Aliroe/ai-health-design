@@ -7,7 +7,9 @@
 
 ```
 ├── prototype/          # 高保真交互原型（纯 HTML/CSS/JS，浏览器直接打开）
-│   └── index.html      # V1.3 · 15 个页面 + 锁屏通知演示
+│   ├── index.html      # V1.3 · 15 个页面 + 锁屏通知演示
+│   ├── test/           # 测试版：验收清单 / A/B 换肤 / 深色 / 操作日志
+│   └── macos/          # macOS 风格原型（Apple 设计语言：菜单栏 / Dock / 毛玻璃）
 ├── docs/               # 产品文档
 │   ├── SRS.md          # 软件需求规格说明书 V1.1
 │   ├── 原型页面-功能清单.md    # 页面 × 功能点 × 需求编号 完整对照
@@ -21,6 +23,7 @@
 
 - 原型演示（正式版）：`/`（自动重定向至 `prototype/index.html`）
 - **测试版（BETA）**：`/test`（验收清单 / A/B 换肤 / 深色模式 / 操作日志）
+- **macOS 版**：`/mac`（Apple 设计语言 · 菜单栏 / Dock / 毛玻璃 / 深浅色切换）
 - 本地预览：`open prototype/index.html`
 
 ## 🗺️ 里程碑

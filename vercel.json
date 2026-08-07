@@ -2,6 +2,8 @@
   "rewrites": [
     { "source": "/", "destination": "/prototype/index.html" },
     { "source": "/test", "destination": "/prototype/test/index.html" },
-    { "source": "/test/", "destination": "/prototype/test/index.html" }
+    { "source": "/test/", "destination": "/prototype/test/index.html" },
+    { "source": "/mac", "destination": "/prototype/macos/index.html" },
+    { "source": "/mac/", "destination": "/prototype/macos/index.html" }
   ]
 }
