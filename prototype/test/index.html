@@ -396,12 +396,106 @@ h2.sec{font-size:15px;color:var(--ink);margin:18px 2px 10px}
 
 /* toast */
 #toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(80px);background:#1c2b26;color:#fff;padding:10px 18px;border-radius:12px;font-size:12.5px;opacity:0;transition:.3s;z-index:300;max-width:520px;text-align:center}
+
+/* ========== /test 测试版专用层 ========== */
+.testbadge{position:fixed;top:14px;right:14px;z-index:400;display:flex;gap:8px}
+.testbadge button{border:none;border-radius:12px;padding:8px 13px;font-size:12px;font-weight:700;cursor:pointer;background:#1c2b26;color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.18);transition:.15s}
+.testbadge button:hover{transform:translateY(-1px)}
+.testbadge button.beta{background:linear-gradient(135deg,#8b5cf6,#3b82f6)}
+.drawer{position:fixed;top:0;right:-380px;width:360px;max-width:94vw;height:100vh;background:#fff;z-index:500;box-shadow:-12px 0 40px rgba(20,32,28,.15);transition:right .3s;display:flex;flex-direction:column}
+.drawer.open{right:0}
+.drawer .d-head{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-bottom:1px solid var(--line)}
+.drawer .d-head b{font-size:14px;color:var(--ink)}
+.drawer .d-close{border:none;background:#eef2f0;border-radius:10px;width:30px;height:30px;cursor:pointer;color:var(--ink)}
+.drawer .d-body{flex:1;overflow-y:auto;padding:14px 18px}
+.testnav .np-item{font-size:12.5px;padding:9px 10px}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:9px 2px;border-bottom:1px dashed var(--line);font-size:12px;color:var(--ink);cursor:pointer;line-height:1.5}
+.chk:last-child{border:none}
+.chk .cb{width:20px;height:20px;border-radius:6px;border:2px solid var(--mint);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;margin-top:1px}
+.chk.on .cb{background:var(--mint)}
+.chk.on{text-decoration:line-through;color:var(--sub)}
+.prog{height:8px;background:#eef2f0;border-radius:6px;overflow:hidden;margin:6px 0 12px}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--mint),var(--green));transition:width .3s}
+.testlog{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:var(--ink);line-height:1.8;background:#f4f7f5;border-radius:10px;padding:10px;height:220px;overflow-y:auto}
+.testlog div{border-bottom:1px dashed var(--line);padding:2px 0}
+.tabsw{display:flex;gap:8px;margin-bottom:12px}
+.tabsw button{flex:1;padding:10px 0;border:1px solid var(--line);background:#fff;border-radius:11px;font-size:12px;font-weight:600;cursor:pointer;color:var(--ink);line-height:1.5}
+.tabsw button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tabsw button small{font-size:10px}
+/* A/B 主题 B：科技蓝紫 */
+body.theme-alt{--mint:#5b8cff;--mint-soft:#e8eeff;--green:#3d6df2;--blue:#7c5cff;--purple:#a855f7;--orange:#f97316}
+body.theme-alt .lockscreen{background:linear-gradient(160deg,#1e1b4b,#312e81 55%,#0f172a 100%)}
+/* 深色模式（BETA） */
+body.dark{--bg:#0e1311;--card:#161d1a;--ink:#e6efe9;--sub:#8fa39a;--line:#27332e;--mint-soft:#12251e}
+body.dark{background:linear-gradient(135deg,#101512,#0e1311 60%,#141210)}
+body.dark .phone{box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 0 12px #05080b,0 0 0 14px #131a17}
+body.dark .screen{background:#111714}
+body.dark .card,body.dark .meal-card,body.dark .chat-input,body.dark .rp-card,body.dark .device,body.dark .badge,body.dark .photo-cell,body.dark .navpanel,body.dark .np-item:hover{background:#161d1a}
+body.dark .np-head{background:linear-gradient(135deg,#12251e,#161d1a)}
+body.dark .tabbar{background:#131a17;border-color:#27332e}
+body.dark .track,body.dark .factor,body.dark .water-track .cup,body.dark .date-chip,body.dark .toggle,body.dark .barcode,body.dark .seg,body.dark .timing-row .tt,body.dark .prog,body.dark .page-top .btn-back,body.dark .btn-back,body.dark .d-close{background:#212b26}
+body.dark .page-top,body.dark .record-bar{background:rgba(17,23,20,.92)}
+body.dark .tab{color:#8fa39a}
+body.dark .tab.active{background:#12251e;color:#5b8cff}
+body.dark .task,body.dark .nf,body.dark .memory-item,body.dark .setting-item,body.dark .chk{border-color:#27332e}
+body.dark .insight{background:linear-gradient(135deg,#12251e,#142036)}
+body.dark .ai-note.ok,body.dark .m-tip{background:#12251e;color:#7fd4b4}
+body.dark .ai-note.warn{background:#2a2110;color:#f5c469}
+body.dark .nf.unread{background:linear-gradient(90deg,#12251e,transparent 60%)}
+body.dark .archive{background:linear-gradient(180deg,#1a231f,#161d1a)}
+body.dark .m-photo{background:linear-gradient(135deg,#12251e,#1a231f)}
+body.dark .modal,body.dark .drawer{background:#161d1a}
+body.dark .testlog{background:#111714;color:#cfe0d7}
+body.dark .chat-input input{color:#e6efe9}
+body.dark .mic{box-shadow:0 8px 24px rgba(34,160,107,.25)}
+body.dark .login-btn{background:#1a231f;border-color:#27332e}
+body.dark .np-item{color:#cfe0d7}
+
 </style>
 </head>
 <body>
 
+<div class="testbadge">
+  <button class="beta" onclick="openTestDrawer('testNav')">🧭 导航</button>
+  <button class="beta" onclick="openTestDrawer('testChk')">📋 验收清单</button>
+  <button class="beta" onclick="openTestDrawer('testTheme')">🎨 换肤</button>
+  <button class="beta" onclick="openTestDrawer('testLog')">📜 日志</button>
+</div>
+
+<div class="drawer" id="testNav">
+  <div class="d-head"><b>🧭 页面导航（BETA）</b><button class="d-close" onclick="closeTestDrawer()">✕</button></div>
+  <div class="d-body testnav" id="npListTest"></div>
+</div>
+
+<div class="drawer" id="testChk">
+  <div class="d-head"><b>📋 验收清单</b><span id="chkCount" style="font-size:12px;font-weight:700;color:var(--green)">0/13</span></div>
+  <div class="d-body">
+    <div class="prog"><i id="chkProg" style="width:0%"></i></div>
+    <div id="chkList"></div>
+    <div style="font-size:10.5px;color:var(--sub);margin-top:10px">来源：SRS V1.1 §10.1 功能验收（抽样）+ 测试版新增项。进度保存在本机。</div>
+  </div>
+</div>
+
+<div class="drawer" id="testTheme">
+  <div class="d-head"><b>🎨 A/B 换肤与深色模式</b><button class="d-close" onclick="closeTestDrawer()">✕</button></div>
+  <div class="d-body">
+    <div class="tabsw" id="tabTheme">
+      <button data-t="a" onclick="setTestTheme('a')">🍃 薄荷绿<br><small>线上主色 A</small></button>
+      <button data-t="b" onclick="setTestTheme('b')">🔵 科技蓝紫<br><small>备选色 B</small></button>
+      <button data-t="dark" onclick="setTestTheme('dark')">🌙 深色模式<br><small>BETA 项</small></button>
+    </div>
+    <div style="font-size:11px;color:var(--sub);line-height:1.7;margin-top:10px">测试目的：验证主题变量全局生效、B 版配色观感、深色模式下主要页面可读性。结论请同步至验收清单。</div>
+  </div>
+</div>
+
+<div class="drawer" id="testLog">
+  <div class="d-head"><b>📜 操作日志</b><button class="d-close" onclick="closeTestDrawer()">✕</button></div>
+  <div class="d-body"><div class="testlog" id="testLogBody"><div>测试版就绪…</div></div></div>
+</div>
+
+
 <div class="page-title">
-  <h1>🌿 AI 健康伴侣 · 高保真交互原型</h1>
+  <h1>🌿 AI 健康伴侣 · 高保真交互原型 <span style="font-size:13px;color:#8b5cf6">【🔬 测试版 BETA】</span></h1>
   <p>饮食能量分析 + 睡眠健康 + AI Agent 闭环 + 全天候节律陪伴 + 多端通知</p>
   <span class="ver">V1.4 ｜ 全部 15 页 + 左侧导航目录 ｜ 测试版（验收清单 / A-B 换肤 / 深色）见 /test</span>
   <div class="curpage">当前页面：<b id="curPageName">今日总览</b> ｜ 点击左侧目录或页面内入口切换</div>
@@ -1513,6 +1607,68 @@ function filterNotif(btn){
     nf.style.display=show?'flex':'none';
   });
 }
+
+/* ===== /test 测试版逻辑 ===== */
+(function(){
+  var log=[];
+  var olog=document.getElementById('testLogBody');
+  function pushLog(t){
+    log.unshift('['+new Date().toLocaleTimeString()+'] '+t);
+    if(log.length>30)log.pop();
+    olog.innerHTML=''; log.forEach(function(x){ var d=document.createElement('div'); d.textContent=x; olog.appendChild(d); });
+  }
+  var of=window.flash;
+  window.flash=function(m){ pushLog(m); of(m); };
+  var og=window.go;
+  window.go=function(n){ pushLog('跳转页面 → '+n); og(n); };
+  /* 抽屉 */
+  function closeD(){ document.querySelectorAll('.drawer').forEach(function(d){ d.classList.remove('open'); }); }
+  window.openTestDrawer=function(id){ closeD(); document.getElementById(id).classList.add('open'); };
+  window.closeTestDrawer=closeD;
+  /* 导航 */
+  var pages=[['home','🏠','今日总览'],['diet','🥗','饮食记录'],['sleep','🌙','睡眠健康'],['rhythm','⏰','节律陪伴'],['ai','🤖','AI 管家'],['profile','👤','我的 / 设置'],['notif','🔔','通知中心'],['onboard','🧭','新手引导'],['report','📊','能量分析报告'],['archive','📖','饮食起居注'],['sleepreport','📄','睡眠周报'],['badges','🏅','勋章墙'],['memory','🧠','AI 记忆管理'],['data','🛡️','数据与隐私'],['subscribe','💳','会员订阅']];
+  var nav=document.getElementById('npListTest');
+  pages.forEach(function(p){ var b=document.createElement('button'); b.className='np-item'; b.innerHTML='<i>'+p[1]+'</i>'+p[2]; b.onclick=function(){ go(p[0]); closeD(); }; nav.appendChild(b); });
+  /* 验收清单 */
+  var items=['拍照识食：10 张真实照片识别准确率 ≥90%，份量估算误差 ≤30%','语音/文字记录：「一碗牛肉面加一个卤蛋」解析为结构化条目，字段完整率 100%','早餐三要素：达标场景输出三项均达标；缺蛋白场景输出解释与跨餐补缺建议','七大要素：每餐输出七项完成度视图，缺项含可执行解释','AI 能量分析：能量、缺口、营养素、建议 ≥4 类信息','闭环链路：记录→分析→建议→通知→反馈 全链路 ≤10s 可见','睡眠分析：评分与结构图正确；防亏空日正确降级运动建议','起居注卡片：字段完整、可保存/分享；饮食档案可按日期回查','锁屏通知：卡片与快捷动作正常，深色/浅色模式适配','穿戴通知（后期）：手环/手表收到通知并可震动静音配置','免打扰：22:00-08:00 静默时段内不产生任何通知','A/B 换肤：薄荷绿 ↔ 科技蓝紫 切换无样式错乱','深色模式：主要页面阅读无碍（BETA 项）'];
+  var key='aihealth-test-chk'; var done={};
+  try{ done=JSON.parse(localStorage.getItem(key))||{}; }catch(e){}
+  function renderChk(){
+    var c=document.getElementById('chkList'), on=0;
+    c.innerHTML='';
+    items.forEach(function(it,i){
+      var d=!!done[i]; if(d)on++;
+      var div=document.createElement('div');
+      div.className='chk'+(d?' on':'');
+      div.innerHTML='<span class="cb">✓</span><span>'+it+'</span>';
+      div.onclick=function(){
+        done[i]=!done[i];
+        try{ localStorage.setItem(key,JSON.stringify(done)); }catch(e){}
+        pushLog('验收项 '+(done[i]?'勾选 ✓ #':'取消 ✗ #')+(i+1));
+        renderChk();
+      };
+      c.appendChild(div);
+    });
+    document.getElementById('chkProg').style.width=Math.round(on/items.length*100)+'%';
+    document.getElementById('chkCount').textContent=on+' / '+items.length;
+  }
+  renderChk();
+  /* 主题 */
+  var tk='aihealth-test-theme'; var t='a';
+  try{ t=localStorage.getItem(tk)||'a'; }catch(e){}
+  function applyTheme(v){
+    document.body.classList.remove('theme-alt','dark');
+    if(v==='b')document.body.classList.add('theme-alt');
+    if(v==='dark')document.body.classList.add('dark');
+    try{ localStorage.setItem(tk,v); }catch(e){}
+    document.querySelectorAll('#tabTheme button').forEach(function(b){ b.classList.toggle('on',b.dataset.t===v); });
+    pushLog('切换主题 → '+({a:'薄荷绿 A',b:'科技蓝紫 B',dark:'深色模式'})[v]);
+  }
+  window.setTestTheme=applyTheme;
+  applyTheme(t);
+  pushLog('测试版已加载 ✓ 记录 '+(log.length-1)+' 条');
+})();
+
 </script>
 </body>
 </html>

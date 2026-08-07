@@ -19,7 +19,8 @@
 
 ## 🖥️ 在线访问
 
-- 原型演示：项目根路径（自动重定向至 `prototype/index.html`）
+- 原型演示（正式版）：`/`（自动重定向至 `prototype/index.html`）
+- **测试版（BETA）**：`/test`（验收清单 / A/B 换肤 / 深色模式 / 操作日志）
 - 本地预览：`open prototype/index.html`
 
 ## 🗺️ 里程碑
