@@ -1,12 +1,14 @@
 {
+  "redirects": [
+    { "source": "/docs", "destination": "/prototype/docs/", "permanent": false },
+    { "source": "/docs/", "destination": "/prototype/docs/", "permanent": false }
+  ],
   "rewrites": [
     { "source": "/", "destination": "/prototype/index.html" },
     { "source": "/test", "destination": "/prototype/test/index.html" },
     { "source": "/test/", "destination": "/prototype/test/index.html" },
     { "source": "/mac", "destination": "/prototype/macos/index.html" },
     { "source": "/mac/", "destination": "/prototype/macos/index.html" },
-    { "source": "/docs", "destination": "/prototype/docs/index.html" },
-    { "source": "/docs/", "destination": "/prototype/docs/index.html" },
     { "source": "/docs/:path*", "destination": "/prototype/docs/:path*" }
   ]
 }
