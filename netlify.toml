@@ -1,0 +1,32 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/"
+  to = "/prototype/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/test"
+  to = "/prototype/test/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/mac"
+  to = "/prototype/macos/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/pitch"
+  to = "/prototype/pitch/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/docs"
+  to = "/prototype/docs/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/docs/*"
+  to = "/prototype/docs/:splat"
+  status = 200
