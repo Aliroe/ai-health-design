@@ -134,6 +134,26 @@ body{
 .task.done .t{text-decoration:line-through;color:var(--txt3)}
 .task .t{flex:1;color:var(--txt)}
 .task .time{font-size:11px;color:var(--txt3)}
+.task .ops{display:flex;gap:5px;align-items:center;flex-shrink:0}
+.task .ops button{width:26px;height:26px;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--txt)}
+.task .ops .t-edit{background:var(--card2)}
+.task .ops .t-del{background:rgba(255,59,48,.12);color:var(--red,#ff3b30)}
+.task.swiping{transition:none}
+.add-task-row{display:flex;gap:8px;margin:12px 16px}
+.add-task-row input{flex:1;min-width:0;padding:9px 12px;border:1.5px dashed var(--mint);border-radius:10px;font-size:12.5px;background:var(--card2);color:var(--txt);outline:none}
+.add-task-row input:focus{border-color:var(--mint)}
+.add-task-row button{white-space:nowrap;padding:9px 14px;border:none;border-radius:10px;background:linear-gradient(135deg,#00c7be,#007aff);color:#fff;font-size:12.5px;font-weight:600;cursor:pointer}
+/* modal */
+.m-overlay{position:fixed;inset:0;background:rgba(20,20,24,.5);backdrop-filter:blur(4px);z-index:1300;display:none;align-items:center;justify-content:center}
+.m-overlay.open{display:flex}
+.m-box{width:360px;max-width:90vw;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+.m-box .m-title{font-size:15px;font-weight:700;color:var(--txt);margin-bottom:12px}
+.m-box .m-lbl{font-size:11px;color:var(--txt2);margin-bottom:6px}
+.m-box input{width:100%;padding:10px 12px;border:1.5px solid var(--sep);border-radius:10px;font-size:13px;outline:none;background:var(--card2);color:var(--txt)}
+.m-box .m-btns{display:flex;gap:9px;margin-top:16px}
+.m-box .m-btns button{flex:1;padding:10px 0;border:none;border-radius:11px;font-size:13px;font-weight:600;cursor:pointer}
+.m-box .m-btns .ghost{background:var(--card2);color:var(--txt2)}
+.m-box .m-btns .primary{background:linear-gradient(135deg,#00c7be,#007aff);color:#fff}
 
 /* 餐次 */
 .meal{border-top:1px solid var(--sep);padding:14px 16px}
@@ -408,11 +428,15 @@ body.dark .s-mic{box-shadow:0 8px 24px rgba(10,132,255,.35)}
             </div>
           </div>
 
-          <div class="g-title">📋 今日任务（AI 生成）</div>
-          <div class="g-card">
-            <div class="task" onclick="this.classList.toggle('done')"><span class="ck">✓</span><span class="t">午餐补充蛋白质 ≥ 30g</span><span class="time">12:00 提醒</span></div>
-            <div class="task" onclick="this.classList.toggle('done')"><span class="ck">✓</span><span class="t">18:30 前完成晚餐（配合深睡改善）</span><span class="time">18:00 提醒</span></div>
-            <div class="task" onclick="this.classList.toggle('done')"><span class="ck">✓</span><span class="t">22:30 开启睡前放松模式</span><span class="time">22:15 提醒</span></div>
+          <div class="g-title">📋 今日任务（AI 生成）<span style="font-weight:400;color:var(--txt2);font-size:12px">可编辑 · 可删除 · 可新增</span></div>
+          <div class="g-card" id="homeTaskCard">
+            <div class="task" onclick="this.classList.toggle('done')"><span class="ck" onclick="event.stopPropagation();toggleTask(this)">✓</span><span class="t">午餐补充蛋白质 ≥ 30g</span><span class="time">12:00 提醒</span><span class="ops" onclick="event.stopPropagation()"><button class="t-edit" onclick="editTask(this)" title="编辑">✏️</button><button class="t-del" onclick="delTask(this)" title="删除">✕</button></span></div>
+            <div class="task" onclick="this.classList.toggle('done')"><span class="ck" onclick="event.stopPropagation();toggleTask(this)">✓</span><span class="t">18:30 前完成晚餐（配合深睡改善）</span><span class="time">18:00 提醒</span><span class="ops" onclick="event.stopPropagation()"><button class="t-edit" onclick="editTask(this)" title="编辑">✏️</button><button class="t-del" onclick="delTask(this)" title="删除">✕</button></span></div>
+            <div class="task" onclick="this.classList.toggle('done')"><span class="ck" onclick="event.stopPropagation();toggleTask(this)">✓</span><span class="t">22:30 开启睡前放松模式</span><span class="time">22:15 提醒</span><span class="ops" onclick="event.stopPropagation()"><button class="t-edit" onclick="editTask(this)" title="编辑">✏️</button><button class="t-del" onclick="delTask(this)" title="删除">✕</button></span></div>
+          </div>
+          <div class="add-task-row">
+            <input id="homeTaskInput" placeholder="添加自定义任务，如：下午喝水 4 杯…" maxlength="40">
+            <button onclick="addCustomTask()">＋ 添加</button>
           </div>
 
           <div class="g-title">📖 今日起居注 <span style="font-weight:400">(FR-DASH-08 · 点击回看)</span></div>
@@ -876,6 +900,21 @@ body.dark .s-mic{box-shadow:0 8px 24px rgba(10,132,255,.35)}
   </div>
 </div>
 
+<!-- modal: 编辑任务 -->
+<div class="m-overlay" id="taskEditModal" onclick="if(event.target===this)closeTaskEdit()">
+  <div class="m-box">
+    <div class="m-title">✏️ 编辑任务</div>
+    <div class="m-lbl">任务内容</div>
+    <input id="taskEditText" maxlength="40">
+    <div class="m-lbl" style="margin-top:10px">提醒时间</div>
+    <input id="taskEditTime" placeholder="如：12:00 提醒" maxlength="20">
+    <div class="m-btns">
+      <button class="ghost" onclick="closeTaskEdit()">取消</button>
+      <button class="primary" onclick="saveTask()">✓ 保存</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script>
@@ -914,6 +953,43 @@ function filterFood(q){q=q.trim();document.querySelectorAll('#foodList .g-row').
 function setTheme(v){
   document.body.classList.toggle('dark',v==='dark');
   document.getElementById('themeMenu').textContent=v==='dark'?'☀️ 浅色':'🌙 深色';
+}
+/* ===== 今日任务：打勾 / 编辑 / 删除 / 新增 ===== */
+function toggleTask(ck){ ck.closest('.task').classList.toggle('done'); }
+function delTaskAnim(el){
+  el.style.transition='.25s'; el.style.opacity=0; el.style.transform='translateX(120px)';
+  setTimeout(()=>{ el.remove(); flash('任务已删除'); },230);
+}
+function delTask(btn){ delTaskAnim(btn.closest('.task')); }
+let editingTask=null;
+function editTask(btn){
+  editingTask=btn.closest('.task');
+  document.getElementById('taskEditText').value=editingTask.querySelector('.t').textContent.trim();
+  document.getElementById('taskEditTime').value=editingTask.querySelector('.time').textContent.trim();
+  document.getElementById('taskEditModal').classList.add('open');
+}
+function closeTaskEdit(){ document.getElementById('taskEditModal').classList.remove('open'); editingTask=null; }
+function saveTask(){
+  if(!editingTask){ closeTaskEdit(); return; }
+  const t=document.getElementById('taskEditText').value.trim();
+  if(!t){ flash('请输入任务内容'); return; }
+  editingTask.querySelector('.t').textContent=t;
+  editingTask.querySelector('.time').textContent=document.getElementById('taskEditTime').value.trim()||'提醒';
+  flash('任务已保存 ✓');
+  closeTaskEdit();
+}
+function addCustomTask(){
+  const input=document.getElementById('homeTaskInput');
+  const v=(input.value||'').trim();
+  if(!v){ flash('请输入任务内容'); return; }
+  const card=document.getElementById('homeTaskCard');
+  const d=document.createElement('div');
+  d.className='task';
+  d.onclick=function(){ this.classList.toggle('done'); };
+  d.innerHTML='<span class="ck" onclick="event.stopPropagation();toggleTask(this)">✓</span><span class="t">'+v+'</span><span class="time">自定义</span><span class="ops" onclick="event.stopPropagation()"><button class="t-edit" onclick="editTask(this)">✏️</button><button class="t-del" onclick="delTask(this)">✕</button></span>';
+  card.appendChild(d);
+  input.value='';
+  flash('已添加自定义任务：'+v);
 }
 /* 首屏动效 */
 window.addEventListener('load',()=>{

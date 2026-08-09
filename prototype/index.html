@@ -97,6 +97,15 @@ h2.sec{font-size:15px;color:var(--ink);margin:18px 2px 10px}
 .task.done .t{text-decoration:line-through;color:var(--sub)}
 .task .t{flex:1}
 .task .time{font-size:11px;color:var(--sub)}
+.task .ops{display:flex;gap:5px;align-items:center;flex-shrink:0}
+.task .ops button{width:27px;height:27px;border:none;border-radius:9px;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.task .ops .t-edit{background:#f2f6f4;color:var(--ink)}
+.task .ops .t-del{background:#fdecec;color:var(--red)}
+.task.swiping{transition:none}
+.add-task-row{display:flex;gap:8px;margin:10px 0 2px}
+.add-task-row input{flex:1;min-width:0;padding:10px 12px;border:1.5px dashed var(--mint);border-radius:12px;font-size:12.5px;background:#f7fbf9;color:var(--ink);outline:none}
+.add-task-row input:focus{border-color:var(--green);background:#fff}
+.add-task-row button{white-space:nowrap;padding:10px 14px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--mint),var(--green));color:#fff;font-size:12.5px;font-weight:600;cursor:pointer}
 
 /* 起居注 archive */
 .archive{border:1px solid #f0e4c8;background:linear-gradient(180deg,#fffdf5,#fff)}
@@ -491,11 +500,15 @@ h2.sec{font-size:15px;color:var(--ink);margin:18px 2px 10px}
           <small>建议今晚 19:00 前完成晚餐 · 点击查看归因 →</small></div>
       </div>
 
-      <h2 class="sec">📋 今日任务（AI 生成）</h2>
-      <div class="card" style="padding:6px 14px">
-        <div class="task" onclick="this.classList.toggle('done')"><span class="ck">✓</span><span class="t">午餐补充蛋白质 ≥ 30g</span><span class="time">12:00 提醒</span></div>
-        <div class="task" onclick="this.classList.toggle('done')"><span class="ck">✓</span><span class="t">18:30 前完成晚餐（配合深睡改善）</span><span class="time">18:00 提醒</span></div>
-        <div class="task" onclick="this.classList.toggle('done')"><span class="ck">✓</span><span class="t">22:30 开启睡前放松模式</span><span class="time">22:15 提醒</span></div>
+      <h2 class="sec">📋 今日任务 <span style="font-size:11px;color:var(--sub);font-weight:400">可自定义 · 编辑 / 左滑删除</span></h2>
+      <div class="card" style="padding:6px 14px" id="homeTaskCard">
+        <div class="task" onclick="this.classList.toggle('done')"><span class="ck" onclick="event.stopPropagation();toggleTask(this)">✓</span><span class="t">午餐补充蛋白质 ≥ 30g</span><span class="time">12:00 提醒</span><span class="ops" onclick="event.stopPropagation()"><button class="t-edit" onclick="editTask(this)" title="编辑">✏️</button><button class="t-del" onclick="delTask(this)" title="删除">✕</button></span></div>
+        <div class="task" onclick="this.classList.toggle('done')"><span class="ck" onclick="event.stopPropagation();toggleTask(this)">✓</span><span class="t">18:30 前完成晚餐（配合深睡改善）</span><span class="time">18:00 提醒</span><span class="ops" onclick="event.stopPropagation()"><button class="t-edit" onclick="editTask(this)" title="编辑">✏️</button><button class="t-del" onclick="delTask(this)" title="删除">✕</button></span></div>
+        <div class="task" onclick="this.classList.toggle('done')"><span class="ck" onclick="event.stopPropagation();toggleTask(this)">✓</span><span class="t">22:30 开启睡前放松模式</span><span class="time">22:15 提醒</span><span class="ops" onclick="event.stopPropagation()"><button class="t-edit" onclick="editTask(this)" title="编辑">✏️</button><button class="t-del" onclick="delTask(this)" title="删除">✕</button></span></div>
+      </div>
+      <div class="add-task-row">
+        <input id="homeTaskInput" placeholder="添加自定义任务，如：下午喝水 4 杯…" maxlength="40">
+        <button onclick="addCustomTask('home')">＋ 添加</button>
       </div>
 
       <h2 class="sec">📖 今日起居注 <span style="font-size:11px;color:var(--sub);font-weight:400">(FR-DASH-08 · 自动汇总)</span></h2>
@@ -662,10 +675,7 @@ h2.sec{font-size:15px;color:var(--ink);margin:18px 2px 10px}
       </div>
 
       <div class="card" style="padding:12px">
-        <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:8px">📌 今晚干预计划</div>
-        <div class="task" onclick="this.classList.toggle('done')"><span class="ck">✓</span><span class="t">21:45 推送「睡眠准备」提醒</span><span class="time">锁屏</span></div>
-        <div class="task" onclick="this.classList.toggle('done')"><span class="ck">✓</span><span class="t">22:30 睡前放松模式（冥想 10min）</span><span class="time">通知</span></div>
-        <div class="task" onclick="this.classList.toggle('done')"><span class="ck">✓</span><span class="t">06:20 浅睡窗口唤醒（可选）</span><span class="time">FR-SLEEP-06</span></div>
+        <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:8px">📌 今晚干预计划 <span style="font-size:11px;color:var(--green);font-weight:400;cursor:pointer" onclick="go('rhythm')">已并入「陪伴」模块统一通知 ›</span></div>
       </div>
 
       <h2 class="sec">🏃 运动计划安全护栏 <span style="font-size:11px;color:var(--sub);font-weight:400">(FR-SLEEP-10)</span></h2>
@@ -691,8 +701,8 @@ h2.sec{font-size:15px;color:var(--ink);margin:18px 2px 10px}
 
     <!-- ========== VIEW: RHYTHM ========== -->
     <div class="view" id="view-rhythm">
-      <h2 class="sec">⏰ 全天候节律陪伴</h2>
-      <p class="rhythm-sub">按生理节律全天候触达的 Agent 陪伴模块 (FR-RHYTHM-01~08) ｜ 当前时间 09:41</p>
+      <h2 class="sec">⏰ 全天候节律陪伴 <span style="font-size:11px;color:var(--sub);font-weight:400">可自定义</span></h2>
+      <p class="rhythm-sub">按生理节律全天候触达的 Agent 陪伴模块 (FR-RHYTHM-01~08) ｜ 当前时间 09:41 ｜ 每个节点均可「✏️ 编辑」保存</p>
 
       <div class="timeline">
         <div class="rp">
@@ -700,7 +710,7 @@ h2.sec{font-size:15px;color:var(--ink);margin:18px 2px 10px}
           <div class="rp-card">
             <b>🌅 晨间唤醒 (FR-RHYTHM-01)</b>
             <p>身体电量 <strong>86% &gt; 80%</strong> → 推荐 3-5 分钟活力拉伸 / 觉醒冥想；电量 &lt; 50% 时自动触发防亏空保护。</p>
-            <div class="rp-acts"><button onclick="flash('已推送晨间唤醒卡片：电量 86% · 活力拉伸 3min (FR-RHYTHM-01)')">演示推送</button></div>
+            <div class="rp-acts"><button onclick="flash('已推送晨间唤醒卡片：电量 86% · 活力拉伸 3min (FR-RHYTHM-01)')">演示推送</button><button class="dark" onclick="editRp(this)">✏️ 编辑</button></div>
           </div>
         </div>
 
@@ -709,7 +719,7 @@ h2.sec{font-size:15px;color:var(--ink);margin:18px 2px 10px}
           <div class="rp-card">
             <b>🚇 通勤健康卡片 (FR-RHYTHM-02)</b>
             <p>每日一条权威健康卡片：「为什么要多吃优质蛋白」「水是最好的代谢催化剂」。</p>
-            <div class="rp-acts"><button onclick="flash('已推送今日卡片：优质脂肪的重要性（来源：中国营养学会）')">演示推送</button></div>
+            <div class="rp-acts"><button onclick="flash('已推送今日卡片：优质脂肪的重要性（来源：中国营养学会）')">演示推送</button><button class="dark" onclick="editRp(this)">✏️ 编辑</button></div>
           </div>
         </div>
 
@@ -721,6 +731,7 @@ h2.sec{font-size:15px;color:var(--ink);margin:18px 2px 10px}
             <div class="rp-acts">
               <button onclick="flash('已推送久坐提醒（柔性文案 + 补救动作）(FR-NOTIFY-09)')">演示推送</button>
               <button class="dark" onclick="go('notif')">查看通知中心</button>
+              <button class="dark" onclick="editRp(this)">✏️ 编辑</button>
             </div>
           </div>
         </div>
@@ -733,6 +744,7 @@ h2.sec{font-size:15px;color:var(--ink);margin:18px 2px 10px}
             <div class="rp-acts">
               <button onclick="flash('已调起 15 分钟午休降压冥想')">🧘 15min 冥想</button>
               <button class="dark" onclick="flash('已设置 30 分钟小睡闹钟')">😴 30min 小睡</button>
+              <button class="dark" onclick="editRp(this)">✏️ 编辑</button>
             </div>
           </div>
         </div>
@@ -742,7 +754,7 @@ h2.sec{font-size:15px;color:var(--ink);margin:18px 2px 10px}
           <div class="rp-card">
             <b>🚶 饭后散步与血糖稳态 (FR-RHYTHM-05)</b>
             <p>午餐打卡后提示：饭后散步 10-20 分钟平抑血糖波动，避免下午昏睡。</p>
-            <div class="rp-acts"><button onclick="flash('已推送：饭后散步 15 分钟建议 (FR-RHYTHM-05)')">演示推送</button></div>
+            <div class="rp-acts"><button onclick="flash('已推送：饭后散步 15 分钟建议 (FR-RHYTHM-05)')">演示推送</button><button class="dark" onclick="editRp(this)">✏️ 编辑</button></div>
           </div>
         </div>
 
@@ -751,7 +763,7 @@ h2.sec{font-size:15px;color:var(--ink);margin:18px 2px 10px}
           <div class="rp-card">
             <b>🌤 注意力与生物钟匹配 (FR-RHYTHM-04)</b>
             <p>结合 HRV 与疲劳数据，下午低谷期提醒 3 分钟深呼吸或起身放松。</p>
-            <div class="rp-acts"><button onclick="flash('已推送：午后低谷 3 分钟深呼吸 (FR-RHYTHM-04)')">演示推送</button></div>
+            <div class="rp-acts"><button onclick="flash('已推送：午后低谷 3 分钟深呼吸 (FR-RHYTHM-04)')">演示推送</button><button class="dark" onclick="editRp(this)">✏️ 编辑</button></div>
           </div>
         </div>
 
@@ -760,7 +772,7 @@ h2.sec{font-size:15px;color:var(--ink);margin:18px 2px 10px}
           <div class="rp-card">
             <b>🏋️ 晚间时序规划 (FR-RHYTHM-07)</b>
             <p>有运动安排时校准时间窗口；前夜睡眠差时自动将高强度运动替换为<strong>瑜伽 / 慢走 / 拉伸</strong>。</p>
-            <div class="rp-acts"><button onclick="flash('今晚 19:30 慢走 30min（原 5km 跑步已降级）(FR-RHYTHM-07)')">演示推送</button></div>
+            <div class="rp-acts"><button onclick="flash('今晚 19:30 慢走 30min（原 5km 跑步已降级）(FR-RHYTHM-07)')">演示推送</button><button class="dark" onclick="editRp(this)">✏️ 编辑</button></div>
           </div>
         </div>
 
@@ -768,14 +780,17 @@ h2.sec{font-size:15px;color:var(--ink);margin:18px 2px 10px}
           <div class="rp-time">22:30 · 睡前无缝降噪</div>
           <div class="rp-card">
             <b>🌃 睡前降噪 (FR-RHYTHM-08)</b>
-            <p>睡前 30 分钟触发准备睡眠通知，一键调起助眠内容（小宇宙助眠播客 / 白噪音 / 冥想），引导进入副交感神经状态。</p>
+            <p>睡前 30 分钟触发准备睡眠通知，一键调起助眠内容（白噪音 / 冥想），引导进入副交感神经状态。</p>
             <div class="rp-acts">
-              <button onclick="flash('已调起：小宇宙助眠播客（第三方合作）')">🎧 助眠播客</button>
-              <button class="dark" onclick="flash('已调起：白噪音 · 雨声')">🌧 白噪音</button>
+              <button onclick="flash('已调起：白噪音 · 雨声')">🌧 白噪音</button>
+              <button class="dark" onclick="flash('已调起：5 分钟睡前冥想')">🧘 冥想</button>
+              <button class="dark" onclick="editRp(this)">✏️ 编辑</button>
             </div>
           </div>
         </div>
       </div>
+
+      <button class="add-btn" onclick="addRpNode()">＋ 新增时间节点</button>
     </div>
 
     <!-- ========== VIEW: AI ========== -->
@@ -1381,6 +1396,38 @@ h2.sec{font-size:15px;color:var(--ink);margin:18px 2px 10px}
   </div>
 </div>
 
+<!-- modal: 编辑任务 -->
+<div class="modal-overlay" id="taskEditModal" onclick="if(event.target===this)closeTaskEdit()">
+  <div class="modal">
+    <div class="m-title">✏️ 编辑任务</div>
+    <div style="font-size:11px;color:var(--sub);margin-bottom:6px">任务内容</div>
+    <input id="taskEditText" maxlength="40" style="width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;font-size:13px;outline:none;color:var(--ink)">
+    <div style="font-size:11px;color:var(--sub);margin:10px 0 6px">提醒时间</div>
+    <input id="taskEditTime" placeholder="如：12:00 提醒" maxlength="20" style="width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;font-size:13px;outline:none;color:var(--ink)">
+    <div class="m-btns" style="margin-top:14px">
+      <button class="ghost" onclick="closeTaskEdit()">取消</button>
+      <button class="primary" onclick="saveTask()">✓ 保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- modal: 编辑陪伴时间节点 -->
+<div class="modal-overlay" id="rhythmEditModal" onclick="if(event.target===this)closeRpEdit()">
+  <div class="modal">
+    <div class="m-title" id="rpModalTitle">✏️ 编辑时间节点</div>
+    <div style="font-size:11px;color:var(--sub);margin-bottom:6px">时间</div>
+    <input id="rpTime" placeholder="如：07:00 · 晨间唤醒 Routine" maxlength="30" style="width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;font-size:13px;outline:none;color:var(--ink)">
+    <div style="font-size:11px;color:var(--sub);margin:10px 0 6px">标题</div>
+    <input id="rpTitle" placeholder="如：🌅 晨间唤醒" maxlength="40" style="width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;font-size:13px;outline:none;color:var(--ink)">
+    <div style="font-size:11px;color:var(--sub);margin:10px 0 6px">内容</div>
+    <textarea id="rpContent" rows="3" maxlength="120" placeholder="该时间节点的提醒内容与补救动作…" style="width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;font-size:13px;outline:none;color:var(--ink);resize:none;font-family:inherit"></textarea>
+    <div class="m-btns" style="margin-top:14px">
+      <button class="ghost" onclick="closeRpEdit()">取消</button>
+      <button class="primary" onclick="saveRp()">✓ 保存</button>
+    </div>
+  </div>
+</div>
+
 <!-- toast -->
 <div id="toast"></div>
 
@@ -1513,6 +1560,116 @@ function filterNotif(btn){
     nf.style.display=show?'flex':'none';
   });
 }
+/* ===== 今日任务：打勾 / 编辑 / 删除 / 滑动删除 ===== */
+function toggleTask(ck){ ck.closest('.task').classList.toggle('done'); }
+function delTaskAnim(el){
+  el.style.transition='.25s'; el.style.opacity=0; el.style.transform='translateX(120px)';
+  setTimeout(()=>{ el.remove(); flash('任务已删除'); },230);
+}
+function delTask(btn){ delTaskAnim(btn.closest('.task')); }
+let editingTask=null;
+function editTask(btn){
+  editingTask=btn.closest('.task');
+  document.getElementById('taskEditText').value=editingTask.querySelector('.t').textContent.trim();
+  document.getElementById('taskEditTime').value=editingTask.querySelector('.time').textContent.trim();
+  document.getElementById('taskEditModal').classList.add('open');
+}
+function closeTaskEdit(){ document.getElementById('taskEditModal').classList.remove('open'); editingTask=null; }
+function saveTask(){
+  if(!editingTask){ closeTaskEdit(); return; }
+  const t=document.getElementById('taskEditText').value.trim();
+  if(!t){ flash('请输入任务内容'); return; }
+  editingTask.querySelector('.t').textContent=t;
+  editingTask.querySelector('.time').textContent=document.getElementById('taskEditTime').value.trim()||'提醒';
+  flash('任务已保存 ✓');
+  closeTaskEdit();
+}
+function addCustomTask(scope){
+  const input=document.getElementById(scope==='home'?'homeTaskInput':'dashTaskInput');
+  const v=(input.value||'').trim();
+  if(!v){ flash('请输入任务内容'); return; }
+  const card=document.getElementById(scope==='home'?'homeTaskCard':'dashTaskCard');
+  const d=document.createElement('div');
+  d.className='task custom';
+  d.innerHTML='<span class="ck" onclick="event.stopPropagation();toggleTask(this)">✓</span><span class="t">'+v+'</span><span class="time">自定义</span><span class="ops" onclick="event.stopPropagation()"><button class="t-edit" onclick="editTask(this)">✏️</button><button class="t-del" onclick="delTask(this)">✕</button></span>';
+  d.onclick=function(){ this.classList.toggle('done'); };
+  card.appendChild(d);
+  input.value='';
+  bindTaskSwipe();
+  flash('已添加自定义任务：'+v);
+}
+/* 滑动删除：触摸 + 鼠标拖拽（左滑 >60px 删除） */
+function bindTaskSwipe(){
+  document.querySelectorAll('.task').forEach(el=>{
+    if(el.dataset.swiped) return;
+    el.dataset.swiped='1';
+    let sx=0, sy=0, cur=0, moving=false;
+    el.addEventListener('touchstart',e=>{
+      if(e.target.closest('button'))return;
+      sx=e.touches[0].clientX; sy=e.touches[0].clientY; moving=true; cur=0; el.classList.add('swiping');
+    },{passive:true});
+    el.addEventListener('touchmove',e=>{
+      if(!moving)return;
+      const dx=e.touches[0].clientX-sx, dy=e.touches[0].clientY-sy;
+      if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>8){ cur=Math.max(-150,Math.min(0,dx)); el.style.transform='translateX('+cur+'px)'; if(e.cancelable)e.preventDefault(); }
+    },{passive:false});
+    el.addEventListener('touchend',()=>{
+      moving=false; el.classList.remove('swiping');
+      if(cur<-60) delTaskAnim(el); else el.style.transform='';
+    });
+    el.addEventListener('mousedown',e=>{
+      if(e.target.closest('button'))return;
+      sx=e.clientX; sy=e.clientY; moving=true; cur=0; el.classList.add('swiping');
+    });
+    window.addEventListener('mouseup',e=>{
+      if(!moving)return; moving=false;
+      const dx=e.clientX-sx, dy=e.clientY-sy;
+      if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>8){ cur=Math.max(-150,Math.min(0,dx)); el.style.transform='translateX('+cur+'px)'; }
+      setTimeout(()=>{ if(cur<-60) delTaskAnim(el); else el.style.transform=''; },30);
+    });
+  });
+}
+/* ===== 陪伴模块：时间节点自定义（编辑 / 新增 / 保存） ===== */
+let editingRp=null, rpMode='edit';
+function editRp(btn){
+  editingRp=btn.closest('.rp');
+  rpMode='edit';
+  document.getElementById('rpModalTitle').textContent='✏️ 编辑时间节点';
+  document.getElementById('rpTime').value=editingRp.querySelector('.rp-time').textContent.trim();
+  document.getElementById('rpTitle').value=editingRp.querySelector('.rp-card b').textContent.trim();
+  document.getElementById('rpContent').value=editingRp.querySelector('.rp-card p').textContent.trim();
+  document.getElementById('rhythmEditModal').classList.add('open');
+}
+function addRpNode(){
+  editingRp=null; rpMode='add';
+  document.getElementById('rpModalTitle').textContent='＋ 新增时间节点';
+  document.getElementById('rpTime').value='';
+  document.getElementById('rpTitle').value='';
+  document.getElementById('rpContent').value='';
+  document.getElementById('rhythmEditModal').classList.add('open');
+}
+function closeRpEdit(){ document.getElementById('rhythmEditModal').classList.remove('open'); editingRp=null; }
+function saveRp(){
+  const time=document.getElementById('rpTime').value.trim();
+  const title=document.getElementById('rpTitle').value.trim();
+  const content=document.getElementById('rpContent').value.trim();
+  if(!time||!title||!content){ flash('请完整填写时间 / 标题 / 内容'); return; }
+  if(rpMode==='edit'&&editingRp){
+    editingRp.querySelector('.rp-time').textContent=time;
+    editingRp.querySelector('.rp-card b').textContent=title;
+    editingRp.querySelector('.rp-card p').textContent=content;
+    flash('时间节点已保存 ✓');
+  }else{
+    const tl=document.querySelector('#view-rhythm .timeline');
+    const d=document.createElement('div');
+    d.className='rp';
+    d.innerHTML='<div class="rp-time">'+time+'</div><div class="rp-card"><b>'+title+'</b><p>'+content+'</p><div class="rp-acts"><button onclick="flash(\'已推送自定义陪伴提醒\')">演示推送</button><button class="dark" onclick="editRp(this)">✏️ 编辑</button></div></div>';
+    tl.appendChild(d);
+    flash('已新增时间节点 ✓');
+  }
+  closeRpEdit();
+}
+window.addEventListener('load',()=>{ bindTaskSwipe(); });
 </script>
 </body>
 </html>
