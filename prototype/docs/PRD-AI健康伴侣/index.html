@@ -1,0 +1,2735 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI 健康伴侣产品文档中心：需求规格、功能清单、原型说明、行业调研、穿戴设备接入方案">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../SRS/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>产品需求文档（PRD） - AI 健康伴侣 · 文档中心</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="light-green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#prdai" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="AI 健康伴侣 · 文档中心" class="md-header__button md-logo" aria-label="AI 健康伴侣 · 文档中心" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI 健康伴侣 · 文档中心
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              产品需求文档（PRD）
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="light-green"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="light-green"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="AI 健康伴侣 · 文档中心" class="md-nav__button md-logo" aria-label="AI 健康伴侣 · 文档中心" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AI 健康伴侣 · 文档中心
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    需求与功能
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    需求与功能
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    产品需求文档（PRD）
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    产品需求文档（PRD）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 产品概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 产品概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 一句话定位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 产品理念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 产品目标
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 核心差异化（对竞品）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 目标用户与典型场景
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 版本规划
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 功能需求
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 功能需求">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-fr-auth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 用户与初始化（FR-AUTH）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-dashboardfr-dash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 今日总览 Dashboard（FR-DASH）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-fr-diet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 饮食记录（FR-DIET）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-fr-sleep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 睡眠健康（FR-SLEEP）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-fr-rhythm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 全天候节律陪伴（FR-RHYTHM）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-ai-agentfr-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 AI Agent（FR-AGENT）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47-fr-notify-fr-ntf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.7 通知与触达（FR-NOTIFY / FR-NTF）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#48-fr-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.8 数据与隐私（FR-DATA）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#49" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.9 商业：会员订阅
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 页面清单（对齐原型 15 页）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 非功能要求（产品视角）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 验收标准与上线红线
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 风险与对策
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 附录：术语表
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SRS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件需求规格说明书
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%81%A5%E5%BA%B7%E4%BC%B4%E4%BE%A3-%E5%8A%9F%E8%83%BD%E6%B8%85%E5%8D%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    健康伴侣功能清单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%8E%9F%E5%9E%8B%E9%A1%B5%E9%9D%A2-%E5%8A%9F%E8%83%BD%E6%B8%85%E5%8D%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    原型页面功能清单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    架构与标准
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    架构与标准
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%9B%BD%E9%99%85%E6%A0%87%E5%87%86%E6%9E%B6%E6%9E%84%E6%A0%87%E5%87%86%E8%AF%B4%E6%98%8E%E4%B9%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    国际标准架构标准说明书
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%E4%B9%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    技术架构书
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%9E%B6%E6%9E%84%E5%9B%BE%E9%9B%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统架构图集
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调研与接入方案
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    调研与接入方案
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%A1%8C%E4%B8%9A%E8%B0%83%E7%A0%94%E6%8A%A5%E5%91%8A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    行业调研报告
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%A9%BF%E6%88%B4%E8%AE%BE%E5%A4%87%E6%8E%A5%E5%85%A5%E6%96%B9%E6%A1%88-%E5%B0%8F%E7%B1%B3%E6%89%8B%E7%8E%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    小米手环穿戴接入方案
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%A3%9F%E7%89%A9%E6%88%90%E5%88%86%E6%95%B0%E6%8D%AE%E6%BA%90%E8%B0%83%E7%A0%94/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    食物成分数据源调研
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Agent 设计
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI Agent 设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%BC%96%E6%8E%92-%E5%A4%9AAgent%E9%97%AD%E7%8E%AF%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多 Agent 工作流编排设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    协作流程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    协作流程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%8D%8F%E4%BD%9C%E5%B7%A5%E4%BD%9C%E5%8F%B0SOP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    协作工作台 SOP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    大赛材料
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    大赛材料
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%A7%E8%B5%9B-%E4%BD%9C%E5%93%81%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    作品简介
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%A7%E8%B5%9B-%E8%B7%AF%E6%BC%94%E6%BC%94%E8%AE%B2%E7%A8%BF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路演演讲稿
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 产品概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 产品概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 一句话定位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 产品理念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 产品目标
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 核心差异化（对竞品）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 目标用户与典型场景
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 版本规划
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 功能需求
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 功能需求">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-fr-auth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 用户与初始化（FR-AUTH）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-dashboardfr-dash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 今日总览 Dashboard（FR-DASH）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-fr-diet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 饮食记录（FR-DIET）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-fr-sleep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 睡眠健康（FR-SLEEP）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-fr-rhythm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 全天候节律陪伴（FR-RHYTHM）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-ai-agentfr-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 AI Agent（FR-AGENT）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47-fr-notify-fr-ntf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.7 通知与触达（FR-NOTIFY / FR-NTF）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#48-fr-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.8 数据与隐私（FR-DATA）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#49" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.9 商业：会员订阅
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 页面清单（对齐原型 15 页）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 非功能要求（产品视角）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 验收标准与上线红线
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 风险与对策
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 附录：术语表
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="prdai">产品需求文档（PRD）「AI 健康伴侣」<a class="headerlink" href="#prdai" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文档编号</td>
+<td>PRD-AIH-2026-001</td>
+</tr>
+<tr>
+<td>版本</td>
+<td>V1.0</td>
+</tr>
+<tr>
+<td>编写日期</td>
+<td>2026-08-09</td>
+</tr>
+<tr>
+<td>文档状态</td>
+<td>评审稿</td>
+</tr>
+<tr>
+<td>关联文档</td>
+<td>《软件需求规格说明书 V1.1》（SRS-AIH-2026-001）、原型 <code>prototype/index.html</code>（15 页）、《原型页面-功能清单 V1.3》</td>
+</tr>
+<tr>
+<td>说明</td>
+<td>本文档为 SRS 的产品视角版本：以用户故事、功能描述与验收标准为主线；需求编号沿用 SRS 的 FR-[模块]-[序号]，技术规格（接口/数据字段/协议）以 SRS 为准</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="1">1. 产品概述<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1 一句话定位<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<p>面向高压工作人群的 <strong>AI + 健康管理应用</strong>，聚焦 <strong>饮食健康</strong> 与 <strong>睡眠健康</strong> 两大场景，用 AI Agent 建立"<strong>无感采集 → 智能评估 → 最小可执行微行为 → 形成正循环</strong>"的健康习惯。</p>
+<h3 id="12">1.2 产品理念<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>零焦虑</strong>：不做卡路里焦虑式记账，用"七大要素"质感饮食诊断 + 热量模糊估算（适中/偏高区间）替代精算扣减。</li>
+<li><strong>重陪伴</strong>：AI Agent 按全天生理节律主动陪伴（晨间唤醒/餐前/久坐/午后低谷/睡前），柔性提醒、最小补救动作，不制造骚扰。</li>
+</ul>
+<h3 id="13">1.3 产品目标<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
+<ol>
+<li>用户用 <strong>最少的操作、零焦虑</strong> 完成饮食与睡眠记录（拍照识食、语音记录、一键快捷录入）。</li>
+<li>用 <strong>AI 深度分析</strong> 取代纯数据看板，以"七大要素"质量诊断 + 能量量化双视角输出"人话"结论与建议。</li>
+<li>通过 <strong>多端通知 + Agent 主动干预</strong> 完成健康管理的最后一步（执行与反馈），形成闭环而非"孤岛数据展示"。</li>
+<li>数据 <strong>本地优先、云端同步</strong>，严格保护隐私健康数据。</li>
+<li>以 <strong>微行为养成</strong> 代替硬性约束：3-5 分钟拉伸、一口水、一次深呼吸，驱动正循环。</li>
+</ol>
+<h3 id="14">1.4 核心差异化（对竞品）<a class="headerlink" href="#14" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>竞品通病</th>
+<th>本产品解法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>止步于"告诉你缺蛋白"</td>
+<td>做到"缺蛋白 → 生成午餐补缺任务 → 锁屏提醒 → 反馈回流"的完整闭环</td>
+</tr>
+<tr>
+<td>精算卡路里制造焦虑</td>
+<td>七大要素质量诊断 + 模糊估算区间</td>
+</tr>
+<tr>
+<td>记录摩擦大、流失快</td>
+<td>拍照/语音/一句话 3 种零摩擦入口</td>
+</tr>
+<tr>
+<td>无干预触达</td>
+<td>手机推送 + 锁屏 Rich Notification + 穿戴设备通知（后期）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2">2. 目标用户与典型场景<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>用户类型</th>
+<th>特征</th>
+<th>核心诉求</th>
+<th>关键使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>普通用户（上班族/健身人群）</td>
+<td>关注体重管理与饮食质量</td>
+<td>记录方便、看得懂、提醒及时</td>
+<td>早餐拍照识食；久坐被提醒拉伸</td>
+</tr>
+<tr>
+<td>深度用户</td>
+<td>长期减重/增肌/控糖</td>
+<td>个性化能量目标、闭环干预</td>
+<td>跨餐补缺任务；运动时序规划</td>
+</tr>
+<tr>
+<td>健康关注者</td>
+<td>睡眠不佳、作息紊乱</td>
+<td>睡眠评分、睡前干预</td>
+<td>晨间身体电量；睡前降噪</td>
+</tr>
+<tr>
+<td>潜在付费用户</td>
+<td>对深度 AI 分析有需求</td>
+<td>高级教练、深度报告</td>
+<td>订阅会员</td>
+</tr>
+</tbody>
+</table>
+<p><strong>三个核心用户故事：</strong></p>
+<ol>
+<li><strong>作为上班族小李</strong>，我早上拍一张早餐照片，3 秒内就能知道这餐质量如何、缺什么；中午打卡前系统提醒我"早餐缺蛋白，午餐优先选鸡胸肉/牛肉"——我不需要懂营养学，也能吃对。</li>
+<li><strong>作为熬夜患者小王</strong>，我起床看到"身体电量 42%（亏空预警）"卡片，今日高强度运动被自动替换为慢走与拉伸，早餐收到"补优质蛋白抗疲劳"策略——系统先保命再谈进步。</li>
+<li><strong>作为深度用户小张</strong>，我每晚收到"准备睡眠"提醒，一键进入助眠播客；次日睡眠周报告诉我"高糖晚餐与深睡减少相关"——我看到了因果，而不是一串数字。</li>
+</ol>
+<hr />
+<h2 id="3">3. 版本规划<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>周期</th>
+<th>范围</th>
+<th>发布目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M1 需求与原型</td>
+<td>2 周</td>
+<td>本文档 + 原型走查</td>
+<td>内部评审 ✅（已完成）</td>
+</tr>
+<tr>
+<td>M2 MVP</td>
+<td>6 周</td>
+<td>账号、饮食记录（拍照/语音）、能量分析、Dashboard、七要素基础诊断</td>
+<td>核心记录与分析跑通</td>
+</tr>
+<tr>
+<td>M3 闭环 Beta</td>
+<td>6 周</td>
+<td>睡眠、Agent 任务、手机+锁屏通知、节律陪伴、反馈回流</td>
+<td>闭环可见（记录→分析→建议→通知→反馈 ≤10s）</td>
+</tr>
+<tr>
+<td>M4 V1.0</td>
+<td>6 周</td>
+<td>七大要素完整诊断、起居注卡片、跨餐记账、报告、订阅</td>
+<td>商业验证</td>
+</tr>
+<tr>
+<td>M5 后期</td>
+<td>待定</td>
+<td>手环/手表绑定与穿戴通知（Apple Watch/小米/华为/三星）</td>
+<td>生态扩展</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4">4. 功能需求<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>优先级定义：P0 必须（MVP 不可缺）/ P1 重要（Beta 补齐）/ P2 可选（后期或增强）
+需求编号与 SRS 一一对应，便于研发对照技术规格。</p>
+</blockquote>
+<h3 id="41-fr-auth">4.1 用户与初始化（FR-AUTH）<a class="headerlink" href="#41-fr-auth" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>功能描述（用户视角）</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-AUTH-01</td>
+<td>支持手机号/邮箱注册登录，支持微信/Apple/Google 一键登录</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-AUTH-02</td>
+<td>首次启动引导：填写身高/体重/年龄/性别/日常活动量及核心健康目标（抗疲劳/改善睡眠/控糖/增强精力/减重/增肌），生成个人基础档案</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-AUTH-03</td>
+<td>一键引导授权：通知权限、相机权限、健康数据（HealthKit/Health Connect）权限</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-AUTH-04</td>
+<td>首次同意隐私政策/用户协议，默认开启"本地优先"模式</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-AUTH-05</td>
+<td>支持家庭/多账号切换，可为家人代录饮食</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>FR-AUTH-06</td>
+<td>手环/手表绑定与引导（后期开发）：Apple Watch / Wear OS / 小米 / 华为 / 三星，实现数据静默同步与设备通知</td>
+<td>P2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>验收标准：</strong> 新用户从下载到完成首次早餐记录 ≤ 3 分钟；任意第三方登录失败时有手机号兜底路径。</p>
+<h3 id="42-dashboardfr-dash">4.2 今日总览 Dashboard（FR-DASH）<a class="headerlink" href="#42-dashboardfr-dash" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>功能描述（用户视角）</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-DASH-01</td>
+<td>首屏展示今日"能量环"：已摄入 / 目标 / 剩余（或超出），带平滑动画</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-DASH-02</td>
+<td>展示营养素进度条：碳水/蛋白质/脂肪/膳食纤维（克数 + 百分比）</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-DASH-03</td>
+<td>今日睡眠摘要卡片：睡眠评分、时长、深睡占比（穿戴或手动）</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-DASH-04</td>
+<td>AI 今日洞察 1~3 条：一句话人话结论，点击进入 Agent 对话</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-DASH-05</td>
+<td>今日待办任务（Agent 生成），支持一键完成</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-DASH-06</td>
+<td>连续打卡/健康 streak 与勋章展示</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>FR-DASH-07</td>
+<td>晨间"身体电量"卡片：电量 &gt;80% 活力充足 / &lt;50% 亏空预警</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-DASH-08</td>
+<td>每日"身体起居注"手帐卡片：自动汇总睡眠分/早餐完成度/七要素覆盖率/冥想拉伸饮水数据，可保存分享图片（含 Agent 寄语）</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-DASH-09</td>
+<td>正向勋章体系："优质脂肪达人/早餐唤醒大师/深睡恢复大师/喝水达人"等成就解锁</td>
+<td>P2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>验收标准：</strong> 首屏 2s 内完成加载（4G）；AI 洞察必须能追溯到对应分析记录，点击可进入对话追问。</p>
+<h3 id="43-fr-diet">4.3 饮食记录（FR-DIET）<a class="headerlink" href="#43-fr-diet" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>功能描述（用户视角）</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-DIET-01</td>
+<td><strong>拍照识食</strong>：拍摄/上传食物照片，AI 识别食物种类与份量，生成能量分析；识别结果页支持份量修正、显示置信度</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-DIET-02</td>
+<td><strong>文字/语音记录</strong>：如"一碗牛肉面加一个卤蛋"，AI 解析为结构化条目</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-DIET-03</td>
+<td><strong>食物库检索</strong>：内置 ≥10 万条食物库（含中国常见食物），支持模糊搜索</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-DIET-04</td>
+<td><strong>扫码录入</strong>：扫描包装食品条形码，调取商品营养信息</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-DIET-05</td>
+<td>按早餐/午餐/晚餐/加餐分类记录，支持自定义餐次</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-DIET-06</td>
+<td>每餐 <strong>AI 营养点评</strong>：能量合理性、营养素缺口、升糖影响、食材搭配建议</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-DIET-07</td>
+<td><strong>能量分析报告</strong>：周/月能量趋势、热量来源占比、进食时序分布、超量预警</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-DIET-08</td>
+<td>"克制模式"模板：间歇断食 16:8、控糖、低脂等</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-DIET-09</td>
+<td>食谱收藏、常用餐一键复录</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-DIET-10</td>
+<td>饮水记录（手动/快捷打卡）</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>FR-DIET-11</td>
+<td><strong>早餐"三要素"专项诊断</strong>：①优质蛋白（蛋/奶/豆浆/豆制品）②优质低 GI 碳水（番薯/玉米/燕麦/全麦 vs 精制碳水）③膳食纤维/蔬果；缺项给出解释（如"缺蛋白上午易提早饥饿与血糖波动"）</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-DIET-12</td>
+<td><strong>七大营养要素结构化诊断</strong>：每次记录输出优质蛋白/优质碳水/膳食纤维/脂肪质量/水分/维生素矿物质七项完成度</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-DIET-13</td>
+<td><strong>热量模糊估算</strong>：仅提供"适中/偏高"区间参考，不做强制精确扣减，降低焦虑</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-DIET-14</td>
+<td><strong>营养缺口跨餐记账</strong>：缺口自动计入当日账本，下一餐打卡前 Agent 主动提示补缺方案（如"午餐缺蛋白，晚餐建议优先鸡胸肉/牛肉"）</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-DIET-15</td>
+<td><strong>饮食档案"起居注"</strong>：按日期复查历史每餐照片、营养评价与改善建议</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-DIET-16</td>
+<td><strong>智慧饮水</strong>：按体重计算每日目标（如 2000ml），超时未打卡触发提醒</td>
+<td>P1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键业务规则：</strong>
+- 拍照识食结果必须可人工修正（份量 ± 调整），修正行为回流为训练样本。
+- 识别置信度 &lt;90% 时，结果页提示用户确认或改用文字/语音补充描述。
+- 识别失败/离线时，自动降级为文字/语音手动记录（P0 独立入口，不依赖拍照）。</p>
+<p><strong>验收标准（抽样）：</strong> 10 张真实食物照片单种识别准确率 ≥90%、份量估算误差 ≤30%；"一碗牛肉面加一个卤蛋"解析字段完整率 100%。</p>
+<h3 id="44-fr-sleep">4.4 睡眠健康（FR-SLEEP）<a class="headerlink" href="#44-fr-sleep" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>功能描述（用户视角）</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-SLEEP-01</td>
+<td>自动同步穿戴设备睡眠数据（深睡/浅睡/REM/清醒/入睡起床时间）；无设备支持手动记录，数据标注来源</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-SLEEP-02</td>
+<td>睡眠评分：基于时长/结构/规律性/睡眠-能量关联计算 0-100 分</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-SLEEP-03</td>
+<td>睡眠结构图（可交互）：各阶段时间线与占比</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-SLEEP-04</td>
+<td><strong>AI 睡眠分析</strong>：归因分析（睡前饮食、咖啡因、运动、屏幕时间对睡眠的影响），输出可执行建议</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-SLEEP-05</td>
+<td>睡前提醒：自定义"准备睡眠"提醒（含明日计划卡片）</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-SLEEP-06</td>
+<td>起床窗口：浅睡眠阶段窗口唤醒提醒</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-SLEEP-07</td>
+<td>睡眠-饮食关联分析：如"高糖晚餐后的深睡减少"趋势洞察</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-SLEEP-08</td>
+<td>睡眠日报/周报，可分享为健康卡片</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-SLEEP-09</td>
+<td><strong>晨间"防亏空"保护机制</strong>：身体电量 &lt;50% 时自动叫停剧烈运动安排，推送舒缓冥想与当日营养补偿策略（如"今日早餐补充优质蛋白抗疲劳"）</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-SLEEP-10</td>
+<td><strong>运动计划动态安全护栏</strong>：支持输入每周运动想法（如每周 3 次跑步），Agent 评估合理性；检测连续高压/高心率/低睡眠时强制降级为恢复性微行为（泡脚/拉伸/慢走）</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-SLEEP-11</td>
+<td><strong>运动与用餐时序规划</strong>：饭后 ≥2h 再运动、晚餐不晚于 20:00、运动不晚于 22:00</td>
+<td>P2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键业务规则（安全红线）：</strong> 身体电量 &lt;50% 时"高强度运动不可执行"为确定性硬约束，不随 AI 生成内容改变；降级同时必须给出营养补偿策略。</p>
+<h3 id="45-fr-rhythm">4.5 全天候节律陪伴（FR-RHYTHM）<a class="headerlink" href="#45-fr-rhythm" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>功能描述（用户视角）</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-RHYTHM-01</td>
+<td><strong>晨间唤醒 Routine（07:00-07:30）</strong>：闹钟后生成身体电量与睡眠洞察；电量 &gt;80% 推荐 3-5 分钟活力拉伸/觉醒冥想；&lt;50% 触发防亏空保护</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-RHYTHM-02</td>
+<td><strong>通勤健康卡片（07:30-09:00）</strong>：对接权威资讯（如中国营养学会）推送每日健康卡片</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>FR-RHYTHM-03</td>
+<td><strong>久坐与站立交替提醒（09:00-12:00 / 14:00-18:00）</strong>：连续久坐 1 小时触发柔性提醒 + 2-5 分钟椅上拉伸指导动画</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-RHYTHM-04</td>
+<td><strong>注意力与生物钟匹配</strong>：结合 HRV 与疲劳数据，下午低谷期（约 15:00）提醒 3 分钟深呼吸</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>FR-RHYTHM-05</td>
+<td><strong>饭后散步与血糖稳态提醒（12:00-14:00）</strong>：午餐打卡后提示散步 10-20 分钟平抑血糖波动</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>FR-RHYTHM-06</td>
+<td><strong>午休充电方案（12:00-14:00）</strong>：引导选择"30 分钟小睡"或"15 分钟降压冥想"，结束后温和鼓励</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>FR-RHYTHM-07</td>
+<td><strong>晚间运动与用餐时序规划（18:00-23:00）</strong>：按运动安排校准时间窗口；前夜睡眠差时自动将高强度运动替换为瑜伽/慢走/拉伸</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>FR-RHYTHM-08</td>
+<td><strong>睡前无缝降噪（22:30-23:30）</strong>：睡前 30 分钟触发准备睡眠通知，一键调起助眠内容（第三方：小宇宙播客/白噪音/冥想）</td>
+<td>P1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>设计原则：</strong> 所有提醒遵循"柔性提醒 + 最小补救动作"（久坐提醒附 2 分钟拉伸入口、饮水提醒附一口温水建议），不制造焦虑。</p>
+<h3 id="46-ai-agentfr-agent">4.6 AI Agent（FR-AGENT）<a class="headerlink" href="#46-ai-agentfr-agent" title="Permanent link">&para;</a></h3>
+<p><strong>Agent 角色划分：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>职责（用户视角）</th>
+<th>触发场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>营养师 Agent</td>
+<td>帮我解析每餐、评估营养质量、补缺、推荐食谱</td>
+<td>每次饮食记录后；我提问时</td>
+</tr>
+<tr>
+<td>睡眠教练 Agent</td>
+<td>帮我分析睡眠、找原因、睡前干预、起床窗口</td>
+<td>每日睡眠同步后；睡前提醒时</td>
+</tr>
+<tr>
+<td>健康管家 Agent</td>
+<td>跨域调度（饮食×睡眠）、任务编排、通知文案、记忆维护</td>
+<td>汇总/闭环衔接时</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>功能描述</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-AGENT-01</td>
+<td>多模态理解：图片（食物照片）、语音、文字 3 种输入统一解析</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-AGENT-02</td>
+<td>工具调用：食物库检索、营养计算、用户档案、历史记录、通知发送等</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-AGENT-03</td>
+<td>个性化记忆：长期（偏好/忌口/过敏/目标）+ 短期（近期行为），用户可查看/删除记忆</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-AGENT-04</td>
+<td>主动建议：记录后、餐点前、睡前等关键时点主动产出建议</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-AGENT-05</td>
+<td>建议可执行化：每条建议必须结构化（任务标题/时间/可完成动作），可生成干预通知</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-AGENT-06</td>
+<td>反馈学习：完成/忽略/纠正行为回流，更新建议策略</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-AGENT-07</td>
+<td>风险护栏：识别极端饮食/厌食倾向/疾病相关提问时，输出免责声明并建议就医</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-AGENT-08</td>
+<td>对话式追问：分析结果支持"为什么""怎么办"多轮追问</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-AGENT-09</td>
+<td>跨域推理：饮食×睡眠关联（如咖啡因与深睡）、联动建议</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-AGENT-10</td>
+<td>延迟要求：分析响应 P95 ≤5s；生成任务与通知 P95 ≤8s</td>
+<td>P1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>闭环验收红线（产品级）：</strong> 系统中不存在"孤岛数据"——每一条记录必须有 AI 处理痕迹，每一条建议必须能追踪到用户反馈或干预结果。一条"记录→分析→建议→通知→反馈"闭环全链路 ≤10s 可见。</p>
+<h3 id="47-fr-notify-fr-ntf">4.7 通知与触达（FR-NOTIFY / FR-NTF）<a class="headerlink" href="#47-fr-notify-fr-ntf" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>功能描述</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-NOTIFY-01</td>
+<td>应用内通知中心：聚合所有 AI 消息与系统提醒，已读/未读</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-NOTIFY-02</td>
+<td>系统推送（PUSH）：APNs/FCM，App 退出后可达</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-NOTIFY-03</td>
+<td>锁屏通知（Rich Notification）：锁屏直接展示能量剩余、营养素缺口、AI 建议卡片（含图片缩略），适配深色/浅色</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-NOTIFY-04</td>
+<td>锁屏快捷动作（Quick Actions）："直接记录午餐"/"稍后提醒"/"跳过"</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-NOTIFY-05</td>
+<td>通知分组与免打扰时段（如 22:00-08:00 静默）</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-NOTIFY-06</td>
+<td>通知智能降噪：同一类通知 N 次未被点击则降频或转周报聚合</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-NOTIFY-07</td>
+<td>穿戴设备通知（后期开发）：能量剩余、目标达成、久坐/睡眠提醒</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>FR-NOTIFY-08</td>
+<td>通知模板与文案 A/B 测试（Agent 生成文案，运营配置）</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>FR-NOTIFY-09</td>
+<td>柔性防打扰文案与补救动作</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-NTF-01</td>
+<td>通知中心统一编排：事件→模板→通道→投放时间→去重合并</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-NTF-02</td>
+<td>智能投放时间：学习用户用餐/作息，避开打扰</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-NTF-03</td>
+<td>锁屏通知动态文案与图片（餐后照片缩略、能量环缩略图）</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-NTF-04</td>
+<td>每条通知可追溯来源，提供"不再提醒此类"</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-NTF-05</td>
+<td>免打扰三级控制：全局/时段/按类别（饮食、睡眠、AI 闲聊）</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-NTF-06</td>
+<td>穿戴通知静音/震动/连续提醒策略配置（后期开发）</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>FR-NTF-07</td>
+<td>通知送达/点击/转化埋点，用于降噪与效果评估</td>
+<td>P1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>文案规范：</strong> 由 Agent 生成 + 模板兜底；语气正面、具体、可执行（"距离目标还差 320 kcal，晚餐推荐：清蒸鲈鱼+糙米饭"）；禁止制造焦虑、禁止夸大健康承诺；医疗类建议一律附带免责声明。</p>
+<h3 id="48-fr-data">4.8 数据与隐私（FR-DATA）<a class="headerlink" href="#48-fr-data" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>功能描述</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-DATA-01</td>
+<td>健康数据本地加密存储（iOS Keychain / Android Keystore），云端传输 TLS 1.3</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-DATA-02</td>
+<td>"本地优先"模式：不上传原始照片与健康明细，仅上传脱敏统计</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-DATA-03</td>
+<td>支持导出个人数据（JSON/CSV/PDF 健康报告）</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-DATA-04</td>
+<td>支持注销账号并 30 天内彻底删除数据</td>
+<td>P0</td>
+</tr>
+<tr>
+<td>FR-DATA-05</td>
+<td>数据留存策略：原始照片 90 天，分析结果永久（脱敏后）</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>FR-DATA-06</td>
+<td>最小化采集：仅采集实现功能所需字段，告知用户用途</td>
+<td>P0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="49">4.9 商业：会员订阅<a class="headerlink" href="#49" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>免费版</th>
+<th>订阅版（AI 深度版）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>饮食记录 + 七要素基础诊断</td>
+<td>✓</td>
+<td>✓（升级：完整诊断报告）</td>
+</tr>
+<tr>
+<td>能量分析报告</td>
+<td>周报</td>
+<td>周/月 + 深度归因</td>
+</tr>
+<tr>
+<td>AI 对话</td>
+<td>基础分析追问</td>
+<td>深度教练 + 个性化方案</td>
+</tr>
+<tr>
+<td>起居注 / 勋章 / 节律陪伴</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>家庭共享</td>
+<td>—</td>
+<td>✓（家庭共享版）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-15">5. 页面清单（对齐原型 15 页）<a class="headerlink" href="#5-15" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>页面</th>
+<th>入口</th>
+<th>覆盖模块</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>今日总览 Dashboard</td>
+<td>底部 Tab「今日」</td>
+<td>FR-DASH</td>
+</tr>
+<tr>
+<td>2</td>
+<td>饮食记录</td>
+<td>底部 Tab「饮食」</td>
+<td>FR-DIET</td>
+</tr>
+<tr>
+<td>3</td>
+<td>睡眠健康</td>
+<td>底部 Tab「睡眠」</td>
+<td>FR-SLEEP</td>
+</tr>
+<tr>
+<td>4</td>
+<td>全天候节律陪伴</td>
+<td>底部 Tab「节律」</td>
+<td>FR-RHYTHM</td>
+</tr>
+<tr>
+<td>5</td>
+<td>AI 健康管家对话</td>
+<td>底部 Tab「管家」</td>
+<td>FR-AGENT</td>
+</tr>
+<tr>
+<td>6</td>
+<td>我的/设置</td>
+<td>底部 Tab「我的」</td>
+<td>FR-AUTH / FR-NOTIFY / FR-NTF / FR-DATA</td>
+</tr>
+<tr>
+<td>7</td>
+<td>通知中心</td>
+<td>状态栏🔔</td>
+<td>FR-NOTIFY-01 / FR-NTF</td>
+</tr>
+<tr>
+<td>8</td>
+<td>首次使用引导/登录</td>
+<td>我的→新手引导</td>
+<td>FR-AUTH</td>
+</tr>
+<tr>
+<td>9</td>
+<td>能量分析报告</td>
+<td>饮食→趋势</td>
+<td>FR-DIET-07/08/09</td>
+</tr>
+<tr>
+<td>10</td>
+<td>饮食起居注回看</td>
+<td>首页卡片</td>
+<td>FR-DIET-15 / FR-DASH-08</td>
+</tr>
+<tr>
+<td>11</td>
+<td>睡眠周报</td>
+<td>睡眠→趋势</td>
+<td>FR-SLEEP-07/08</td>
+</tr>
+<tr>
+<td>12</td>
+<td>勋章墙</td>
+<td>首页/我的</td>
+<td>FR-DASH-06/09</td>
+</tr>
+<tr>
+<td>13</td>
+<td>AI 记忆管理</td>
+<td>我的</td>
+<td>FR-AGENT-03 / FR-DATA-02</td>
+</tr>
+<tr>
+<td>14</td>
+<td>数据导出与隐私</td>
+<td>我的</td>
+<td>FR-DATA</td>
+</tr>
+<tr>
+<td>15</td>
+<td>会员订阅</td>
+<td>我的</td>
+<td>商业需求</td>
+</tr>
+<tr>
+<td>附加</td>
+<td>锁屏通知演示（常驻右栏）</td>
+<td>—</td>
+<td>FR-NOTIFY-03/04/09</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6">6. 非功能要求（产品视角）<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>性能</td>
+<td>首屏 ≤2s（4G）；拍照识食 P50 ≤3s、P95 ≤8s；AI 对话首字 ≤2s；闭环全链路 ≤10s 可见</td>
+</tr>
+<tr>
+<td>可用性</td>
+<td>服务可用性 ≥99.9%</td>
+</tr>
+<tr>
+<td>离线</td>
+<td>核心记录功能离线可用，联网后同步</td>
+</tr>
+<tr>
+<td>隐私合规</td>
+<td>等保二级起步；满足《个人信息保护法》《数据安全法》《生成式人工智能服务管理暂行办法》；大模型输入脱敏，不使用用户健康数据训练第三方模型</td>
+</tr>
+<tr>
+<td>免责</td>
+<td>医疗类建议一律附带免责声明（本应用不构成医疗诊断）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7">7. 验收标准与上线红线<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<p><strong>功能验收（抽样）：</strong></p>
+<table>
+<thead>
+<tr>
+<th>验收项</th>
+<th>通过标准</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>拍照识食</td>
+<td>10 张真实照片，单种识别准确率 ≥90%，份量误差 ≤30%</td>
+</tr>
+<tr>
+<td>语音/文字解析</td>
+<td>"一碗牛肉面加一个卤蛋"字段完整率 100%</td>
+</tr>
+<tr>
+<td>早餐三要素</td>
+<td>达标场景三项全 ✓；缺蛋白场景输出解释 + 跨餐补缺建议</td>
+</tr>
+<tr>
+<td>闭环链路</td>
+<td>记录→分析→建议→通知→反馈 ≤10s 可见</td>
+</tr>
+<tr>
+<td>防亏空</td>
+<td>电量 &lt;50% 日正确降级运动建议 + 营养补偿</td>
+</tr>
+<tr>
+<td>锁屏通知</td>
+<td>卡片与快捷动作正常，深色/浅色模式正常</td>
+</tr>
+<tr>
+<td>免打扰</td>
+<td>静默时段（22:00-08:00）零通知</td>
+</tr>
+</tbody>
+</table>
+<p><strong>上线红线（不可妥协）：</strong>
+1. 健康合规：免责声明 + 风险护栏 + 法务评审通过
+2. 隐私：授权流程完整、本地优先默认开启、注销可删除
+3. 数据闭环：不允许存在无 AI 处理痕迹的"孤岛记录"</p>
+<hr />
+<h2 id="8">8. 风险与对策<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>风险</th>
+<th>影响</th>
+<th>对策</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>食物识别准确率不足</td>
+<td>核心体验</td>
+<td>份量二次确认 + 人工修正 + 数据回流训练 + 文字/语音降级入口</td>
+</tr>
+<tr>
+<td>大模型成本失控</td>
+<td>毛利</td>
+<td>缓存/降级规则/每日配额/小模型分级</td>
+</tr>
+<tr>
+<td>通知骚扰导致卸载</td>
+<td>留存</td>
+<td>智能降噪 + 免打扰 + 柔性文案 + 用户可配置</td>
+</tr>
+<tr>
+<td>穿戴设备生态割裂</td>
+<td>覆盖（后期）</td>
+<td>推迟至 M5，先手机端验证价值；先接 iOS Watch + 1 个主流手环</td>
+</tr>
+<tr>
+<td>健康合规风险</td>
+<td>法律</td>
+<td>免责声明、风险护栏、双法务评审</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9">9. 附录：术语表<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>能量</td>
+<td>食物总热量与营养素（碳水/蛋白/脂肪/膳食纤维）的综合能量画像</td>
+</tr>
+<tr>
+<td>能量缺口</td>
+<td>当日摄入热量与目标热量的差值</td>
+</tr>
+<tr>
+<td>七大要素</td>
+<td>优质蛋白、优质碳水、膳食纤维、脂肪质量、水分、维生素与矿物质的质感饮食诊断框架</td>
+</tr>
+<tr>
+<td>身体电量</td>
+<td>基于睡眠/HRV/疲劳度综合评估的当日精力值（0-100%）</td>
+</tr>
+<tr>
+<td>防亏空保护</td>
+<td>睡眠或精力亏空时，Agent 自动降级高强度安排并给出营养补偿策略</td>
+</tr>
+<tr>
+<td>起居注</td>
+<td>每日自动汇总的健康手帐卡片与可按日期回查的饮食档案</td>
+</tr>
+<tr>
+<td>闭环</td>
+<td>采集→分析→建议→干预→反馈→再采集 的完整循环</td>
+</tr>
+<tr>
+<td>锁屏通知</td>
+<td>手机锁屏界面直接展示的丰富通知（Rich Notification）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<blockquote>
+<p>文档结束。修订记录：V1.0 初稿（2026-08-09），由《软件需求规格说明书 V1.1》改写为产品视角版本；需求编号与 SRS 保持一致。</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href=".." class="md-footer__link md-footer__link--prev" aria-label="上一页: 首页">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                首页
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../SRS/" class="md-footer__link md-footer__link--next" aria-label="下一页: 软件需求规格说明书">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                软件需求规格说明书
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      AI 健康伴侣 · 内部文档（非公开）
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

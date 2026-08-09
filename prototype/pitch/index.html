@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 健康伴侣 · 大赛路演 PPT</title>
+<style>
+:root{
+  --bg:#0f1f1a; --panel:#14332a; --card:#1b4236; --card2:#0f2b22;
+  --mint:#2ecc9e; --mint-soft:#e3f8f0; --green:#22a06b; --ink:#eaf6f1;
+  --sub:#9db8ae; --line:rgba(255,255,255,.08); --orange:#f5a623; --red:#ef5350;
+  --blue:#4ea8ff; --purple:#a78bfa;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+html,body{height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  background:radial-gradient(1200px 700px at 80% -10%,#1d4a3c 0%,var(--bg) 55%);
+  color:var(--ink);overflow:hidden;
+}
+/* ---------- slide deck ---------- */
+.deck{position:relative;width:100%;height:100%}
+.slide{
+  position:absolute;inset:0;padding:52px 72px;
+  display:none;flex-direction:column;
+  background:linear-gradient(160deg,rgba(30,80,64,.35),rgba(15,31,26,0) 45%);
+}
+.slide.active{display:flex;animation:fadein .35s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.slide .kicker{font-size:13px;letter-spacing:2.5px;color:var(--mint);font-weight:700;text-transform:uppercase;margin-bottom:10px}
+.slide h1{font-size:40px;font-weight:800;letter-spacing:.5px;line-height:1.3;margin-bottom:22px}
+.slide h1 em{font-style:normal;color:var(--mint)}
+.slide .sub{color:var(--sub);font-size:15px;line-height:1.8;margin-bottom:26px;max-width:900px}
+.slide .foot{position:absolute;bottom:26px;left:72px;right:72px;display:flex;justify-content:space-between;align-items:center;color:var(--sub);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
+.slide .foot .pg{color:var(--mint);font-weight:700}
+/* progress */
+.progress{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--mint),#7ef0c8);transition:width .3s;z-index:99}
+/* hint */
+.hint{position:fixed;right:22px;bottom:20px;z-index:98;font-size:11px;color:var(--sub);background:rgba(255,255,255,.06);border:1px solid var(--line);padding:6px 12px;border-radius:20px;backdrop-filter:blur(6px)}
+/* generic components */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1;min-height:0}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;flex:1;min-height:0}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;flex:1;min-height:0}
+.card{background:linear-gradient(160deg,rgba(43,100,80,.55),rgba(15,43,34,.7));border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:10px;backdrop-filter:blur(8px)}
+.card .ic{font-size:28px}
+.card b{font-size:17px;line-height:1.5}
+.card p{color:var(--sub);font-size:13px;line-height:1.75}
+.card .tag{font-size:11px;color:var(--mint);font-weight:700;letter-spacing:1px}
+.hl{color:var(--mint);font-weight:700}
+.warn{color:var(--orange);font-weight:700}
+/* cover */
+.cover{align-items:center;justify-content:center;text-align:center}
+.cover .logo{font-size:58px;margin-bottom:14px}
+.cover h1{font-size:64px;margin-bottom:8px}
+.cover .tagline{font-size:20px;color:var(--sub);letter-spacing:6px;margin-bottom:34px}
+.cover .team{font-size:14px;color:var(--sub);border:1px solid var(--line);padding:10px 26px;border-radius:40px;background:rgba(255,255,255,.05)}
+.cover .badges{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap;justify-content:center}
+.cover .badges span{font-size:12px;color:var(--mint);border:1px solid rgba(46,204,158,.4);padding:6px 16px;border-radius:20px;background:rgba(46,204,158,.08)}
+/* flow steps */
+.flow{display:flex;align-items:stretch;gap:0;flex:1;min-height:0}
+.step{flex:1;background:linear-gradient(160deg,rgba(43,100,80,.5),rgba(15,43,34,.65));border:1px solid var(--line);border-radius:16px;padding:20px 16px;display:flex;flex-direction:column;gap:8px;position:relative}
+.step:not(:last-child)::after{content:"→";position:absolute;right:-14px;top:50%;transform:translateY(-50%);color:var(--mint);font-size:22px;font-weight:800;z-index:2;text-shadow:0 0 8px var(--bg)}
+.step .no{font-size:11px;color:var(--mint);font-weight:800;letter-spacing:1px}
+.step b{font-size:15.5px}
+.step p{font-size:12.5px;color:var(--sub);line-height:1.7}
+/* timeline */
+.timeline{display:flex;flex-direction:column;gap:0;flex:1;min-height:0;justify-content:center;max-width:1000px}
+.tl{display:flex;gap:18px;align-items:flex-start;padding:16px 0;position:relative}
+.tl::before{content:"";position:absolute;left:10px;top:30px;bottom:-14px;width:2px;background:var(--line)}
+.tl:last-child::before{display:none}
+.tl .dot{width:22px;height:22px;border-radius:50%;background:var(--mint);flex-shrink:0;margin-top:4px;z-index:1;box-shadow:0 0 0 5px rgba(46,204,158,.15)}
+.tl .tt{font-size:15px;font-weight:700;color:var(--mint)}
+.tl p{color:var(--sub);font-size:13.5px;line-height:1.7;margin-top:3px}
+/* agent diagram */
+.agents{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;flex:1;min-height:0}
+.orbit{background:linear-gradient(160deg,rgba(43,100,80,.55),rgba(15,43,34,.7));border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.orbit .o-head{display:flex;align-items:center;gap:10px}
+.orbit .o-head .av{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--mint),var(--blue));display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.orbit .o-head b{font-size:16px}
+.orbit .o-head small{display:block;color:var(--sub);font-size:11px;font-weight:400;margin-top:2px}
+.orbit p{color:var(--sub);font-size:12.5px;line-height:1.7}
+.orbit .tools{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.orbit .tools span{font-size:10.5px;color:var(--ink);background:rgba(255,255,255,.08);border:1px solid var(--line);padding:4px 10px;border-radius:14px}
+.expert{display:flex;flex-direction:column;gap:12px}
+/* checklist */
+.checks{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.checks span{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--ink);background:rgba(46,204,158,.1);border:1px solid rgba(46,204,158,.35);padding:10px 18px;border-radius:14px;font-weight:600}
+.checks span::before{content:"✓";color:var(--mint);font-weight:900}
+/* quote band */
+.band{margin-top:18px;background:linear-gradient(135deg,rgba(46,204,158,.16),rgba(78,168,255,.1));border:1px solid rgba(46,204,158,.4);border-radius:14px;padding:16px 22px;font-size:14px;color:var(--ink);line-height:1.7}
+/* code-ish pipeline */
+.pipe{display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex:1;min-height:0;align-content:center}
+.pipe .node{background:rgba(43,100,80,.5);border:1px solid var(--line);border-radius:14px;padding:14px 18px;text-align:center}
+.pipe .node b{display:block;font-size:14.5px;margin-bottom:4px}
+.pipe .node small{color:var(--sub);font-size:11px;line-height:1.5;display:block}
+.pipe .arr{color:var(--mint);font-size:20px;font-weight:800}
+/* 2col with side note */
+.cols{display:grid;grid-template-columns:1.2fr 1fr;gap:18px;flex:1;min-height:0}
+.left-col{display:flex;flex-direction:column;gap:12px}
+/* end cover */
+.end{align-items:center;justify-content:center;text-align:center}
+.end .logo{font-size:54px;margin-bottom:14px}
+.end h1{font-size:52px}
+.end .slogan{display:flex;gap:14px;justify-content:center;margin-top:36px}
+.end .slogan span{font-size:13px;color:var(--mint);border:1px solid rgba(46,204,158,.4);padding:8px 20px;border-radius:24px}
+/* speaker note marker */
+.note{position:absolute;right:72px;top:52px;font-size:11px;color:var(--sub);background:rgba(255,255,255,.05);border:1px dashed var(--line);padding:6px 12px;border-radius:10px}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="hint">← → 翻页 · 空格下一页 · 回车切换全屏</div>
+
+<div class="deck" id="deck">
+
+  <!-- ============ COVER ============ -->
+  <section class="slide cover active">
+    <div class="logo">🌿</div>
+    <h1>AI 健康伴侣</h1>
+    <div class="tagline">把专业健康顾问，装进口袋</div>
+    <div class="team">120club · AI 智能体应用设计赛道</div>
+    <div class="badges">
+      <span>零焦虑</span><span>重陪伴</span><span>真闭环</span>
+    </div>
+  </section>
+
+  <!-- ============ Slide 1 场景来源 ============ -->
+  <section class="slide">
+    <div class="kicker">01 · 场景来源</div>
+    <h1>凌晨两点，我们还在<em>刷手机</em></h1>
+    <div class="grid2">
+      <div class="card">
+        <div class="ic">🧑‍💻</div>
+        <b>高压打工人的日常</b>
+        <p>熬夜、外卖、久坐、睡眠不足——体检报告逐年多几个箭头，生活节奏却一点没变。</p>
+      </div>
+      <div class="card">
+        <div class="ic">📊</div>
+        <b>90% 健康产品止步"识别 + 展示"</b>
+        <p>拍照记卡路里、给你看图表——<span class="hl">告诉你"缺蛋白"，没人帮你"吃对"</span>。用户三分钟热情，然后流失。</p>
+      </div>
+    </div>
+    <div class="band">💡 我们的判断：健康管理缺的不是"知道"，而是<strong>"做到"</strong>——从"建议"到"执行"的<strong>最后一公里</strong>，是行业普遍缺失的空档。</div>
+    <div class="foot"><span>AI 健康伴侣 · 120club</span><span class="pg">01</span></div>
+  </section>
+
+  <!-- ============ Slide 2 用户痛点 ============ -->
+  <section class="slide">
+    <div class="kicker">02 · 用户痛点</div>
+    <h1>数据碎片、记录摩擦、<em>建议落地难</em></h1>
+    <div class="grid4">
+      <div class="card"><div class="ic">🧩</div><b>看不全</b><p>饮食、睡眠、运动数据分散在不同设备，无法关联归因。</p></div>
+      <div class="card"><div class="ic">✍️</div><b>记不住</b><p>手动记录卡路里繁琐反人性，大部分用户坚持不过 3 天。</p></div>
+      <div class="card"><div class="ic">🤔</div><b>听不懂</b><p>结论是"蛋白占比 12%"，而非"午餐选鸡胸肉还是牛肉"。</p></div>
+      <div class="card"><div class="ic">🚫</div><b>做不到</b><p>建议停留文字，无提醒、无任务、无反馈，更不会越用越懂你。</p></div>
+    </div>
+    <div class="band">⚠️ 一句话：健康数据<span class="warn">有记录、无闭环</span>——"最后一步"（执行与反馈），是整个行业的断点。我们的所有设计，都在补这个断点。</div>
+    <div class="foot"><span>AI 健康伴侣 · 120club</span><span class="pg">02</span></div>
+  </section>
+
+  <!-- ============ Slide 3 产品形态与核心流程 ============ -->
+  <section class="slide">
+    <div class="kicker">03 · 产品形态与核心流程</div>
+    <h1>从"拍一张照片"到<em>"养成一个习惯"</em></h1>
+    <div class="sub">移动端 App ｜ 两步上手：首次建档 → 一键授权 ｜ 五步闭环，全程 ≤10 秒可见</div>
+    <div class="flow">
+      <div class="step"><span class="no">STEP 1</span><b>📸 3 秒记录</b><p>拍照识食 / 一句话语音"一碗牛肉面加个蛋"→ 自动结构化</p></div>
+      <div class="step"><span class="no">STEP 2</span><b>🧠 智能分析</b><p>能量环 + 七大要素诊断（蛋白/碳水/纤维/脂肪/水分/维生素），缺项给"为什么"</p></div>
+      <div class="step"><span class="no">STEP 3</span><b>📋 可执行任务</b><p>早餐缺蛋白 → 生成"午餐补鸡胸肉/牛肉"任务，缺口入账本</p></div>
+      <div class="step"><span class="no">STEP 4</span><b>🔔 主动干预</b><p>锁屏推送"还差 320 kcal，推荐清蒸鲈鱼+糙米饭"，一键直达</p></div>
+      <div class="step"><span class="no">STEP 5</span><b>🔄 反馈回流</b><p>完成/忽略/纠正回流 Agent 记忆，次日建议自动变准</p></div>
+    </div>
+    <div class="band">⏰ 另有全天候陪伴：晨间身体电量 → 通勤健康卡 → 久坐拉伸 → 午休方案 → 睡前降噪，按<span class="hl">生理节律</span>主动触达。</div>
+    <div class="foot"><span>AI 健康伴侣 · 120club</span><span class="pg">03</span></div>
+  </section>
+
+  <!-- ============ Slide 4 Agent 能力 ============ -->
+  <section class="slide">
+    <div class="kicker">04 · Agent 能力</div>
+    <h1>三位健康顾问，协同完成<em>一次健康干预</em></h1>
+    <div class="agents">
+      <div class="orbit">
+        <div class="o-head"><div class="av">🏠</div><div><b>健康管家 Agent · 编排者</b><small>听懂意图 · 决定找谁 · 何时提醒 · 冲突仲裁</small></div></div>
+        <p>跨域调度（咖啡因 ↔ 深睡归因）；<span class="hl">冲突仲裁</span>——"昨晚睡眠差，今天还能跑步吗？"由它裁决并透明说明原因。</p>
+        <div class="tools"><span>🔧 任务编排</span><span>🔧 通知文案</span><span>🔧 记忆维护</span></div>
+      </div>
+      <div class="expert">
+        <div class="orbit">
+          <div class="o-head"><div class="av" style="background:linear-gradient(135deg,#f5a623,#ef5350)">🥗</div><div><b>营养师 Agent · 领域专家</b><small>解析记录 · 七要素诊断 · 跨餐补缺</small></div></div>
+          <p>调用食物库 + 营养计算引擎，输出人话点评与可执行补缺任务。</p>
+          <div class="tools"><span>🔧 食物库检索</span><span>🔧 营养引擎</span><span>🔧 七要素规则</span></div>
+        </div>
+        <div class="orbit">
+          <div class="o-head"><div class="av" style="background:linear-gradient(135deg,#a78bfa,#4ea8ff)">😴</div><div><b>睡眠教练 Agent · 领域专家</b><small>结构分析 · 归因 · 防亏空保护</small></div></div>
+          <p>深睡/REM/HRV 归因找因；身体电量 &lt;50% 触发<span class="warn">防亏空硬约束</span>（模型无权越过）。</p>
+          <div class="tools"><span>🔧 穿戴数据</span><span>🔧 运动护栏</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="band">✅ <strong>Agent 判定五要素</strong>：任务理解 · 流程编排 · 工具调用 · 多轮交互 · 结果交付——<span class="hl">不是多段 Prompt 串联，而是真正闭环的多 Agent 协作</span>。<br>
+    示例：熬夜后电量 42% → 跑步自动降级为慢走 → 早餐补蛋白 → 午餐前提醒补绿叶菜 → 全程透明说明。</div>
+    <div class="foot"><span>AI 健康伴侣 · 120club</span><span class="pg">04</span></div>
+  </section>
+
+  <!-- ============ Slide 5 工具/数据/模型 ============ -->
+  <section class="slide">
+    <div class="kicker">05 · 工具 / 数据 / 模型使用方式</div>
+    <h1>AI + 权威数据 + 多端设备，<em>一条可落地的路径</em></h1>
+    <div class="cols">
+      <div class="pipe">
+        <div class="node"><b>🎨 模型层</b><small>多模态大模型<br>意图理解/点评/归因</small></div>
+        <span class="arr">→</span>
+        <div class="node"><b>📚 数据层 RAG</b><small>《中国食物成分表》第6版<br>Mifflin-St Jeor 公式</small></div>
+        <span class="arr">→</span>
+        <div class="node"><b>🔧 工具层</b><small>营养引擎/食物库/七要素<br>确定性规则兜底决策</small></div>
+        <span class="arr">→</span>
+        <div class="node"><b>⌚ 设备层</b><small>HealthKit / Health Connect<br>睡眠·心率·HRV 归一化</small></div>
+      </div>
+      <div class="left-col">
+        <div class="card"><b>🧠 确定性工具决策，模型负责表达</b><p>安全底线不被 AI 幻觉突破；识别带置信度 + 份量二次确认。</p></div>
+        <div class="card"><b>🛟 降级保障</b><p>识别失败 → 自动降级语音/文字记录；通知被忽略 N 次 → 自动降频。<span class="hl">系统永远不给用户添麻烦。</span></p></div>
+        <div class="card"><b>📡 干预通道</b><p>APNs/FCM 推送 + 锁屏 Rich Notification + 快捷动作；穿戴通知后期接入（小米/华为预留统一通道）。</p></div>
+      </div>
+    </div>
+    <div class="foot"><span>AI 健康伴侣 · 120club</span><span class="pg">05</span></div>
+  </section>
+
+  <!-- ============ Slide 6 合规边界 ============ -->
+  <section class="slide">
+    <div class="kicker">06 · 合规边界</div>
+    <h1>健康无小事，<em>AI 有底线</em></h1>
+    <div class="grid4">
+      <div class="card"><div class="ic">🏥</div><b>非医疗定位</b><p>所有输出均为健康生活方式建议，明确"不构成医疗诊断"，免责声明贯穿全链路。</p></div>
+      <div class="card"><div class="ic">🛡️</div><b>风险护栏</b><p>极端饮食/厌食倾向/疾病提问自动引导就医；防亏空等安全规则为确定性硬约束。</p></div>
+      <div class="card"><div class="ic">🔒</div><b>数据最小化</b><p>本地优先，原始照片与明细默认不上云；输入脱敏，<span class="hl">不用于训练第三方模型</span>。</p></div>
+      <div class="card"><div class="ic">✋</div><b>用户主权</b><p>授权可撤回、记忆可查看删除、注销 30 天彻底清除、数据可导出。</p></div>
+    </div>
+    <div class="band">💬 合规对标：《个人信息保护法》《数据安全法》《生成式人工智能服务管理暂行办法》，等保二级起步。<strong>AI 陪伴有温度，合规底线有硬度。</strong></div>
+    <div class="foot"><span>AI 健康伴侣 · 120club</span><span class="pg">06</span></div>
+  </section>
+
+  <!-- ============ Slide 7 后续落地计划 ============ -->
+  <section class="slide">
+    <div class="kicker">07 · 后续落地计划</div>
+    <h1>三步走：<em>从闭环到生态</em></h1>
+    <div class="timeline">
+      <div class="tl">
+        <div class="dot"></div>
+        <div><span class="tt">第一阶段 · MVP → Beta（公测）</span>
+        <p>账号 + 拍照/语音记录 + 能量分析与七要素基础诊断 + Agent 闭环（任务/锁屏通知/反馈回流）——<span class="hl">验证"记录→干预→反馈"核心价值</span>。</p></div>
+      </div>
+      <div class="tl">
+        <div class="dot"></div>
+        <div><span class="tt">第二阶段 · V1.0（商业化）</span>
+        <p>七大要素完整诊断、起居注、跨餐记账、能量报告；上线 AI 深度版/家庭共享版订阅；<span class="hl">接入体检机构 API 与社区卫生服务中心</span>。</p></div>
+      </div>
+      <div class="tl">
+        <div class="dot"></div>
+        <div><span class="tt">第三阶段 · 生态扩展</span>
+        <p>小米/华为/三星手环绑定与穿戴通知；开放"知识库+Agent 编排"底层架构，向心理咨询、母婴护理、慢病管理<span class="hl">垂直场景复用</span>。</p></div>
+      </div>
+    </div>
+    <div class="band">🔁 商业：免费基础版 + 订阅增值 ｜ 数据飞轮：用户修正样本回流训练——<strong>越用越准、越用越懂，闭环本身就是壁垒。</strong></div>
+    <div class="foot"><span>AI 健康伴侣 · 120club</span><span class="pg">07</span></div>
+  </section>
+
+  <!-- ============ END ============ -->
+  <section class="slide end">
+    <div class="logo">🌿</div>
+    <h1>让每一次被忽略的<br>身体信号，都被认真回应</h1>
+    <div class="slogan"><span>零焦虑</span><span>重陪伴</span><span>真闭环</span></div>
+    <div class="team" style="margin-top:40px">感谢聆听 · 欢迎体验原型 ｜ 120club</div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  const slides=[...document.querySelectorAll('.slide')];
+  const prog=document.getElementById('progress');
+  let cur=0;
+  function go(i){
+    cur=Math.max(0,Math.min(slides.length-1,i));
+    slides.forEach((s,idx)=>s.classList.toggle('active',idx===cur));
+    prog.style.width=((cur+1)/slides.length*100)+'%';
+  }
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();go(cur+1);}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(cur-1);}
+    else if(e.key==='Home'){go(0);}
+    else if(e.key==='End'){go(slides.length-1);}
+    else if(e.key==='Enter'){if(!document.fullscreenElement)document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();else document.exitFullscreen();}
+  });
+  document.addEventListener('touchstart',t=>{
+    const x=t.touches[0].clientX;const y=t.touches[0].clientY;
+    const end=e=>{const dx=e.changedTouches[0].clientX-x,dy=e.changedTouches[0].clientY-y;
+      if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(cur+(dx<0?1:-1));
+      document.removeEventListener('touchend',end)};
+    document.addEventListener('touchend',end);
+  },{passive:true});
+})();
+</script>
+</body>
+</html>

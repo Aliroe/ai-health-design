@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%BC%96%E6%8E%92-%E5%A4%9AAgent%E9%97%AD%E7%8E%AF%E8%AE%BE%E8%AE%A1/">
+        <link rel="prev" href="../%E9%A3%9F%E7%89%A9%E6%88%90%E5%88%86%E6%95%B0%E6%8D%AE%E6%BA%90%E8%B0%83%E7%A0%94/">
       
       
-        <link rel="next" href="../%E5%A4%A7%E8%B5%9B-%E4%BD%9C%E5%93%81%E7%AE%80%E4%BB%8B/">
+        <link rel="next" href="../%E5%8D%8F%E4%BD%9C%E5%B7%A5%E4%BD%9C%E5%8F%B0SOP/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>协作工作台 SOP - AI 健康伴侣 · 文档中心</title>
+        <title>多 Agent 工作流编排设计 - AI 健康伴侣 · 文档中心</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#sop" class="md-skip">
+        <a href="#agent-agent" class="md-skip">
           跳转至
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              协作工作台 SOP
+              多 Agent 工作流编排设计
             
           </span>
         </div>
@@ -717,8 +717,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -729,11 +731,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
@@ -754,101 +756,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
   
     AI Agent 设计
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%BC%96%E6%8E%92-%E5%A4%9AAgent%E9%97%AD%E7%8E%AF%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    多 Agent 工作流编排设计
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    协作流程
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    协作流程
   
 
           </label>
@@ -877,7 +790,7 @@
   <span class="md-ellipsis">
     
   
-    协作工作台 SOP
+    多 Agent 工作流编排设计
   
 
     
@@ -895,7 +808,7 @@
   <span class="md-ellipsis">
     
   
-    协作工作台 SOP
+    多 Agent 工作流编排设计
   
 
     
@@ -921,10 +834,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#0" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        0. 工作台总体架构
+        1. 设计结论先行
       
     </span>
   </a>
@@ -932,33 +845,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-raci" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. 角色与职责（RACI）
+        2. 总体架构与模块职责
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-sop" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. 核心流程 SOP
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. 核心流程 SOP">
+    <nav class="md-nav" aria-label="2. 总体架构与模块职责">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#sop-1" class="md-nav__link">
+  <a href="#21" class="md-nav__link">
     <span class="md-ellipsis">
       
-        SOP-1 需求生命周期（从想法到上线）
+        2.1 全局编排流程图
       
     </span>
   </a>
@@ -966,32 +868,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#sop-2" class="md-nav__link">
+  <a href="#22" class="md-nav__link">
     <span class="md-ellipsis">
       
-        SOP-2 每周节奏（固定例会）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sop-3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SOP-3 闭环需求验收红线（本产品特有）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sop-4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SOP-4 变更管理
+        2.2 模块职责规格表
       
     </span>
   </a>
@@ -1007,19 +887,30 @@
   <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. 落地清单：飞书 / 钉钉 端到端搭建
+        3. 核心业务闭环（宏观循环）
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. 落地清单：飞书 / 钉钉 端到端搭建">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 关键子流程设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 关键子流程设计">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#31" class="md-nav__link">
+  <a href="#41-agent" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.1 飞书版
+        4.1 任务理解子流程（健康管家 Agent 内）
       
     </span>
   </a>
@@ -1027,10 +918,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#32" class="md-nav__link">
+  <a href="#42-agent" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.2 钉钉版
+        4.2 营养师 Agent 记录分析子流程
       
     </span>
   </a>
@@ -1038,10 +929,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#33" class="md-nav__link">
+  <a href="#43-agent" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.3 两平台功能对照
+        4.3 睡眠教练 Agent 防亏空子流程
       
     </span>
   </a>
@@ -1054,10 +945,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
+  <a href="#5-agent" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. 模板：需求卡片（用于需求池/需求表）
+        5. 冲突仲裁决策逻辑（管家 Agent 内）
       
     </span>
   </a>
@@ -1065,21 +956,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5" class="md-nav__link">
+  <a href="#6-agenttask" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. 模板：周计划 / 周复盘
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. 模板：验收清单（产品验收用）
+        6. 结果交付：AgentTask 闭环状态机
       
     </span>
   </a>
@@ -1090,7 +970,7 @@
   <a href="#7" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7. 模板：里程碑复盘
+        7. 典型业务场景走查（晨间防亏空 × 早餐闭环）
       
     </span>
   </a>
@@ -1098,10 +978,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#8-ai-prompt" class="md-nav__link">
+  <a href="#8" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8. 模板：AI Prompt 资产管理（研发必填）
+        8. 与赛道要求对照自证
       
     </span>
   </a>
@@ -1112,7 +992,7 @@
   <a href="#9" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9. 使用说明
+        9. 实现要点与降级策略
       
     </span>
   </a>
@@ -1123,6 +1003,93 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    协作流程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    协作流程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%8D%8F%E4%BD%9C%E5%B7%A5%E4%BD%9C%E5%8F%B0SOP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    协作工作台 SOP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1277,10 +1244,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#0" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        0. 工作台总体架构
+        1. 设计结论先行
       
     </span>
   </a>
@@ -1288,33 +1255,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-raci" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. 角色与职责（RACI）
+        2. 总体架构与模块职责
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-sop" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. 核心流程 SOP
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. 核心流程 SOP">
+    <nav class="md-nav" aria-label="2. 总体架构与模块职责">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#sop-1" class="md-nav__link">
+  <a href="#21" class="md-nav__link">
     <span class="md-ellipsis">
       
-        SOP-1 需求生命周期（从想法到上线）
+        2.1 全局编排流程图
       
     </span>
   </a>
@@ -1322,32 +1278,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#sop-2" class="md-nav__link">
+  <a href="#22" class="md-nav__link">
     <span class="md-ellipsis">
       
-        SOP-2 每周节奏（固定例会）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sop-3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SOP-3 闭环需求验收红线（本产品特有）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sop-4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SOP-4 变更管理
+        2.2 模块职责规格表
       
     </span>
   </a>
@@ -1363,19 +1297,30 @@
   <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. 落地清单：飞书 / 钉钉 端到端搭建
+        3. 核心业务闭环（宏观循环）
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. 落地清单：飞书 / 钉钉 端到端搭建">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 关键子流程设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 关键子流程设计">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#31" class="md-nav__link">
+  <a href="#41-agent" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.1 飞书版
+        4.1 任务理解子流程（健康管家 Agent 内）
       
     </span>
   </a>
@@ -1383,10 +1328,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#32" class="md-nav__link">
+  <a href="#42-agent" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.2 钉钉版
+        4.2 营养师 Agent 记录分析子流程
       
     </span>
   </a>
@@ -1394,10 +1339,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#33" class="md-nav__link">
+  <a href="#43-agent" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.3 两平台功能对照
+        4.3 睡眠教练 Agent 防亏空子流程
       
     </span>
   </a>
@@ -1410,10 +1355,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
+  <a href="#5-agent" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. 模板：需求卡片（用于需求池/需求表）
+        5. 冲突仲裁决策逻辑（管家 Agent 内）
       
     </span>
   </a>
@@ -1421,21 +1366,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5" class="md-nav__link">
+  <a href="#6-agenttask" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. 模板：周计划 / 周复盘
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. 模板：验收清单（产品验收用）
+        6. 结果交付：AgentTask 闭环状态机
       
     </span>
   </a>
@@ -1446,7 +1380,7 @@
   <a href="#7" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7. 模板：里程碑复盘
+        7. 典型业务场景走查（晨间防亏空 × 早餐闭环）
       
     </span>
   </a>
@@ -1454,10 +1388,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#8-ai-prompt" class="md-nav__link">
+  <a href="#8" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8. 模板：AI Prompt 资产管理（研发必填）
+        8. 与赛道要求对照自证
       
     </span>
   </a>
@@ -1468,7 +1402,7 @@
   <a href="#9" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9. 使用说明
+        9. 实现要点与降级策略
       
     </span>
   </a>
@@ -1492,412 +1426,414 @@
 
 
 
-<h1 id="sop">产品协作工作台 SOP（飞书 / 钉钉可复用模板）<a class="headerlink" href="#sop" title="Permanent link">&para;</a></h1>
-<table>
-<thead>
-<tr>
-<th>项目</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>文档编号</td>
-<td>SOP-AIH-2026-001</td>
-</tr>
-<tr>
-<td>适用范围</td>
-<td>AI 健康伴侣 产品-设计-研发-测试 全流程协作</td>
-</tr>
-<tr>
-<td>兼容平台</td>
-<td>飞书 / 钉钉（结构一致，附录含两端落地点位对照）</td>
-</tr>
-<tr>
-<td>使用方式</td>
-<td>直接复制本文档到飞书知识库 / 钉钉知识库，按章节建群建表</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="0">0. 工作台总体架构<a class="headerlink" href="#0" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>工作台（飞书/钉钉 团队空间）
-├── 01 项目作战室（群组）
-│   ├── 全体群（通知）
-│   ├── 产品群（PRD/原型评审）
-│   ├── 研发群（技术/联调）
-│   └── 数据与运营群（埋点/反馈）
-├── 02 知识库（文档中心）
-│   ├── 需求库（PRD / 原型 / 调研报告）
-│   ├── 设计库（UI 规范 / 组件 / 交互稿）
-│   ├── 技术库（架构 / 接口文档 / Agent Prompt 资产）
-│   └── 复盘库（里程碑复盘 / 用户反馈）
-├── 03 项目计划（任务与看板）
-│   ├── 迭代计划表（周维度）
-│   ├── 需求看板（待评审/已评审/开发中/测试/验收/已上线）
-│   └── 里程碑追踪表（M1-M4）
-├── 04 自动化（机器人）
-│   ├── 需求变更通知机器人
-│   ├── 每日站会汇总机器人
-│   ├── 构建/发布通知机器人
-│   └── 健康指标周报机器人
-└── 05 文档模板库（本章节 4-8 可直接复制使用）
-</code></pre></div>
-<hr />
-<h2 id="1-raci">1. 角色与职责（RACI）<a class="headerlink" href="#1-raci" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>角色</th>
-<th>核心职责</th>
-<th>对应成员</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>产品经理 PM</td>
-<td>需求定义、优先级、验收标准、跨组协调</td>
-<td>产品负责人</td>
-</tr>
-<tr>
-<td>产品运营 PO</td>
-<td>用户调研、数据埋点需求、通知文案审核</td>
-<td>运营</td>
-</tr>
-<tr>
-<td>交互/UI 设计</td>
-<td>原型、UI 规范、走查</td>
-<td>设计</td>
-</tr>
-<tr>
-<td>客户端开发（iOS/Android）</td>
-<td>App 功能、锁屏通知、穿戴 SDK 接入</td>
-<td>研发</td>
-</tr>
-<tr>
-<td>服务端开发</td>
-<td>API、通知中心服务、数据存储</td>
-<td>研发</td>
-</tr>
-<tr>
-<td>AI 工程</td>
-<td>大模型接入、Agent 编排、视觉识别、Prompt 资产</td>
-<td>AI 研发</td>
-</tr>
-<tr>
-<td>测试 QA</td>
-<td>功能/闭环链路/兼容性/性能测试</td>
-<td>测试</td>
-</tr>
-<tr>
-<td>项目经理 PMO（可选）</td>
-<td>里程碑节奏、风险跟进</td>
-<td>项目负责人</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="2-sop">2. 核心流程 SOP<a class="headerlink" href="#2-sop" title="Permanent link">&para;</a></h2>
-<h3 id="sop-1">SOP-1 需求生命周期（从想法到上线）<a class="headerlink" href="#sop-1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>输入 → 需求池 → 需求评审 → 排期 → 开发 → 验收 → 上线 → 复盘
- │       │
- │       └─(飞书/钉钉: 需求表按状态流转)
- │
- ├─ 1.1 需求收集
- │    · 来源：用户反馈群/竞品调研/数据/老板/脑暴
- │    · 模板：见 §4 需求卡片
- │    · 动作：PM 每周五 18:00 前将新需求入「需求池」并打优先级 P0/P1/P2
- │
- ├─ 1.2 需求评审（每周二 14:00 例会）
- │    · 前置：PRD + 原型 提前 24h 发评审群
- │    · 通过标准：功能/交互/数据埋点/通知策略/验收标准 五要素齐全
- │    · 结论：评审通过 → 移入「已评审」；打回 → 标注原因，一周内重新提交
- │
- ├─ 1.3 开发与联调
- │    · 每个需求必须有验收标准（Given-When-Then 或 清单式）
- │    · 涉及 Agent 的必须提交 Prompt 资产到知识库
- │
- ├─ 1.4 测试验收
- │    · 验收清单模板见 §6
- │    · 闭环链路必须全链路验证（记录→分析→建议→通知→反馈）
- │
- └─ 1.5 上线与复盘
-     · 发布窗口：每周四（留周五兜底）
-     · 上线后 48h 内：监控埋点（DAU/记录数/通知点击率）
-     · 每里程碑：一次复盘会（§7 模板）
-</code></pre></div>
-<h3 id="sop-2">SOP-2 每周节奏（固定例会）<a class="headerlink" href="#sop-2" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>时间</th>
-<th>会议</th>
-<th>时长</th>
-<th>要点</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>周一 10:00</td>
-<td>周计划会</td>
-<td>30min</td>
-<td>本周目标、任务认领、风险</td>
-</tr>
-<tr>
-<td>周二 14:00</td>
-<td>需求评审会</td>
-<td>60min</td>
-<td>新需求评审（SOP-1）</td>
-</tr>
-<tr>
-<td>周三 11:00</td>
-<td>设计走查</td>
-<td>30min</td>
-<td>原型/UI 走查</td>
-</tr>
-<tr>
-<td>周四 18:00</td>
-<td>发版确认</td>
-<td>15min</td>
-<td>上线内容冻结</td>
-</tr>
-<tr>
-<td>周五 17:30</td>
-<td>周复盘</td>
-<td>30min</td>
-<td>完成度、问题、下周预告</td>
-</tr>
-</tbody>
-</table>
-<h3 id="sop-3">SOP-3 闭环需求验收红线（本产品特有）<a class="headerlink" href="#sop-3" title="Permanent link">&para;</a></h3>
+<h1 id="agent-agent">多 Agent 工作流编排设计（闭环型 Agent 应用）<a class="headerlink" href="#agent-agent" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p>任何功能如果属于以下三类，验收时必须提供闭环证据，否则视为未完成：</p>
+<p>配套需求：SRS §3 系统架构与闭环机制、§5 AI Agent 需求、§5.3 闭环状态机；《健康伴侣-功能清单》二、四、六
+设计定位：<strong>无界应用赛道 · 智能体应用</strong>——进入真实健康管理业务场景，解决"记录→分析→干预→反馈"的完整问题
+编写日期：2026-08-09</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code>① 记录类：记录 → 有 AI 分析结果（入库可见）→ 有建议产出
-② 建议类：AI 建议 → 可追踪到任务 → 可追踪到通知 → 可追踪到用户反馈
-③ 通知类：通知 → 有送达/点击埋点 → 有点赞/跳过可回流 Agent 记忆
-</code></pre></div>
-<h3 id="sop-4">SOP-4 变更管理<a class="headerlink" href="#sop-4" title="Permanent link">&para;</a></h3>
-<ul>
-<li>任何变更（需求/排期/技术方案）由发起人在需求表更新状态并 @ 相关人。</li>
-<li>变更幅度超 1 人日 → 走一次 15min 变更确认（同步建文档留痕）。</li>
-<li>变更必须同步更新：PRD、验收标准、接口文档、Prompt 资产。</li>
-</ul>
 <hr />
-<h2 id="3">3. 落地清单：飞书 / 钉钉 端到端搭建<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
-<h3 id="31">3.1 飞书版<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<h2 id="1">1. 设计结论先行<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>本方案采用 <strong>"编排者（健康管家） + 领域专家（营养师 / 睡眠教练） + 工具层 + 记忆层 + 反馈层"</strong> 的多 Agent 架构。</p>
+<p><strong>判定自证：是否为 Agent，不看 LLM 调用次数，而看是否形成"任务理解 → 流程编排 → 工具调用 → 多轮交互 → 结果交付"的闭环。</strong> 本方案五项全闭环：</p>
 <table>
 <thead>
 <tr>
-<th>步骤</th>
-<th>操作</th>
+<th>闭环要素</th>
+<th>本方案对应设计</th>
+<th>证据</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1. 建群</td>
-<td>新建 5 个群（见 §0 架构），全员拉入「全体群」</td>
+<td>① 任务理解</td>
+<td>事件被解析为"目标 + 餐次 + 归因域"的结构化任务，而非简单接话</td>
+<td>§4.1 任务理解子流程</td>
 </tr>
 <tr>
-<td>2. 建知识库</td>
-<td>飞书「云文档」→ 新建知识库「AI健康伴侣」，按 §0 建目录</td>
+<td>② 流程编排</td>
+<td>健康管家按事件域路由、按依赖关系编排专家 Agent 串行/并行执行</td>
+<td>§3.1 / §5 全局流程图</td>
 </tr>
 <tr>
-<td>3. 建多维表格</td>
-<td>创建「需求池」多维表格：状态/优先级/负责人/评审日期/验收标准/闭环证据</td>
+<td>③ 工具调用</td>
+<td>专家 Agent 自主调用食物库、营养计算引擎、穿戴数据、通知中心、记忆库等外部工具</td>
+<td>§3 各模块工具列</td>
 </tr>
 <tr>
-<td>4. 建看板</td>
-<td>多维表格切换「看板视图」，按状态分组</td>
+<td>④ 多轮交互</td>
+<td>份量修正追问、跨餐补缺追问、用户反馈回流驱动下一轮建议</td>
+<td>§7 场景时序</td>
 </tr>
 <tr>
-<td>5. 机器人</td>
-<td>创建自定义机器人：需求状态变更→群通知；每日 09:55 站会提醒</td>
-</tr>
-<tr>
-<td>6. 日历</td>
-<td>建共享日历「产品研发节奏」，录入 §2 例会</td>
-</tr>
-<tr>
-<td>7. 文档模板</td>
-<td>把 §4-§8 模板复制进知识库「文档模板库」</td>
+<td>⑤ 结果交付</td>
+<td>建议落为可执行任务（AgentTask 状态机）→ 通知干预 → 反馈回流更新记忆 → 影响次日建议</td>
+<td>§6 状态机</td>
 </tr>
 </tbody>
 </table>
-<h3 id="32">3.2 钉钉版<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>本方案<strong>不是</strong>"同一任务内多段 prompt 串联"的 workflow：每个模块有独立职责、独立决策逻辑、独立工具集，且通过记忆与反馈形成跨轮次的自我迭代，符合"多模块协作 + 持续迭代结果"的 Agent 用法。</p>
+</blockquote>
+<hr />
+<h2 id="2">2. 总体架构与模块职责<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1 全局编排流程图<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>flowchart TB
+    subgraph L1[触发层 · 事件采集]
+        E1[拍照识食] 
+        E2[语音/文字记录]
+        E3[穿戴数据同步&lt;br/&gt;睡眠/HRV/心率]
+        E4[用户主动提问]
+        E5[节律定时器&lt;br/&gt;晨间/餐前/久坐/睡前]
+    end
+
+    subgraph L2[编排层 · 健康管家 Agent]
+        O1[事件路由&lt;br/&gt;任务理解与目标拆解]
+        O2[专家 Agent 调度&lt;br/&gt;串行/并行/条件路由]
+        O3[结果聚合&lt;br/&gt;跨域关联与冲突仲裁]
+        O4[可执行任务生成&lt;br/&gt;AgentTask 状态机]
+    end
+
+    subgraph L3[领域专家层 · 专用 Agent]
+        N[营养师 Agent&lt;br/&gt;记录解析·能量分析·七要素诊断·跨餐补缺]
+        S[睡眠教练 Agent&lt;br/&gt;睡眠分析·归因·防亏空·运动护栏]
+    end
+
+    subgraph L4[工具调用层 · 外部工具]
+        T1[食物库检索&lt;br/&gt;中国食物成分表/USDA]
+        T2[营养计算引擎&lt;br/&gt;BMR·能量缺口·七要素]
+        T3[用户档案&lt;br/&gt;身高/体重/目标]
+        T4[历史记录查询&lt;br/&gt;饮食/睡眠档案]
+        T5[穿戴数据归一化服务&lt;br/&gt;Health Connect/HealthKit]
+        T6[通知中心&lt;br/&gt;APNs/FCM/锁屏]
+    end
+
+    subgraph L5[记忆层]
+        M1[短期记忆&lt;br/&gt;近期行为/本餐摄入]
+        M2[长期记忆&lt;br/&gt;偏好/忌口/反馈历史]
+    end
+
+    subgraph L6[反馈层]
+        F1[用户执行/忽略/纠正]
+        F2[干预结果埋点&lt;br/&gt;点击/转化]
+    end
+
+    E1 &amp; E2 &amp; E3 &amp; E4 &amp; E5 --&gt; O1
+    O1 --&gt;|饮食域事件| N
+    O1 --&gt;|睡眠域事件| S
+    O1 --&gt;|跨域/汇总/冲突| O3
+    N --&gt;|自主调用| T1
+    N --&gt;|自主调用| T2
+    N --&gt;|自主调用| T3
+    N --&gt;|自主调用| T4
+    S --&gt;|自主调用| T5
+    S --&gt;|自主调用| T3
+    S --&gt;|自主调用| T4
+    N --&gt; O3
+    S --&gt; O3
+    O3 --&gt;|策略一致| O4
+    O4 --&gt;|触发干预| T6
+    T6 --&gt; F1
+    F1 --&gt; F2
+    F2 --&gt; M1
+    F1 --&gt; M2
+    M1 &amp; M2 --&gt;|指导下一轮| O2
+    O2 --&gt; N
+    O2 --&gt; S</code></pre>
+<h3 id="22">2.2 模块职责规格表<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>规格格式：<strong>职责｜输入｜输出｜决策逻辑｜外部工具｜闭环环节</strong></p>
+</blockquote>
 <table>
 <thead>
 <tr>
-<th>步骤</th>
-<th>操作</th>
+<th>模块</th>
+<th>职责</th>
+<th>输入</th>
+<th>输出</th>
+<th>决策逻辑</th>
+<th>外部工具</th>
+<th>闭环环节</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1. 建群</td>
-<td>新建「项目作战室」1 个总群 + 按需子群（产品/研发/数据）</td>
+<td><strong>健康管家 Agent</strong>（编排者）</td>
+<td>事件路由、任务拆解、专家调度、结果聚合、冲突仲裁、任务生成、通知文案</td>
+<td>全部触发事件 + 各专家 Agent 输出 + 用户反馈</td>
+<td>结构化 AgentTask、通知文案、记忆更新指令</td>
+<td>事件域路由表；跨域冲突仲裁优先级（§5）；降噪规则（同类型 N 次未点击降频）</td>
+<td>通知中心、记忆库</td>
+<td>①②③⑤：编排全链路</td>
 </tr>
 <tr>
-<td>2. 建知识库</td>
-<td>钉钉「知识库」→「AI健康伴侣」，按 §0 建目录</td>
+<td><strong>营养师 Agent</strong>（领域专家）</td>
+<td>多模态记录解析、能量/七要素分析、餐次点评、跨餐补缺、食谱推荐</td>
+<td>照片/语音/文字 + 用户档案 + 历史记录</td>
+<td>结构化饮食条目、MealAnalysis、补缺任务建议</td>
+<td>置信度阈值（&lt;90% 触发份量确认）；七要素缺项 → 跨餐记账；风险护栏（极端饮食→免责+就医）</td>
+<td>食物库检索、营养计算引擎、用户档案、历史记录</td>
+<td>①③④⑤：理解→工具→多轮确认→结果交付</td>
 </tr>
 <tr>
-<td>3. 建表格</td>
-<td>钉钉「多维表格」→ 需求池（字段同飞书）</td>
+<td><strong>睡眠教练 Agent</strong>（领域专家）</td>
+<td>睡眠结构分析、归因、身体电量评估、防亏空保护、运动护栏、睡前干预</td>
+<td>穿戴数据 + 用户档案 + 历史记录</td>
+<td>SleepAnalysis、身体电量、降级/补偿策略</td>
+<td>电量 &lt;50% → 触发防亏空保护（§5）；深睡 &lt;1h → 归因查询晚间饮食/咖啡因；运动时序护栏</td>
+<td>穿戴数据归一化、用户档案、历史记录</td>
+<td>①③⑤：理解→工具→结果交付</td>
 </tr>
 <tr>
-<td>4. 看板</td>
-<td>多维表格「看板视图」</td>
+<td><strong>通知中心</strong>（执行器工具）</td>
+<td>多通道触达（应用内/推送/锁屏）、免打扰、降噪、埋点</td>
+<td>AgentTask + 通知模板 + 投放策略</td>
+<td>送达/点击/转化埋点数据</td>
+<td>免打扰时段；按埋点动态降频</td>
+<td>APNs/FCM/锁屏 Rich Notification</td>
+<td>⑤：干预执行 + 结果回收</td>
 </tr>
 <tr>
-<td>5. 机器人</td>
-<td>群「自定义机器人」（加签模式）：状态变更通知；「定时提醒」每天站会</td>
-</tr>
-<tr>
-<td>6. 日历/日程</td>
-<td>团队日程共享，录入例会</td>
-</tr>
-<tr>
-<td>7. 待办</td>
-<td>每个迭代用「待办」圈人分配任务，关联多维表格记录</td>
+<td><strong>记忆库</strong>（记忆层）</td>
+<td>短期记忆（近期行为）+ 长期记忆（偏好/忌口/过敏/反馈），可查看/删除</td>
+<td>用户反馈、Agent 决策、任务状态</td>
+<td>记忆快照供专家 Agent 检索</td>
+<td>短期滚动过期；长期仅用户显式确认写入</td>
+<td>本地加密存储 + 云端同步</td>
+<td>④⑤：反馈→记忆→迭代</td>
 </tr>
 </tbody>
 </table>
-<h3 id="33">3.3 两平台功能对照<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<hr />
+<h2 id="3">3. 核心业务闭环（宏观循环）<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph LR
+    A[采集&lt;br/&gt;拍照/语音/快捷录入/穿戴同步] --&gt; B[任务理解&lt;br/&gt;管家解析意图与目标]
+    B --&gt; C[领域分析&lt;br/&gt;营养师/睡眠教练&lt;br/&gt;自主调用工具]
+    C --&gt; D[结论&lt;br/&gt;评分+洞察+归因]
+    D --&gt; E[建议可执行化&lt;br/&gt;跨餐补缺/防亏空/护栏]
+    E --&gt; F[干预&lt;br/&gt;锁屏/推送通知]
+    F --&gt; G[执行反馈&lt;br/&gt;完成/忽略/纠正]
+    G --&gt; H[记忆更新&lt;br/&gt;短期+长期]
+    H --&gt;|次日/下一餐| B</code></pre>
+<blockquote>
+<p><strong>闭环验收原则（沿用 SRS §3.2）</strong>：系统中不存在"孤岛数据"。每一条记录必须有 Agent 处理痕迹，每一条建议必须能追踪到用户反馈或干预结果。</p>
+</blockquote>
+<hr />
+<h2 id="4">4. 关键子流程设计<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="41-agent">4.1 任务理解子流程（健康管家 Agent 内）<a class="headerlink" href="#41-agent" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>flowchart TD
+    EVT[事件到达] --&gt; RT{事件域路由}
+    RT --&gt;|饮食记录事件| D1[目标=记录+七要素诊断&lt;br/&gt;餐次=由时间/用户修正]
+    RT --&gt;|睡眠同步事件| D2[目标=身体电量+睡眠归因&lt;br/&gt;归因域=深睡/时长/HRV]
+    RT --&gt;|用户提问| D3{意图分类&lt;br/&gt;追问/纠错/新目标}
+    D3 --&gt;|追问| D4[绑定原分析记录&lt;br/&gt;生成多轮上下文]
+    D3 --&gt;|纠错| D5[修正份量/条目&lt;br/&gt;回流训练样本]
+    D3 --&gt;|新目标| D6[更新用户档案&lt;br/&gt;重算能量目标]
+    RT --&gt;|跨域汇总/冲突| D7[目标=关联归因+仲裁&lt;br/&gt;编排双专家并行]
+    D1 --&gt; Q{任务计划确认}
+    D2 --&gt; Q
+    D4 --&gt; Q
+    D5 --&gt; Q
+    D6 --&gt; Q
+    D7 --&gt; Q
+    Q --&gt;|有可执行项| EXEC[下发领域 Agent 执行]
+    Q --&gt;|纯查询| REPLY[直接聚合回复]</code></pre>
+<h3 id="42-agent">4.2 营养师 Agent 记录分析子流程<a class="headerlink" href="#42-agent" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>flowchart TD
+    IN[多模态输入&lt;br/&gt;照片/语音/文字] --&gt; VIS[视觉/语义识别&lt;br/&gt;结构化抽取]
+    VIS --&gt; CONF{置信度 ≥ 90%?}
+    CONF --&gt;|否| CFM[产出份量修正确认页&lt;br/&gt;多轮追问用户]
+    CFM --&gt; UIN[用户修正输入]
+    CONF --&gt;|是| UIN
+    UIN --&gt; DB[工具: 食物库检索&lt;br/&gt;匹配营养数据]
+    DB --&gt; CALC[工具: 营养计算引擎&lt;br/&gt;能量+七要素+缺口]
+    CALC --&gt; GAP{七要素有缺项?}
+    GAP --&gt;|是| TASK[生成跨餐补缺任务&lt;br/&gt;写入 AgentTask]
+    GAP --&gt;|否| NOTE[生成餐次点评]
+    TASK --&gt; SAFE{风险护栏检查&lt;br/&gt;极端饮食/厌食倾向?}
+    NOTE --&gt; SAFE
+    SAFE --&gt;|命中| DISCLAIMER[附加免责声明&lt;br/&gt;建议就医]
+    SAFE --&gt;|未命中| OUT[输出 MealAnalysis&lt;br/&gt;含结论+任务+可追问入口]</code></pre>
+<h3 id="43-agent">4.3 睡眠教练 Agent 防亏空子流程<a class="headerlink" href="#43-agent" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>flowchart TD
+    SYNC[穿戴数据同步&lt;br/&gt;睡眠结构/HRV/心率] --&gt; NORM[工具: 数据归一化&lt;br/&gt;分阶段聚合]
+    NORM --&gt; BATTERY[计算身体电量 0-100%]
+    BATTERY --&gt; BQ{电量 &lt; 50%?}
+    BQ --&gt;|是| PRO[触发防亏空保护&lt;br/&gt;SRS FR-SLEEP-09]
+    BQ --&gt;|否| BQ2{深睡 &lt; 1h?}
+    BQ2 --&gt;|是| ATTR[归因分析&lt;br/&gt;查询晚间饮食/咖啡因/运动]
+    BQ2 --&gt;|否| NORMAL[常规睡眠洞察]
+    PRO --&gt; ACT1[降级高强度运动→恢复性微行为]
+    PRO --&gt; ACT2[生成营养补偿策略&lt;br/&gt;早餐补优质蛋白]
+    ATTR --&gt; ACT3[生成归因建议&lt;br/&gt;晚间时序调整]
+    ACT1 &amp; ACT2 &amp; ACT3 --&gt; GUARD{运动时序护栏&lt;br/&gt;饭后≥2h/不晚于22:00}
+    GUARD --&gt; OUT2[输出 SleepAnalysis&lt;br/&gt;含电量+任务+降级决策说明]</code></pre>
+<hr />
+<h2 id="5-agent">5. 冲突仲裁决策逻辑（管家 Agent 内）<a class="headerlink" href="#5-agent" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>典型场景：<strong>睡眠不足（睡眠教练）vs 建议运动（营养师）</strong></p>
+</blockquote>
+<pre class="mermaid"><code>flowchart TD
+    A[收到双专家冲突输出] --&gt; B{电量 &lt; 50%?&lt;br/&gt;防亏空保护}
+    B --&gt;|是| C[硬约束: 高强度运动不可执行&lt;br/&gt;确定性规则, 不交 LLM 决策]
+    C --&gt; D[降级为恢复性微行为&lt;br/&gt;泡脚/拉伸/慢走]
+    D --&gt; E[合并营养补偿策略&lt;br/&gt;早餐补蛋白抗疲劳]
+    E --&gt; F[向用户透明说明决策原因&lt;br/&gt;"前夜睡眠不足, 跑步替换为慢走"]
+    B --&gt;|否| G{时序冲突?&lt;br/&gt;运动vs用餐窗口}
+    G --&gt;|是| H[按护栏规则校准&lt;br/&gt;饭后≥2h/晚餐≤20:00/运动≤22:00]
+    G --&gt;|否| I[正常合并执行&lt;br/&gt;双建议无冲突]
+    F --&gt; J[生成 AgentTask&lt;br/&gt;写入状态机]
+    H --&gt; J
+    I --&gt; J</code></pre>
+<p><strong>优先级规则（硬约束，确定性代码实现，LLM 只做表达不决策）：</strong></p>
 <table>
 <thead>
 <tr>
-<th>能力</th>
-<th>飞书</th>
-<th>钉钉</th>
+<th>优先级</th>
+<th>规则</th>
+<th>依据</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>知识库</td>
-<td>云文档知识库</td>
-<td>知识库</td>
+<td>P1</td>
+<td>睡眠/精力安全 &gt; 一切安排（电量 &lt;50% 强制降级）</td>
+<td>FR-SLEEP-09</td>
 </tr>
 <tr>
-<td>需求管理</td>
-<td>多维表格</td>
-<td>多维表格</td>
+<td>P2</td>
+<td>运动时序护栏（饭后 ≥2h、晚餐 ≤20:00、运动 ≤22:00）</td>
+<td>FR-SLEEP-11</td>
 </tr>
 <tr>
-<td>看板</td>
-<td>多维表格看板视图</td>
-<td>多维表格看板视图</td>
+<td>P3</td>
+<td>能量/营养目标（降级时以营养补偿替代取消）</td>
+<td>FR-DIET-14</td>
 </tr>
 <tr>
-<td>机器人</td>
-<td>自定义机器人（Webhook）</td>
-<td>自定义机器人（加签）</td>
-</tr>
-<tr>
-<td>自动化</td>
-<td>工作流（审批/提醒）</td>
-<td>工作流（审批/提醒）</td>
-</tr>
-<tr>
-<td>视频会议</td>
-<td>飞书会议</td>
-<td>钉钉会议</td>
-</tr>
-<tr>
-<td>审批</td>
-<td>审批应用</td>
-<td>审批应用</td>
+<td>P4</td>
+<td>用户偏好与反馈（记忆层数据加权）</td>
+<td>FR-AGENT-06</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="4">4. 模板：需求卡片（用于需求池/需求表）<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>【需求卡片】
-- 需求标题：
-- 需求编号：FR-XXX-NN（沿用 SRS 编号）
-- 优先级：P0 / P1 / P2
-- 来源：用户反馈 / 调研 / 数据 / 老板 / 脑暴
-- 状态：需求池 → 已评审 → 开发中 → 测试 → 验收 → 已上线
-- 负责人：产品[ ] 开发[ ] 测试[ ] AI[ ]
-- 目标用户场景（一句话）：
-- 功能描述：
-- 与闭环的关系：记录类 / 建议类 / 通知类（见 SOP-3）
-- 数据埋点要求：
-- 通知策略（如涉及）：
-- 验收标准（清单或 Given-When-Then）：
-- 预估工时：
-- 计划版本：M1 MVP / M2 Beta / M3 V1.0
-- 关联文档：PRD 链接 / 原型链接 / Prompt 资产链接
-</code></pre></div>
+<h2 id="6-agenttask">6. 结果交付：AgentTask 闭环状态机<a class="headerlink" href="#6-agenttask" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; 生成: 管家编排后产出建议
+    生成 --&gt; 待执行: 写入任务队列 AgentTask
+    待执行 --&gt; 推送干预: 通知中心调度(节律时点)
+    推送干预 --&gt; 完成: 用户执行/一键完成
+    推送干预 --&gt; 忽略: 用户跳过/稍后
+    推送干预 --&gt; 纠正: 用户修正建议
+    完成 --&gt; 校验反馈: 反馈回流
+    忽略 --&gt; 校验反馈
+    纠正 --&gt; 校验反馈
+    校验反馈 --&gt; 记忆更新: 短期+长期记忆
+    记忆更新 --&gt; 生成: 生成次日/下一餐建议
+    记忆更新 --&gt; [*]: 任务状态终态</code></pre>
 <hr />
-<h2 id="5">5. 模板：周计划 / 周复盘<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>【周计划】（周一 10:00 会前填写）
-本周目标（≤3 条）：
-  1. ...
-  2. ...
-  3. ...
-任务认领：
-  | 任务 | 负责人 | 截止 | 状态(未开始/进行中/阻塞) |
-关键风险与对策：
-阻塞项（@相关人）：
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>【周复盘】（周五 17:30 会前填写）
-本周完成：
-本周未完成（原因）：
-本周上线/灰度：
-数据速览（如有）：DAU____ 记录数____ 通知点击率____
-用户反馈摘录：
-下周计划（3 条）：
-遗留问题：
-</code></pre></div>
+<h2 id="7">7. 典型业务场景走查（晨间防亏空 × 早餐闭环）<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>一个真实业务场景串联全部闭环要素，供评审快速理解 Agent 设计。</p>
+</blockquote>
+<pre class="mermaid"><code>sequenceDiagram
+    autonumber
+    actor U as 用户
+    participant W as 穿戴数据服务
+    participant O as 健康管家 Agent
+    participant S as 睡眠教练 Agent
+    participant N as 营养师 Agent
+    participant TK as 工具层(食物库/营养引擎)
+    participant NT as 通知中心
+    participant M as 记忆库
+
+    W-&gt;&gt;O: 晨间同步 睡眠+HRV 数据
+    O-&gt;&gt;S: 任务: 评估身体电量
+    S-&gt;&gt;W: 工具: 读取睡眠结构/HRV
+    W--&gt;&gt;S: 深睡1h10m / HRV偏低
+    S--&gt;&gt;O: 电量42% → 防亏空保护触发
+    O-&gt;&gt;O: 编排: 降级运动 + 营养补偿策略
+    O-&gt;&gt;NT: 推送晨间任务(舒缓冥想+早餐补蛋白)
+    NT--&gt;&gt;U: 锁屏通知
+    U-&gt;&gt;N: 拍照上传早餐(鸡蛋+牛奶+白粥)
+    N-&gt;&gt;N: 任务理解: 记录+七要素诊断
+    N-&gt;&gt;TK: 工具: 视觉识别+食物库匹配
+    TK--&gt;&gt;N: 鸡蛋/牛奶/白粥 营养数据
+    N-&gt;&gt;TK: 工具: 营养计算(七要素缺口)
+    TK--&gt;&gt;N: 缺蛋白 12g / 缺膳食纤维
+    N--&gt;&gt;O: 诊断: 早餐三要素缺膳食纤维 → 跨餐补缺任务
+    O-&gt;&gt;O: 聚合: 防亏空策略 + 补缺任务 合并
+    O-&gt;&gt;NT: 午餐前推送(补蛋白+补绿叶菜建议)
+    NT--&gt;&gt;U: 锁屏快捷动作[直接记录午餐/稍后/跳过]
+    U-&gt;&gt;NT: 点击"直接记录午餐"
+    NT--&gt;&gt;O: 反馈: 任务完成 + 点击转化
+    O-&gt;&gt;M: 更新短期记忆(本餐摄入) + 长期记忆(早餐偏好)
+    M--&gt;&gt;O: 次日建议策略基线已更新</code></pre>
 <hr />
-<h2 id="6">6. 模板：验收清单（产品验收用）<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>【功能验收清单】需求编号：______ 名称：______
-□ 功能符合 PRD 全部描述
-□ 边缘场景：空数据 / 超大数据 / 弱网 / 断网 / 重复提交
-□ 闭环证据（SOP-3）：______
-□ 埋点已生效（事件名：______）
-□ 通知链路：手机推送 □ 锁屏卡片 □ 快捷动作 □ 手环 □ 免打扰
-□ 权限：相机/通知/健康数据 拒绝后引导文案
-□ 兼容性：iOS16+ / Android10+ / 深色模式
-□ 性能：首屏≤2s / AI 响应 P95≤5s
-□ 合规：免责声明 / 隐私提示
-□ 文案：无夸大承诺、无制造焦虑
-□ 回归：关联需求（编号）______ 无破坏
-</code></pre></div>
+<h2 id="8">8. 与赛道要求对照自证<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>赛道口径</th>
+<th>本方案回应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>进入真实业务场景、解决具体问题</td>
+<td>以"晨间防亏空 + 早餐记录 + 跨餐补缺"为落地场景（§7），解决"健康管理最后一步（执行与反馈）"缺失的行业问题（SRS §2.1）</td>
+</tr>
+<tr>
+<td>不鼓励单点问答或简单内容生成</td>
+<td>所有输出均落为可执行 AgentTask 并追踪反馈（§6 状态机）；对话仅是闭环入口之一，不是产品形态本身</td>
+</tr>
+<tr>
+<td>Agent = 任务理解/流程编排/工具调用/多轮交互/结果交付闭环</td>
+<td>§1 五项逐条映射；专家 Agent 自主调用 6 类外部工具（§2.2 工具列）</td>
+</tr>
+<tr>
+<td>多 Agent 用法需角色分工 + 自主调工具 + 持续迭代结果</td>
+<td>管家/营养师/睡眠教练三角色职责隔离（§2.2）；记忆层驱动跨轮次迭代（§6 状态机回环）</td>
+</tr>
+<tr>
+<td>每模块写清职责/输入/输出/决策逻辑/外部工具/闭环</td>
+<td>§2.2 模块规格表 + §4 子流程 + §5 仲裁逻辑</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<h2 id="7">7. 模板：里程碑复盘<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>【里程碑复盘】里程碑：M2 闭环 Beta
-时间：____ ~ ____
-目标回顾（原计划 vs 实际）：
-达成项：
-未达成项及原因：
-数据验证（留存/闭环转化率/通知点击率）：
-踩过的坑：
-  1. ...
-经验沉淀（可复用）：
-  1. ...
-后续改进（入下一里程碑）：
-</code></pre></div>
-<hr />
-<h2 id="8-ai-prompt">8. 模板：AI Prompt 资产管理（研发必填）<a class="headerlink" href="#8-ai-prompt" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>【Prompt 资产卡】编号：PA-XXX
-用途：营养师 Agent / 睡眠教练 / 管家 / 通知文案
-输入：______ 输出：______
-Prompt 版本：v____（每次修改+1）
-依赖工具：食物库检索 / 用户档案 / 记忆库 / 通知发送
-护栏：免责声明 / 极端饮食识别 / 合规词过滤
-评估指标：准确率____ 幻觉率____ 成本/次____
-备注：
-</code></pre></div>
-<hr />
-<h2 id="9">9. 使用说明<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
-<ol>
-<li>团队 &lt; 5 人：只需「全体群 + 需求池表 + 周会/复盘 + 文档库」，其余按需裁剪。</li>
-<li>模板均为通用结构，任何产品线可复制复用；将文档名中的「AI健康伴侣」替换即可。</li>
-<li>机器人/自动化逐步接入，第一周先人工，第二周起启用状态变更通知，避免一上来被通知淹没。</li>
-<li>所有模板允许团队自行增删，但「SOP-3 闭环验收红线」与「需求五要素」不可删（产品核心原则）。</li>
-</ol>
+<h2 id="9">9. 实现要点与降级策略<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>要点</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>编排器确定性优先</td>
+<td>路由、仲裁、降级均为确定性规则代码；LLM 仅负责分析、点评与文案生成，降低幻觉风险</td>
+</tr>
+<tr>
+<td>工具调用接口化</td>
+<td>6 类工具均为标准接口（REST/查询），专家 Agent 通过 Function Calling 调用，便于评审与测试</td>
+</tr>
+<tr>
+<td>模型分级降本</td>
+<td>意图分类用小模型，深度分析用大模型；AI 接口按用户/天配额限流（SRS §8.2）</td>
+</tr>
+<tr>
+<td>降级路径</td>
+<td>视觉识别失败 → 多模态 LLM 直读 → 文字/语音手动记录（P0 独立入口）；通知被忽略 N 次 → 降频/转周报（FR-NOTIFY-06）</td>
+</tr>
+<tr>
+<td>可观测性</td>
+<td>每条 AgentTask 记录 生成→推送→反馈 全链路事件；通知埋点用于降噪评估（FR-NTF-07）</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -1933,7 +1869,7 @@ Prompt 版本：v____（每次修改+1）
       <nav class="md-footer__inner md-grid" aria-label="页脚" >
         
           
-          <a href="../%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%BC%96%E6%8E%92-%E5%A4%9AAgent%E9%97%AD%E7%8E%AF%E8%AE%BE%E8%AE%A1/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 多 Agent 工作流编排设计">
+          <a href="../%E9%A3%9F%E7%89%A9%E6%88%90%E5%88%86%E6%95%B0%E6%8D%AE%E6%BA%90%E8%B0%83%E7%A0%94/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 食物成分数据源调研">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1943,20 +1879,20 @@ Prompt 版本：v____（每次修改+1）
                 上一页
               </span>
               <div class="md-ellipsis">
-                多 Agent 工作流编排设计
+                食物成分数据源调研
               </div>
             </div>
           </a>
         
         
           
-          <a href="../%E5%A4%A7%E8%B5%9B-%E4%BD%9C%E5%93%81%E7%AE%80%E4%BB%8B/" class="md-footer__link md-footer__link--next" aria-label="下一页: 作品简介">
+          <a href="../%E5%8D%8F%E4%BD%9C%E5%B7%A5%E4%BD%9C%E5%8F%B0SOP/" class="md-footer__link md-footer__link--next" aria-label="下一页: 协作工作台 SOP">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 下一页
               </span>
               <div class="md-ellipsis">
-                作品简介
+                协作工作台 SOP
               </div>
             </div>
             <div class="md-footer__button md-icon">
