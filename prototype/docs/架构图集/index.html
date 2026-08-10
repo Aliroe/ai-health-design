@@ -51,6 +51,8 @@
       
     
     
+      <link rel="stylesheet" href="../assets/mermaid-viewer.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -1345,15 +1347,15 @@
 <h2 id="1-system-context">1. 系统上下文图 (System Context)<a class="headerlink" href="#1-system-context" title="Permanent link">&para;</a></h2>
 <p>描述本系统与外部参与者及外部系统的边界（C4 模型第 1 层）。</p>
 <pre class="mermaid"><code>graph LR
-    subgraph 外部参与者
+    subgraph sg20["外部参与者"]
         U[用户&lt;br/&gt;高压工作人群]
     end
 
-    subgraph 本系统[AI 健康伴侣]
+    subgraph sg24["本系统"]
         APP[移动端 App&lt;br/&gt;iOS / Android]
     end
 
-    subgraph 外部系统
+    subgraph sg28["外部系统"]
         HK[Apple HealthKit]
         HC[Android Health Connect]
         APNS[APNs 推送]
@@ -1392,7 +1394,7 @@
     F --&gt; G[记忆更新&lt;br/&gt;Agent 偏好学习]
     G --&gt; D
 
-    subgraph 质量保障
+    subgraph sg74["质量保障"]
         Q1[闭环不变量&lt;br/&gt;无孤岛数据]
         Q2[每条建议可溯源]
     end</code></pre>
@@ -1412,17 +1414,17 @@
 <h2 id="3-application-architecture">3. 应用架构图 (Application Architecture)<a class="headerlink" href="#3-application-architecture" title="Permanent link">&para;</a></h2>
 <p>微服务边界、交互机制与 AI 平台（C4 第 2 层）。</p>
 <pre class="mermaid"><code>graph TB
-    subgraph 客户端
+    subgraph sg104["客户端"]
         APPIOS[iOS App&lt;br/&gt;SwiftUI + HealthKit]
         APPDROID[Android App&lt;br/&gt;Kotlin + Health Connect]
     end
 
-    subgraph 边缘层
+    subgraph sg109["边缘层"]
         CDN[CDN / WAF]
         GW[API 网关&lt;br/&gt;统一鉴权/限流/路由]
     end
 
-    subgraph 业务服务层[业务微服务层]
+    subgraph sg114["业务服务层"]
         USR[用户与订阅服务&lt;br/&gt;Go]
         DIET[饮食记录服务&lt;br/&gt;Go]
         SLEEP[睡眠健康服务&lt;br/&gt;Go]
@@ -1431,14 +1433,14 @@
         ARCH[起居注与档案服务&lt;br/&gt;Go]
     end
 
-    subgraph AI 平台层
+    subgraph sg123["AI 平台层"]
         AGENT[健康 Agent 编排服务&lt;br/&gt;Python]
         VISION[食物视觉识别服务&lt;br/&gt;Python]
         RAG[个性化 RAG 服务&lt;br/&gt;向量检索]
         GUARD[AI 合规护栏&lt;br/&gt;脱敏/审核/免责]
     end
 
-    subgraph 数据层
+    subgraph sg130["数据层"]
         PGP[(PostgreSQL&lt;br/&gt;用户/业务主库)]
         REDIS[(Redis&lt;br/&gt;缓存/会话/限流)]
         MQ[(Kafka&lt;br/&gt;事件总线)]
@@ -1514,20 +1516,20 @@
 <h2 id="5-deployment-topology">5. 部署拓扑图 (Deployment Topology)<a class="headerlink" href="#5-deployment-topology" title="Permanent link">&para;</a></h2>
 <p>云原生容器化部署、多可用区高可用（对应 NFR-AVAIL ≥99.9%，目标 99.99%）。</p>
 <pre class="mermaid"><code>graph TB
-    subgraph 云[公有云 A（主）]
-        subgraph AZ1[可用区 A1]
+    subgraph sg220["云"]
+        subgraph sg221["AZ1"]
             K8SA1[K8s 集群&lt;br/&gt;业务服务 Pod]
             DBA1[(PostgreSQL 主&lt;br/&gt;+ Redis 主)]
             MQA1[Kafka 主集群]
         end
-        subgraph AZ2[可用区 A2]
+        subgraph sg226["AZ2"]
             K8SA2[K8s 集群&lt;br/&gt;业务服务 Pod]
             DBA2[(PostgreSQL 备&lt;br/&gt;同步复制)]
         end
     end
 
-    subgraph 云2[公有云 B（灾备/只读）]
-        subgraph AZB[可用区 B1]
+    subgraph sg232["云2"]
+        subgraph sg233["AZB"]
             K8SB[K8s 集群&lt;br/&gt;灾备冷备]
             DBB[(PostgreSQL 灾备&lt;br/&gt;异步复制)]
             DWB[(数仓副本)]
@@ -1576,20 +1578,20 @@
 <h2 id="6-data-flow-diagram">6. 数据流图 (Data Flow Diagram)<a class="headerlink" href="#6-data-flow-diagram" title="Permanent link">&para;</a></h2>
 <p>核心数据端到端流转（本地优先 + 云端脱敏策略）。</p>
 <pre class="mermaid"><code>flowchart LR
-    subgraph 客户端
+    subgraph sg265["客户端"]
         CAM[拍照识食] --&gt;|原始照片| LOCAL[本地加密存储&lt;br/&gt;Keychain/Keystore]
         VOICE[语音记录] --&gt; LOCAL
         HK[HealthKit 同步] --&gt; LOCAL
         LOCAL --&gt;|脱敏统计/结构化数据| SYNC[安全同步通道&lt;br/&gt;TLS 1.3]
     end
 
-    subgraph 服务端
+    subgraph sg272["服务端"]
         SYNC --&gt; GW2[API 网关]
         GW2 --&gt; DIETSVC[饮食服务]
         GW2 --&gt; SLEEPSVC[睡眠服务]
         DIETSVC --&gt; PG[(业务库)]
         SLEEPSVC --&gt; PG
-        DIETSVC --&gt;|分析请求(脱敏)| AGENTSVC[Agent 服务]
+        DIETSVC --&gt;|分析请求·脱敏| AGENTSVC[Agent 服务]
         AGENTSVC --&gt; LLMAP[大模型 API&lt;br/&gt;不落盘]
         AGENTSVC --&gt; VEC[(用户画像向量库)]
         DIETSVC --&gt;|事件| MQ2[Kafka]
@@ -1606,20 +1608,20 @@
 <h2 id="7-security-compliance-architecture">7. 安全架构图 (Security &amp; Compliance Architecture)<a class="headerlink" href="#7-security-compliance-architecture" title="Permanent link">&para;</a></h2>
 <p>零信任模型与纵深防御。</p>
 <pre class="mermaid"><code>graph TB
-    subgraph 终端信任域
+    subgraph sg302["终端信任域"]
         APPSEC[App 加固&lt;br/&gt;防逆向/防调试]
         KSC[本地密钥&lt;br/&gt;Keychain/Keystore]
         BIOM[生物识别&lt;br/&gt;Face ID/指纹]
     end
 
-    subgraph 边界信任域
+    subgraph sg308["边界信任域"]
         WAF[WAF&lt;br/&gt;SQLi/XSS/CC 防护]
         OIDC[OIDC/OAuth 2.0&lt;br/&gt;登录+授权]
         MFA[MFA 可选]
         JWT[JWT + Refresh Token&lt;br/&gt;短期/可吊销]
     end
 
-    subgraph 服务信任域
+    subgraph sg315["服务信任域"]
         MTLS[mTLS 服务间认证]
         RBAC[RBAC 权限模型]
         KMS[KMS 密钥管理&lt;br/&gt;AES-256 数据加密]
@@ -1627,7 +1629,7 @@
         RATE[限流/配额&lt;br/&gt;AI 接口按用户按天]
     end
 
-    subgraph 数据信任域
+    subgraph sg323["数据信任域"]
         TDE[数据库 TDE 加密]
         OBJENC[对象存储&lt;br/&gt;服务端加密]
         LOGENC[日志脱敏]
@@ -1822,7 +1824,9 @@
     
       <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+        <script src="../assets/mermaid.min.js"></script>
+      
+        <script src="../assets/mermaid-viewer.js"></script>
       
     
   </body>

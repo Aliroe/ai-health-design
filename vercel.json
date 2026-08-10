@@ -1,17 +1,52 @@
 {
   "redirects": [
-    { "source": "/docs", "destination": "/prototype/docs/", "permanent": false },
-    { "source": "/docs/", "destination": "/prototype/docs/", "permanent": false }
+    {
+      "source": "/docs",
+      "destination": "/prototype/docs/",
+      "permanent": false
+    },
+    {
+      "source": "/docs/",
+      "destination": "/prototype/docs/",
+      "permanent": false
+    }
   ],
   "rewrites": [
-    { "source": "/", "destination": "/prototype/index.html" },
-    { "source": "/test", "destination": "/prototype/test/index.html" },
-    { "source": "/test/", "destination": "/prototype/test/index.html" },
-    { "source": "/mac", "destination": "/prototype/macos/index.html" },
-    { "source": "/mac/", "destination": "/prototype/macos/index.html" },
-    { "source": "/pitch", "destination": "/prototype/pitch/index.html" },
-    { "source": "/pitch/", "destination": "/prototype/pitch/index.html" },
-    { "source": "/docs/:path*/", "destination": "/prototype/docs/:path*/index.html" },
-    { "source": "/docs/:path*", "destination": "/prototype/docs/:path*" }
+    {
+      "source": "/",
+      "destination": "/prototype/pitch/index.html"
+    },
+    {
+      "source": "/test",
+      "destination": "/prototype/test/index.html"
+    },
+    {
+      "source": "/test/",
+      "destination": "/prototype/test/index.html"
+    },
+    {
+      "source": "/mac",
+      "destination": "/prototype/macos/index.html"
+    },
+    {
+      "source": "/mac/",
+      "destination": "/prototype/macos/index.html"
+    },
+    {
+      "source": "/pitch",
+      "destination": "/prototype/pitch/index.html"
+    },
+    {
+      "source": "/pitch/",
+      "destination": "/prototype/pitch/index.html"
+    },
+    {
+      "source": "/docs/:path*/",
+      "destination": "/prototype/docs/:path*/index.html"
+    },
+    {
+      "source": "/docs/:path*",
+      "destination": "/prototype/docs/:path*"
+    }
   ]
 }

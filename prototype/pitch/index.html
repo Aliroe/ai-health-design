@@ -104,12 +104,37 @@ body{
 .end .slogan{display:flex;gap:14px;justify-content:center;margin-top:36px}
 .end .slogan span{font-size:13px;color:var(--mint);border:1px solid rgba(46,204,158,.4);padding:8px 20px;border-radius:24px}
 /* speaker note marker */
-.note{position:absolute;right:72px;top:52px;font-size:11px;color:var(--sub);background:rgba(255,255,255,.05);border:1px dashed var(--line);padding:6px 12px;border-radius:10px}
+.note{position:absolute;right:72px;top:78px;font-size:11px;color:var(--sub);background:rgba(255,255,255,.05);border:1px dashed var(--line);padding:6px 12px;border-radius:10px}
+/* ===== 全局导航栏 ===== */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;gap:4px;padding:10px 20px;background:rgba(10,24,20,.82);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08)}
+.topnav .brand{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;color:var(--ink);margin-right:14px;letter-spacing:.5px}
+.topnav .brand .logo-ic{font-size:17px}
+.topnav .nav-item{padding:7px 16px;border-radius:10px;font-size:13px;font-weight:600;color:var(--sub);text-decoration:none;transition:.15s;border:1px solid transparent}
+.topnav .nav-item:hover{background:rgba(46,204,158,.12);color:var(--mint)}
+.topnav .nav-item.active{background:rgba(46,204,158,.16);color:var(--mint);border-color:rgba(46,204,158,.35)}
+.topnav .spacer{flex:1}
+@media (max-width:720px){
+  .topnav{flex-wrap:wrap;padding:8px 12px}
+  .topnav .brand{margin-right:8px}
+  .topnav .nav-item{padding:6px 10px;font-size:12px}
+}
 </style>
 </head>
 <body>
+<nav class="topnav">
+  <span class="brand"><span class="logo-ic">🌿</span>AI 健康伴侣</span>
+  <a class="nav-item active" href="/pitch/">🎬 路演演示</a>
+  <a class="nav-item" href="/prototype/index.html">📱 进入原型</a>
+  <a class="nav-item" href="/docs/">📚 文档中心</a>
+  <a class="nav-item" href="/test/">🧪 测试版</a>
+  <a class="nav-item" href="/prototype/index.html">✅ 正式版 v1.2</a>
+  <span class="spacer"></span>
+  <a class="nav-item" href="/mac/">🍎 macOS</a>
+</nav>
+
+
 <div class="progress" id="progress"></div>
-<div class="hint">← → 翻页 · 空格下一页 · 回车切换全屏</div>
+<div class="hint">← → 翻页 · 空格下一页 · 回车切换全屏 ｜ <a href="/prototype/index.html" style="color:var(--mint);text-decoration:none;font-weight:700" title="进入高保真交互原型">🌿 进入原型 →</a></div>
 
 <div class="deck" id="deck">
 

@@ -41,8 +41,11 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.highlight
   - pymdownx.tabbed
+extra_css:
+  - assets/mermaid-viewer.css
 extra_javascript:
-  - https://unpkg.com/mermaid@11/dist/mermaid.min.js
+  - assets/mermaid.min.js
+  - assets/mermaid-viewer.js
 extra:
   generator: false
 copyright: AI 健康伴侣 · 内部文档（非公开）

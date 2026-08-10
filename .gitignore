@@ -9,3 +9,7 @@ node_modules/
 
 # Logs
 *.log
+
+# Local tool runtime dirs
+.omo/
+docs/.claude/

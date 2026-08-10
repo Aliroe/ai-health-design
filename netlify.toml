@@ -3,7 +3,7 @@
 
 [[redirects]]
   from = "/"
-  to = "/prototype/index.html"
+  to = "/prototype/pitch/index.html"
   status = 200
 
 [[redirects]]
